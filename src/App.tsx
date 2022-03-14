@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Provider, RootStateOrAny, useSelector } from "react-redux";
+import Mainlayout from "./layouts/Mainlayout";
 
-function App() {
+const App = () => {
+  const counter = useSelector((state: RootStateOrAny) => state.counter.value);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Mainlayout>
+      <div className="text-3xl font-bold text-red-500 text-center w-full mt-20">
+        hello world, this is the main content of web page. redux counter is
+        currently:
+        {counter}
+      </div>
+    </Mainlayout>
   );
-}
+};
 
 export default App;
