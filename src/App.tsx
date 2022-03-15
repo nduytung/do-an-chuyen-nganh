@@ -6,10 +6,9 @@ const App = () => {
   const counter = useSelector((state: RootStateOrAny) => state.counter.value);
   return (
     <Mainlayout>
-      <div className="text-3xl font-bold text-red-500 text-center w-full mt-20">
+      <div className="text-3xl font-bold text-blue-500 text-center w-full mt-20">
         hello world, this is the main content of web page. redux counter is
-        currently:
-        {counter}
+        currently: {counter}
       </div>
     </Mainlayout>
   );
