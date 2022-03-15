@@ -1,16 +1,19 @@
 import React from "react";
 import { Provider, RootStateOrAny, useSelector } from "react-redux";
-import Mainlayout from "./layouts/Mainlayout";
+import MainLayout from "./layouts/MainLayout";
 
 const App = () => {
-  const counter = useSelector((state: RootStateOrAny) => state.counter.value);
+  const counter: number = useSelector(
+    (state: RootStateOrAny) => state.counter.value
+  );
+
   return (
-    <Mainlayout>
+    <MainLayout>
       <div className="text-3xl font-bold text-blue-500 text-center w-full mt-20">
         hello world, this is the main content of web page. redux counter is
         currently: {counter}
       </div>
-    </Mainlayout>
+    </MainLayout>
   );
 };
 

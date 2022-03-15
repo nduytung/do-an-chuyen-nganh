@@ -6,7 +6,7 @@ type LayoutType = {
   children: React.ReactNode;
 };
 
-const Mainlayout = ({ children }: LayoutType) => {
+const MainLayout = ({ children }: LayoutType) => {
   return (
     <div>
       <Header />
@@ -16,4 +16,4 @@ const Mainlayout = ({ children }: LayoutType) => {
   );
 };
 
-export default Mainlayout;
+export default MainLayout;
