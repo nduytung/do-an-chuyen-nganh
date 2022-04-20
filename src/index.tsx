@@ -8,14 +8,14 @@ import store from "./redux/store";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { routeList } from "./routes/routes";
+import MainLayout from "./layouts/MainLayout";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />}></Route>
-        </Routes>
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
