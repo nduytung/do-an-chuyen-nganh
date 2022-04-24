@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <MainLayout>
-      <div className="text-3xl font-bold text-blue-500 text-center w-full pt-16">
+      <div className="text-3xl font-bold text-blue-500 text-center w-full pt-20 h-[900px] bg-yellow-200">
         hello world, this is the main content of web page. redux counter is
         currently: {counter}
       </div>
