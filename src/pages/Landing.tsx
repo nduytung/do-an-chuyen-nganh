@@ -7,7 +7,7 @@ import Category from "../components/Category";
 import ProjectCard from "../components/ProjectCard";
 import { AiFillAlipayCircle } from "react-icons/ai";
 
-const SectionTitle = ({
+export const SectionTitle = ({
   subHeader,
   header,
   classname,
