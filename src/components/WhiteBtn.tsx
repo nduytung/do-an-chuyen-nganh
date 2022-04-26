@@ -10,11 +10,11 @@ type PrimaryBtn = {
 const WhiteBtn = ({ classname, callback, children }: PrimaryBtn) => {
   return (
     <button
-      className={`${classname} flex border-white border items-center justify-between bg-[#00a85c] rounded-full text-white px-6 py-3 font-bold`}
+      className={`${classname} gap-1 flex border-[#00a85c] border items-center justify-between text-[#00a85c] rounded-full hover:bg-[#00a85c] hover:text-white px-6 py-3 font-bold`}
       onClick={callback}
     >
       {children}
-      <AiOutlineArrowRight className="text-white" />
+      <AiOutlineArrowRight />
     </button>
   );
 };

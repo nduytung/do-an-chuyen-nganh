@@ -8,11 +8,10 @@ type PrimaryBtn = {
 const PrimaryBtn = ({ callback, children, classname = null }: PrimaryBtn) => {
   return (
     <button
-      className={`${classname} flex items-center justify-between bg-[#00a85c] rounded-full text-white px-6 py-3 font-bold`}
+      className={`${classname} gap-1 flex items-center justify-between bg-[#00a85c] rounded-full text-white px-6 py-3 font-bold`}
       onClick={callback}
     >
-      {children}
-      <AiOutlineArrowRight className="text-white" />
+      {children} <AiOutlineArrowRight className="text-white" />
     </button>
   );
 };

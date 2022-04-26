@@ -210,6 +210,22 @@ const Landing = () => {
           </div>
         </section>
       </PageContainer>
+
+      <section className="bg-[#eff5f4] py-24">
+        <PageContainer classname="grid grid-cols-2">
+          <div>
+            <SectionTitle subHeader="join to us" header="not a member yet?" />
+            <p className="text-base text-gray-400 mb-6">
+              Join us! Our members can access savings of up to 50% and earn Trip
+              Coins while booking.{" "}
+            </p>
+            <div className="flex justify-start items-center gap-8">
+              <PrimaryBtn callback={() => {}}>Sign in</PrimaryBtn>
+              <WhiteBtn callback={() => {}}>Register</WhiteBtn>
+            </div>
+          </div>
+        </PageContainer>
+      </section>
     </main>
   );
 };
