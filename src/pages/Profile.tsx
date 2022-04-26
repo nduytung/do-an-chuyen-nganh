@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import ProjectCard from "../components/ProjectCard";
 import PrimaryBtn from "../components/ProjectDetail/PrimaryBtn";
 import PageContainer from "../layouts/PageContainer";
 
@@ -88,15 +89,45 @@ const Profile = () => {
         </section>
 
         {/* combine info section */}
-        <section className="grid grid-cols-12 gap-8 my-12">
-          <main className="col-span-6 border border-gray-100 shadow-md p-6">
+        <section className="flex items-start justify-between gap-8 my-12">
+          <main className="flex-1 border border-gray-100 shadow-md p-6">
             <h2 className="text-[#00a85c] text-2xl font-bold">My Campaign</h2>
             <hr className="my-4" />
-            <p className="text-lg font-light">
+            {/* <p className="text-lg font-light">
               : ( It looks like you don't have any campaign yet
-            </p>
+            </p> */}
+            <div className="grid grid-cols-2 gap-4">
+              <ProjectCard
+                cate="Design&Tech"
+                title="Self hooting Game"
+                raised={4500}
+                goal={8000}
+                dayLeft={10}
+              />
+              <ProjectCard
+                cate="Design&Tech"
+                title="Self Driving Robot for Target Shooting Game"
+                raised={4500}
+                goal={8000}
+                dayLeft={10}
+              />
+              <ProjectCard
+                cate="Design&Tech"
+                title="Self Driving Robot for Target Shooting Game"
+                raised={4500}
+                goal={8000}
+                dayLeft={10}
+              />
+              <ProjectCard
+                cate="Design&Tech"
+                title="Self Driving Robot for Target Shooting Game"
+                raised={4500}
+                goal={8000}
+                dayLeft={10}
+              />{" "}
+            </div>
           </main>
-          <main className="col-span-6 grid gap-10">
+          <main className="flex-1 grid gap-10">
             <div className="border border-gray-100 shadow-md p-6">
               <h2 className="text-[#00a85c] text-2xl font-bold">My Balance</h2>
               <hr className="my-4" />
@@ -164,7 +195,6 @@ const Profile = () => {
                   className="col-span-2 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
                 />
               </div>
-              s
             </div>
           </main>
         </section>
