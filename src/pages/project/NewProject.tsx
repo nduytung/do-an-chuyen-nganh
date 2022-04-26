@@ -7,7 +7,7 @@ import PrimaryBtn from "../../components/ProjectDetail/PrimaryBtn";
 import { Editor } from "@tinymce/tinymce-react";
 import moment from "moment";
 
-const EDITOR_SETTING = {
+export const EDITOR_SETTING = {
   height: 500,
   menubar: false,
   plugins: [

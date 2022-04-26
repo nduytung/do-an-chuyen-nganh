@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import PrimaryBtn from "../../components/ProjectDetail/PrimaryBtn";
 import Tag from "../../components/ProjectDetail/Tag";
 import PageContainer from "../../layouts/PageContainer";
-
+import { Editor } from "@tinymce/tinymce-react";
+import { EDITOR_SETTING } from "./NewProject";
+import WhiteBtn from "../../components/WhiteBtn";
 export const WhiteBox = ({ value, name }: { value: number; name: string }) => {
   return (
     <div className="bg-white p-4 flex-1 border border-gray-200 shadow-sm rounded-md cursor-pointer hover:bg-[#00a85c] hover:text-white">
@@ -83,13 +85,87 @@ const Comment = () => {
     </section>
   );
 };
+
+const LiveChat = ({
+  ref,
+  content = null,
+  submit,
+}: {
+  ref: any;
+  content: any;
+  submit: () => void;
+}) => {
+  return (
+    <section className="bg-[#eff5f3] p-6 w-full">
+      <div className="bg-white w-full h-96 rounded-md">{content}</div>
+      <Editor
+        onInit={(evt, editor) => (ref.current = editor)}
+        init={{ ...EDITOR_SETTING, height: 200 }}
+      />
+      <div className="flex justify-between gap-4 my-5">
+        <PrimaryBtn classname="flex-1" callback={() => console.log("hehe")}>
+          Send
+        </PrimaryBtn>
+        <WhiteBtn classname="flex-1" callback={() => {}}>
+          Cancel
+        </WhiteBtn>
+      </div>
+    </section>
+  );
+};
+
+const Reward = () => {
+  return (
+    <section className="bg-[#eff5f3] p-6 w-full">
+      <h2 className="text-2xl font-bold text-[#00a85c]">Rewards</h2>
+      <hr className="my-3" />
+      <div className="bg-gray-300 w-full h-44 my-5"></div>
+      <h3 className="font-bold text-xl">$300 or more</h3>
+      <p className="text-gray-600 font-light text-base text-justify">
+        But must explain to you how all this mistaken idea of denouncing plasue
+        and praising pain was born.
+      </p>
+      <hr className="my-3" />
+      <div className="flex text-black font-bold justify-between">
+        <p>1 backers</p>
+        <p>97 rewards</p>
+      </div>
+      <PrimaryBtn classname="w-full mt-4" callback={() => {}}>
+        Select Reward
+      </PrimaryBtn>
+    </section>
+  );
+};
 const Detail = () => {
   const [tab, setTab] = useState(1);
+  const [content, setContent] = useState("");
+
+  const editorRef = useRef<any>(null);
+
+  const logEditorContent = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+      setContent(editorRef.current.getContent());
+    }
+  };
 
   const renderTab = () => {
     switch (tab) {
       case 1:
-        return <FullStory />;
+        return (
+          <div className="w-full grid grid-cols-3">
+            <div className="col-span-2">
+              <FullStory />
+            </div>
+            <div className="col-span-1">
+              <LiveChat
+                ref={editorRef}
+                content={content}
+                submit={logEditorContent}
+              />
+            </div>
+          </div>
+        );
       case 2:
         return (
           <UpdatePath
