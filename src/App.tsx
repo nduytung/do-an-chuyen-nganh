@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Provider, RootStateOrAny, useSelector } from "react-redux";
 import MainLayout from "./layouts/MainLayout";
 import { Routes, Route } from "react-router-dom";
@@ -10,11 +10,13 @@ const App = () => {
 
   return (
     <MainLayout>
-      <Routes>
-        {routeList.map((route) => {
-          return <Route path={route.path} element={route.element}></Route>;
-        })}
-      </Routes>
+      <Suspense fallback={() => <h1>Loading...</h1>}>
+        <Routes>
+          {routeList.map((route) => {
+            return <Route path={route.path} element={route.element}></Route>;
+          })}
+        </Routes>
+      </Suspense>
     </MainLayout>
   );
 };

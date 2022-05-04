@@ -1,11 +1,65 @@
-import React from "react";
+import React, { lazy } from "react";
 import PrimaryBtn from "../components/ProjectDetail/PrimaryBtn";
 import WhiteBtn from "../components/WhiteBtn";
 import PageContainer from "../layouts/PageContainer";
 import { BsBook } from "react-icons/bs";
 import Category from "../components/Category";
 import ProjectCard from "../components/ProjectCard";
-import { AiFillAlipayCircle } from "react-icons/ai";
+import {
+  AiFillAlipayCircle,
+  AiOutlineVideoCamera,
+  AiOutlineFundProjectionScreen,
+} from "react-icons/ai";
+import {
+  MdOutlineCastForEducation,
+  MdOutlineDesignServices,
+  MdVolunteerActivism,
+} from "react-icons/md";
+import { FaFileMedical, FaAward, FaUserFriends } from "react-icons/fa";
+import BackDrop from "../img/backdrop.png";
+import WhiteBgBtn from "../components/ProjectDetail/WhiteBgBtn";
+import { GiClothes } from "react-icons/gi";
+import { GrDocumentVideo } from "react-icons/gr";
+import { BiCodeAlt } from "react-icons/bi";
+import AdvisingProjectCard from "../components/AdvisingProjectCard";
+import CTABg from "../img/cta.webp";
+
+export const CATEGORY: Array<{
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}> = [
+  {
+    icon: <MdOutlineCastForEducation />,
+    title: "Education",
+    description: "School, college and univsersity",
+  },
+  {
+    icon: <FaFileMedical />,
+    title: "Medical & heath",
+    description: "For medical and health purposes",
+  },
+  {
+    icon: <GiClothes />,
+    title: "Fashion",
+    description: "Fashion and clothing purposes",
+  },
+  {
+    icon: <AiOutlineVideoCamera />,
+    title: "Video & Filming",
+    description: "Support video & filming methods",
+  },
+  {
+    icon: <BiCodeAlt />,
+    title: "Technologies",
+    description: "For technology purposes",
+  },
+  {
+    icon: <MdOutlineDesignServices />,
+    title: "Design",
+    description: "House design & architecture",
+  },
+];
 
 export const SectionTitle = ({
   subHeader,
@@ -50,66 +104,74 @@ const CTAItems = ({
 const Landing = () => {
   return (
     <main>
-      <section className="h-screen bg-gray-300 w-full">
-        <PageContainer classname="container grid grid-cols-12 h-full">
+      <section className="py-20 bg-[#dff7f1] w-full">
+        <PageContainer classname="container grid grid-cols-12 items-center">
           <div className="col-span-6 flex flex-col justify-center gap-8 items-start h-full">
-            <h1 className="font-bold text-7xl">
-              We helps surface innovation in Tech
-            </h1>
+            <h1 className="font-bold text-8xl">We help innovation in Tech</h1>
             <p className="text-2xl border-l-4 border-green-600 w-3/4 pl-4">
               Funden is changing the way people and companies work
             </p>
             <PrimaryBtn callback={() => {}}>Start A Project</PrimaryBtn>
           </div>
+          <div className="col-span-6">
+            <img src={BackDrop} alt="backdrop" className="z-10" />
+          </div>
         </PageContainer>
       </section>
       <PageContainer>
-        <section className="h-48 -mt-24 p-8 bg-[#00a85c] flex justify-between items-center">
+        <section className="z-20 h-48 -mt-20 p-8 bg-[#00a85c] flex justify-between items-center">
           <h2 className="text-5xl text-white font-semibold">
             Ready to raise fund for ideas?
           </h2>
-          <WhiteBtn callback={() => {}}>read more</WhiteBtn>
+          <WhiteBgBtn callback={() => {}}>read more</WhiteBgBtn>
         </section>
 
         {/* categories */}
         <section className="my-16">
           <div className="flex justify-between items-end">
-            <SectionTitle header="popular categories" subHeader="what we do" />
+            <SectionTitle
+              classname="mx-0"
+              header="popular categories"
+              subHeader="what we do"
+            />
             <PrimaryBtn classname="-mt-10 mb-10" callback={() => {}}>
               Explore projects
             </PrimaryBtn>
           </div>
 
           <div className="grid grid-cols-3 gap-6">
-            <Category
-              title="testing 1"
-              description="test dsc 01 jabsjdbas"
-              icon={<BsBook className="text-6xl text-[#00a85c]" />}
-              classname="col-span-1"
+            {CATEGORY.map((item) => {
+              return (
+                <Category
+                  title={item.title}
+                  description={item.description}
+                  icon={item.icon}
+                  classname="col-span-1"
+                />
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="my-16">
+          <SectionTitle
+            subHeader="what we do"
+            header="projects need your advices!"
+            classname="text-center"
+          />
+
+          <div className="grid grid-cols-2 gap-4">
+            <AdvisingProjectCard
+              cate="Design&Tech"
+              title="Self Driving Robot for Target Shooting Game"
+              description="this is a testing description"
+              dayLeft={10}
             />
-            <Category
-              title="testing 1"
-              description="test dsc 01 jabsjdbas"
-              icon={<BsBook />}
-              classname="col-span-1"
-            />
-            <Category
-              title="testing 1"
-              description="test dsc 01 jabsjdbas"
-              icon={<BsBook />}
-              classname="col-span-1"
-            />
-            <Category
-              title="testing 1"
-              description="test dsc 01 jabsjdbas"
-              icon={<BsBook />}
-              classname="col-span-1"
-            />
-            <Category
-              title="testing 1"
-              description="test dsc 01 jabsjdbas"
-              icon={<BsBook />}
-              classname="col-span-1"
+            <AdvisingProjectCard
+              cate="Design&Tech"
+              title="Self Driving Robot for Target Shooting Game"
+              description="this is a testing description"
+              dayLeft={10}
             />
           </div>
         </section>
@@ -122,7 +184,7 @@ const Landing = () => {
             classname="text-center"
           />
 
-          <div className="grid grid-cols-4 gap-8">
+          <div className="grid grid-cols-4 gap-4">
             <ProjectCard
               cate="Design&Tech"
               title="Self Driving Robot for Target Shooting Game"
@@ -164,34 +226,33 @@ const Landing = () => {
         {/* cta */}
         <section className="bg-[#00a85c] py-16 px-10 grid grid-cols-4 gap-8">
           <CTAItems
-            title="testing titl1"
-            number={5000}
-            icon={<AiFillAlipayCircle />}
+            title="Awards Winning"
+            number={9436}
+            icon={<AiOutlineFundProjectionScreen />}
+          />
+          <CTAItems title="testing titl1" number={2100} icon={<FaAward />} />
+          <CTAItems
+            title="Global Partners"
+            number={3510}
+            icon={<FaUserFriends />}
           />
           <CTAItems
-            title="testing titl1"
+            title="Volunteers"
             number={5000}
-            icon={<AiFillAlipayCircle />}
-          />
-          <CTAItems
-            title="testing titl1"
-            number={5000}
-            icon={<AiFillAlipayCircle />}
-          />
-          <CTAItems
-            title="testing titl1"
-            number={5000}
-            icon={<AiFillAlipayCircle />}
+            icon={<MdVolunteerActivism />}
           />
         </section>
 
         {/* cta funding & support */}
         <section className="my-16 bg-gray-600 p-16 flex justify-between text-white items-center">
           <div className="w-2/5 text-center">
-            <h2 className="font-extrabold text-5xl">Get funding & support</h2>
-            <p className="font-semibold text-base">
-              Sed perspiciatis unde omniste natus error sit voluptatem
-              accusantium doloremque laudan totamrem aperiam eaque quae abille
+            <h2 className="font-extrabold text-5xl">
+              Get funding & financial support
+            </h2>
+            <hr className="border-white my-3" />
+            <p className="font-semibold text-base my-2">
+              Support your project financially by using community's fund &
+              withdrawals
             </p>
             <PrimaryBtn classname="mx-auto mt-8" callback={() => {}}>
               Get more
@@ -199,10 +260,14 @@ const Landing = () => {
           </div>
           <hr className="bg-white h-56 w-1" />
           <div className="text-center w-2/5">
-            <h2 className="font-extrabold text-5xl">Get funding & support</h2>
-            <p className="font-semibold text-base">
-              Sed perspiciatis unde omniste natus error sit voluptatem
-              accusantium doloremque laudan totamrem aperiam eaque quae abille
+            <h2 className="font-extrabold text-5xl">
+              Find our about market's insights
+            </h2>
+            <hr className="border-white my-3" />
+
+            <p className="font-semibold text-base my-2">
+              Find out what's your client's or market demands, especially when
+              you are building a start-up
             </p>
             <PrimaryBtn classname="mx-auto mt-8" callback={() => {}}>
               Get more
@@ -211,11 +276,11 @@ const Landing = () => {
         </section>
       </PageContainer>
 
-      <section className="bg-[#eff5f4] py-24">
-        <PageContainer classname="grid grid-cols-2">
-          <div>
+      <section className="bg-[#eff5f4]">
+        <PageContainer classname="flex justify-between items-center py-20">
+          <div className="flex-1">
             <SectionTitle subHeader="join to us" header="not a member yet?" />
-            <p className="text-base text-gray-400 mb-6">
+            <p className="text-lg text-gray-400 mb-6">
               Join us! Our members can access savings of up to 50% and earn Trip
               Coins while booking.{" "}
             </p>
@@ -224,6 +289,8 @@ const Landing = () => {
               <WhiteBtn callback={() => {}}>Register</WhiteBtn>
             </div>
           </div>
+
+          <img src={CTABg} alt="cta" height={500} width={300} />
         </PageContainer>
       </section>
     </main>

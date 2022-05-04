@@ -1,9 +1,9 @@
-import React from "react";
+import React, { lazy } from "react";
 import { BASE_URL } from "./baseUrl";
-import Profile from "../pages/Profile";
-import Landing from "../pages/Landing";
-import Detail from "../pages/project/Detail";
-import NewProject from "../pages/project/NewProject";
+const Profile = lazy(() => import("../pages/Profile"));
+const Landing = lazy(() => import("../pages/Landing"));
+const Detail = lazy(() => import("../pages/project/Detail"));
+const NewProject = lazy(() => import("../pages/project/NewProject"));
 
 type RouteListType = {
   path: any;
