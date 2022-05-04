@@ -92,7 +92,7 @@ const CTAItems = ({
   title: string;
 }) => {
   return (
-    <article className="flex items-center gap-4 text-white">
+    <article className="flex mt-6 md:mt-0 mx-auto items-center gap-10 xl:gap-4 text-white">
       <p className="text-6xl font-bold">{icon}</p>
       <div>
         <p className="text-4xl font-extrabold">{number} + </p>
@@ -106,40 +106,44 @@ const Landing = () => {
     <main>
       <section className="py-20 bg-[#dff7f1] w-full">
         <PageContainer classname="container grid grid-cols-12 items-center">
-          <div className="col-span-6 flex flex-col justify-center gap-8 items-start h-full">
-            <h1 className="font-bold text-8xl">We help innovation in Tech</h1>
-            <p className="text-2xl border-l-4 border-green-600 w-3/4 pl-4">
+          <div className="col-span-12 md:col-span-6 flex flex-col justify-center gap-8 items-start h-full">
+            <h1 className="font-bold text-5xl lg:text-7xl xl:text-8xl">
+              We help innovation in Tech
+            </h1>
+            <p className="text-xl lg:text-2xl border-l-4 border-green-600 lg:w-3/4 pl-4">
               Funden is changing the way people and companies work
             </p>
             <PrimaryBtn callback={() => {}}>Start A Project</PrimaryBtn>
           </div>
-          <div className="col-span-6">
+          <div className="col-span-12 md:col-span-6">
             <img src={BackDrop} alt="backdrop" className="z-10" />
           </div>
         </PageContainer>
       </section>
       <PageContainer>
-        <section className="z-20 h-48 -mt-20 p-8 bg-[#00a85c] flex justify-between items-center">
-          <h2 className="text-5xl text-white font-semibold">
+        <section className="z-20 py-8 md:py-10 -mt-16 lg:-mt-20 px-6 lg:px-8 bg-[#00a85c] md:flex justify-between items-center">
+          <h2 className="text-3xl lg:text-4xl xl:text-5 xl text-white font-semibold">
             Ready to raise fund for ideas?
           </h2>
-          <WhiteBgBtn callback={() => {}}>read more</WhiteBgBtn>
+          <WhiteBgBtn classname="mt-6 lg:mt-0" callback={() => {}}>
+            read more
+          </WhiteBgBtn>
         </section>
 
         {/* categories */}
         <section className="my-16">
-          <div className="flex justify-between items-end">
+          <div className="lg:flex justify-between items-end">
             <SectionTitle
               classname="mx-0"
               header="popular categories"
               subHeader="what we do"
             />
-            <PrimaryBtn classname="-mt-10 mb-10" callback={() => {}}>
+            <PrimaryBtn classname="lg:-mt-10 mb-10" callback={() => {}}>
               Explore projects
             </PrimaryBtn>
           </div>
 
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {CATEGORY.map((item) => {
               return (
                 <Category
@@ -160,7 +164,7 @@ const Landing = () => {
             classname="text-center"
           />
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <AdvisingProjectCard
               cate="Design&Tech"
               title="Self Driving Robot for Target Shooting Game"
@@ -184,7 +188,7 @@ const Landing = () => {
             classname="text-center"
           />
 
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <ProjectCard
               cate="Design&Tech"
               title="Self Driving Robot for Target Shooting Game"
@@ -224,7 +228,7 @@ const Landing = () => {
         </section>
 
         {/* cta */}
-        <section className="bg-[#00a85c] py-16 px-10 grid grid-cols-4 gap-8">
+        <section className="bg-[#00a85c] py-10 xl:py-16 px-10 grid-cols-1 grid md:grid-cols-2 xl:grid-cols-4 gap-8">
           <CTAItems
             title="Awards Winning"
             number={9436}
@@ -244,9 +248,9 @@ const Landing = () => {
         </section>
 
         {/* cta funding & support */}
-        <section className="my-16 bg-gray-600 p-16 flex justify-between text-white items-center">
-          <div className="w-2/5 text-center">
-            <h2 className="font-extrabold text-5xl">
+        <section className="my-16 bg-gray-600 p-16 flex-row md:flex justify-between text-white items-center">
+          <div className="w-full md:w-2/5 text-center mb-10 md:mb-0">
+            <h2 className="font-extrabold text-3xl lg:text-5xl">
               Get funding & financial support
             </h2>
             <hr className="border-white my-3" />
@@ -258,9 +262,9 @@ const Landing = () => {
               Get more
             </PrimaryBtn>
           </div>
-          <hr className="bg-white h-56 w-1" />
-          <div className="text-center w-2/5">
-            <h2 className="font-extrabold text-5xl">
+          <hr className="bg-white h-56 w-1  md:block hidden" />
+          <div className="text-center w-full md:w-2/5">
+            <h2 className="font-extrabold text-3xl lg:text-5xl">
               Find our about market's insights
             </h2>
             <hr className="border-white my-3" />
@@ -277,20 +281,26 @@ const Landing = () => {
       </PageContainer>
 
       <section className="bg-[#eff5f4]">
-        <PageContainer classname="flex justify-between items-center py-20">
+        <PageContainer classname="md:flex justify-between items-center py-20">
           <div className="flex-1">
             <SectionTitle subHeader="join to us" header="not a member yet?" />
-            <p className="text-lg text-gray-400 mb-6">
+            <p className="text-base lg:text-lg text-gray-400 mb-6">
               Join us! Our members can access savings of up to 50% and earn Trip
               Coins while booking.{" "}
             </p>
-            <div className="flex justify-start items-center gap-8">
+            <div className="flex justify-between md:justify-start items-center gap-8">
               <PrimaryBtn callback={() => {}}>Sign in</PrimaryBtn>
               <WhiteBtn callback={() => {}}>Register</WhiteBtn>
             </div>
           </div>
 
-          <img src={CTABg} alt="cta" height={500} width={300} />
+          <img
+            src={CTABg}
+            alt="cta"
+            height={500}
+            width={300}
+            className="mx-auto block mt-20 lg:mt-0"
+          />
         </PageContainer>
       </section>
     </main>
