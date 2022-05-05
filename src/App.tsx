@@ -10,7 +10,7 @@ const App = () => {
 
   return (
     <MainLayout>
-      <Suspense fallback={() => <h1>Loading...</h1>}>
+      <Suspense fallback={<h1>Loading...</h1>}>
         <Routes>
           {routeList.map((route) => {
             return <Route path={route.path} element={route.element}></Route>;
