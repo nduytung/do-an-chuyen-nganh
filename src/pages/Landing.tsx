@@ -121,8 +121,8 @@ const Landing = () => {
         </PageContainer>
       </section>
       <PageContainer>
-        <section className="z-20 py-8 md:py-10 -mt-16 lg:-mt-20 px-6 lg:px-8 bg-[#00a85c] md:flex justify-between items-center">
-          <h2 className="text-3xl lg:text-4xl xl:text-5 xl text-white font-semibold">
+        <section className="z-20 py-8 md:py-10 xl:py-16 -mt-16 lg:-mt-20 px-6 lg:px-8 bg-[#00a85c] md:flex justify-between items-center">
+          <h2 className="text-3xl lg:text-4xl xl:text-5xl text-white font-semibold">
             Ready to raise fund for ideas?
           </h2>
           <WhiteBgBtn classname="mt-6 lg:mt-0" callback={() => {}}>

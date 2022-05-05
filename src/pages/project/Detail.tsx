@@ -5,10 +5,13 @@ import PageContainer from "../../layouts/PageContainer";
 import { Editor } from "@tinymce/tinymce-react";
 import { EDITOR_SETTING } from "./NewProject";
 import WhiteBtn from "../../components/WhiteBtn";
+import DetailBg from "../../img/profilebg.jpeg";
+import DefaultBg from "../../img/defaultbg.png";
+
 export const WhiteBox = ({ value, name }: { value: number; name: string }) => {
   return (
-    <div className="bg-white p-4 flex-1 border border-gray-200 shadow-sm rounded-md cursor-pointer hover:bg-[#00a85c] hover:text-white">
-      <p className="text-2xl font-bold">${value}</p>
+    <div className="bg-white text-center p-4 flex-1 border border-gray-200 shadow-sm rounded-md cursor-pointer hover:bg-[#00a85c] hover:text-white">
+      <p className="text-2xl font-bold">{value}</p>
       <p className="text-lg font-light">{name}</p>
     </div>
   );
@@ -16,7 +19,7 @@ export const WhiteBox = ({ value, name }: { value: number; name: string }) => {
 
 export const DonateCost = ({ children }: { children: string }) => {
   return (
-    <div className="w-20 text-center text-gray-600 border-2 cursor-pointer rounded-full border-gray-300 hover:border-green-600 font-bold hover:text-[#00a85c] text-lg py-2">
+    <div className="w-20 text-center text-gray-600 border-2 cursor-pointer rounded-full border-gray-300 focus-within:border-green-600 font-bold focus-within:text-[#00a85c] text-lg py-2">
       ${children}
     </div>
   );
@@ -96,17 +99,17 @@ const LiveChat = ({
   submit: () => void;
 }) => {
   return (
-    <section className="bg-[#eff5f3] p-6 w-full">
+    <section className="bg-[#eff5f3] p-3 md:p-6 w-full">
       <div className="bg-white w-full h-96 rounded-md">{content}</div>
       <Editor
         onInit={(evt, editor) => (ref.current = editor)}
         init={{ ...EDITOR_SETTING, height: 200 }}
       />
-      <div className="flex justify-between gap-4 my-5">
-        <PrimaryBtn classname="flex-1" callback={() => console.log("hehe")}>
+      <div className="flex justify-start lg:justify-between gap-4 my-5">
+        <PrimaryBtn classname="lg:flex-1" callback={() => console.log("hehe")}>
           Send
         </PrimaryBtn>
-        <WhiteBtn classname="flex-1" callback={() => {}}>
+        <WhiteBtn classname="lg:flex-1" callback={() => {}}>
           Cancel
         </WhiteBtn>
       </div>
@@ -153,11 +156,11 @@ const Detail = () => {
     switch (tab) {
       case 1:
         return (
-          <div className="w-full grid grid-cols-3">
-            <div className="col-span-2">
+          <div className="w-full lg:grid lg:grid-cols-3">
+            <div className="lg:col-span-2">
               <FullStory />
             </div>
-            <div className="col-span-1">
+            <div className="lg:col-span-1">
               <LiveChat
                 ref={editorRef}
                 content={content}
@@ -183,10 +186,12 @@ const Detail = () => {
 
   return (
     <main className="">
-      <div className="bg-gray-200 h-56 w-full"></div>
+      <div className="h-84 md:h-72 w-full overflow-hidden">
+        <img src={DetailBg} alt="bg" className="w-full h-auto" />
+      </div>
       <PageContainer classname="grid grid-cols-12 my-16 gap-8">
-        <section className="col-span-6">
-          <div className="bg-gray-300 h-80"></div>
+        <section className="col-span-12 md:col-span-6">
+          <img src={DefaultBg} className="bg-gray-300 h-80 w-full" />
           <div>
             <h2 className="font-bold text-2xl text-black mt-6 mb-2">
               Short story
@@ -199,15 +204,15 @@ const Detail = () => {
             </p>
           </div>
         </section>
-        <section className="col-span-6 flex flex-col items-start">
+        <section className="col-span-12 md:col-span-6 flex flex-col items-start">
           <Tag>Video{" & "}Film</Tag>
           <h1 className="font-bold text-3xl text-black mt-4 mb-2">
             Personal All-In-One Home Gym {"&"} Workout Coach
           </h1>
           <div className="flex gap-3 w-full">
             <WhiteBox value={7550} name="Pledge" />
-            <WhiteBox value={7550} name="Pledge" />
-            <WhiteBox value={7550} name="Pledge" />
+            <WhiteBox value={7550} name="Backer" />
+            <WhiteBox value={7550} name="Day Left" />
           </div>
 
           <div className="user flex items-center my-6 gap-4">
@@ -244,37 +249,42 @@ const Detail = () => {
           </div>
         </section>
         <section className="col-span-12 bg-white shadow-lg py-4 px-5 my-8 border border-gray-100">
-          <div className="flex justify-between items-center">
-            <div className="grid grid-cols-4 w-2/3">
+          <div className="flex md:flex-row flex-col gap-6 md:gap-0 justify-between items-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 md:w-2/3 gap-6 md:gap-0">
               <button
                 onClick={() => setTab(1)}
-                className="text-lg font-medium text-[#00a85c]"
+                className="text-lg font-medium focus-within:text-[#00a85c]"
               >
                 Detail story
               </button>
               <button
                 onClick={() => setTab(2)}
-                className="text-lg font-medium text-[#00a85c]"
+                className="text-lg font-medium focus-within:text-[#00a85c]"
               >
                 Updates
               </button>
               <button
                 onClick={() => setTab(3)}
-                className="text-lg font-medium text-[#00a85c]"
+                className="text-lg font-medium focus-within:text-[#00a85c]"
               >
                 Backer list
               </button>
               <button
                 onClick={() => setTab(4)}
-                className="text-lg font-medium text-[#00a85c]"
+                className="text-lg font-medium focus-within:text-[#00a85c]"
               >
                 Comment
               </button>
             </div>
-            <PrimaryBtn callback={() => {}}>Create your Campaign</PrimaryBtn>
+            <PrimaryBtn
+              classname={"text-sm lg:text-lg px-2"}
+              callback={() => {}}
+            >
+              Create your Campaign
+            </PrimaryBtn>
           </div>
         </section>
-        <div className="w-full col-span-12 py-8 px-5 border border-gray-200 rounded-sm">
+        <div className="w-full col-span-12 py-8 md:px-5 px-2 border border-gray-200 rounded-sm">
           {renderTab()}
         </div>
       </PageContainer>

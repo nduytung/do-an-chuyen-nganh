@@ -6,9 +6,12 @@ import Tag from "../../components/ProjectDetail/Tag";
 import PrimaryBtn from "../../components/ProjectDetail/PrimaryBtn";
 import { Editor } from "@tinymce/tinymce-react";
 import moment from "moment";
+import CreateProjectBg from "../../img/creatprojectbg.webp";
+import DefaultBg from "../../img/defaultbg.png";
 
 export const EDITOR_SETTING = {
   height: 500,
+  innerWidth: 300,
   menubar: false,
   plugins: [
     "advlist",
@@ -53,7 +56,6 @@ const NewProject = () => {
 
   return (
     <main>
-      <section className="bg-gray-200 w-full h-56"></section>
       <PageContainer>
         <SectionTitle
           subHeader="new campaign"
@@ -61,9 +63,9 @@ const NewProject = () => {
           classname="mx-auto text-center my-8"
         />
         <main className="">
-          <div className="grid grid-cols-12 gap-10">
-            <div className="col-span-6">
-              <div className="bg-gray-300 h-72"></div>
+          <div className="md:grid md:grid-cols-12 gap-10">
+            <div className="md:col-span-6 mb-8 md:mb-0">
+              <img src={DefaultBg} className="bg-gray-300 h-72 w-full" />
               <div>
                 <h2 className="font-bold text-2xl text-black my-4">
                   Enter your short story
@@ -74,7 +76,7 @@ const NewProject = () => {
                 />
               </div>
             </div>
-            <div className="col-span-6 flex flex-col items-start gap-10">
+            <div className="md:col-span-6 flex flex-col items-start gap-10">
               <div className="border border-gray-200 shadow-sm w-full p-6 rounded-md">
                 <div className="name w-full">
                   <h3 className="font-bold text-lg">Enter your project name</h3>
@@ -83,10 +85,12 @@ const NewProject = () => {
 
                 <div className="flex gap-3 justify-between items-center">
                   <div className="category flex-1 w-full">
-                    <h3 className="font-bold text-lg">Choose your category</h3>
+                    <h3 className="font-bold text-lg">
+                      Choose your category type
+                    </h3>
                     <select className={`${INPUT_FORMAT} w-full`}>
                       <option value="disabled" disabled selected>
-                        Choose your cate
+                        Choose your category
                       </option>
                       <option value="testing 1">this is the testing 1</option>
                       <option value="testing 2">this is the testing 2</option>
@@ -133,10 +137,12 @@ const NewProject = () => {
               <h2 className="font-bold text-2xl text-black my-4">
                 Enter your full story
               </h2>
-              <Editor
-                onInit={(evt, editor) => (editorRef.current = editor)}
-                init={EDITOR_SETTING}
-              />
+              <div className="w-full overflow-hiden">
+                <Editor
+                  onInit={(evt, editor) => (editorRef.current = editor)}
+                  init={EDITOR_SETTING}
+                />
+              </div>
             </div>
           </div>
         </main>

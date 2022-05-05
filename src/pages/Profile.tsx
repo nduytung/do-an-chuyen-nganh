@@ -3,6 +3,9 @@ import React from "react";
 import ProjectCard from "../components/ProjectCard";
 import PrimaryBtn from "../components/ProjectDetail/PrimaryBtn";
 import PageContainer from "../layouts/PageContainer";
+import DefaultAvt from "../img/defaultavt.jpeg";
+import ProfileBg from "../img/profilebg.jpeg";
+import WhiteBtn from "../components/WhiteBtn";
 
 const SummaryBox = ({
   money,
@@ -14,7 +17,7 @@ const SummaryBox = ({
   desc: string;
 }) => {
   return (
-    <article className="py-8 px-6 rounded-md my-10 cursor-pointer bg-[#eff5f4] hover:bg-[#00a85c] hover:text-white">
+    <article className="py-8 px-6 rounded-md md:my-10 my-3 cursor-pointer bg-[#eff5f4] hover:bg-[#00a85c] hover:text-white">
       <h2 className="text-5xl font-bold ">${money}</h2>
       <p className="text-lg font-semibold mt-6">{title}</p>
       <p>{desc}</p>
@@ -24,9 +27,13 @@ const SummaryBox = ({
 const Profile = () => {
   return (
     <main>
-      <div className="bg-gray-200 h-56 w-full"></div>
+      <img src={ProfileBg} className="bg-black opacity-50 h-64 w-full" />
       <PageContainer>
-        <div className="bg-gray-200 rounded-full h-44 w-44 mx-auto my-6"></div>
+        <img
+          src={DefaultAvt}
+          alt="default_avt"
+          className="bg-gray-200 rounded-full h-44 w-44 mx-auto my-6"
+        />
         <h1 className="text-3xl font-bold text-[#00a85c] text-center">
           Nguyen Duy Tung
         </h1>
@@ -34,13 +41,13 @@ const Profile = () => {
         <section className="bg-white shadow-lg py-4 px-5 my-8 border border-gray-100">
           <div className="flex justify-between items-center">
             <div className="grid grid-cols-3 w-2/3">
-              <button className="text-lg font-medium text-[#00a85c]">
+              <button className="text-lg font-medium text-black focus-within:text-[#00a85c]">
                 Dashboard
               </button>
-              <button className="text-lg font-medium text-[#00a85c]">
+              <button className="text-lg font-medium text-black focus-within:text-[#00a85c]">
                 My Account
               </button>
-              <button className="text-lg font-medium text-[#00a85c]">
+              <button className="text-lg font-medium text-black focus-within:text-[#00a85c]">
                 Campaign
               </button>
             </div>
@@ -50,9 +57,9 @@ const Profile = () => {
 
         {/* summary section */}
         <section className="border border-gray-100 shadow-lg p-6">
-          <div className="flex justify-between items-center">
+          <div className="flex md:flex-row flex-col justify-between items-center">
             <h2 className="text-[#00a85c] font-bold text-3xl">Summary</h2>
-            <div className="flex gap-3 font-thin items-center">
+            <div className="flex flex-col md:flex-row gap-3 font-thin items-center">
               <p>From</p>
               <input
                 type="date"
@@ -69,7 +76,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 md:gap-10 mt-5 md:mt-0">
             <SummaryBox
               title="testing 01"
               money={2000}
@@ -89,14 +96,14 @@ const Profile = () => {
         </section>
 
         {/* combine info section */}
-        <section className="flex items-start justify-between gap-8 my-12">
+        <section className="flex flex-col xl:flex-row gap-8 my-12">
           <main className="flex-1 border border-gray-100 shadow-md p-6">
             <h2 className="text-[#00a85c] text-2xl font-bold">My Campaign</h2>
             <hr className="my-4" />
             {/* <p className="text-lg font-light">
               : ( It looks like you don't have any campaign yet
             </p> */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6 xl:gap-4">
               <ProjectCard
                 cate="Design&Tech"
                 title="Self hooting Game"
@@ -138,63 +145,73 @@ const Profile = () => {
                 My Information
               </h2>
               <hr className="my-4" />
-              <div className="grid grid-cols-4 items-center gap-4 my-3">
-                <p className="text-lg font-semibold col-span-1">Username: </p>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  value="nduytung"
-                  className="col-span-3 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4 my-3">
-                <p className="text-lg font-semibold col-span-1">Fullname: </p>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  value="nduytung"
-                  className="col-span-3 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4 my-3">
-                <p className="text-lg font-semibold col-span-1">Email: </p>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  value="nduytung"
-                  className="col-span-3 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4 my-3">
-                <p className="text-lg font-semibold col-span-4">Password: </p>
-                <input
-                  type="password"
-                  name=""
-                  id=""
-                  placeholder="Your OLD password"
-                  value=""
-                  className="col-span-4 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
-                />
-                <input
-                  type="password"
-                  name=""
-                  id=""
-                  placeholder="Your new password"
-                  value=""
-                  className="col-span-2 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
-                />
-                <input
-                  type="password"
-                  name=""
-                  id=""
-                  placeholder="Your new password"
-                  value=""
-                  className="col-span-2 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
-                />
-              </div>
+              <form action="">
+                <div className="grid md:grid-cols-4 items-center gap-4 my-3">
+                  <p className="text-lg font-semibold col-span-1">Username: </p>
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    value="nduytung"
+                    className="col-span-3 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
+                  />
+                </div>
+                <div className="grid md:grid-cols-4 items-center gap-4 my-3">
+                  <p className="text-lg font-semibold col-span-1">Fullname: </p>
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    value="nduytung"
+                    className="col-span-3 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
+                  />
+                </div>
+                <div className="grid md:grid-cols-4 items-center gap-4 my-3">
+                  <p className="text-lg font-semibold col-span-1">Email: </p>
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    value="nduytung"
+                    className="col-span-3 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
+                  />
+                </div>
+                <div className="grid md:grid-cols-4 items-center gap-4 my-3">
+                  <p className="text-lg font-semibold col-span-4">Password: </p>
+                  <input
+                    type="password"
+                    name=""
+                    id=""
+                    placeholder="Your OLD password"
+                    value=""
+                    className="col-span-4 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
+                  />
+                  <input
+                    type="password"
+                    name=""
+                    id=""
+                    placeholder="Your new password"
+                    value=""
+                    className="col-span-2 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
+                  />
+                  <input
+                    type="password"
+                    name=""
+                    id=""
+                    placeholder="Your new password"
+                    value=""
+                    className="col-span-2 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
+                  />
+                </div>
+                <div className="flex md:justify-end right-0 w-full gap-4 items-center mt-8 md:mt-5">
+                  <WhiteBtn classname={"w-1/4"} callback={() => {}}>
+                    Cancel
+                  </WhiteBtn>
+                  <PrimaryBtn classname="w-1/4" callback={() => {}}>
+                    Submit
+                  </PrimaryBtn>
+                </div>
+              </form>
             </div>
           </main>
         </section>
