@@ -1,8 +1,8 @@
-import { Form } from "formik";
+import { Form, useFormik } from "formik";
 import React from "react";
-import { useState } from "react";
+
 import * as Yup from "yup";
-import { useFormik } from "formik";
+
 
 
 /* type MyFormValues = {
@@ -57,7 +57,7 @@ export const RegisterForm = () => {
     return (
         <section className="bg-white w-4/12 flex justify-center items-center pb-6 rounded-xl shadow-2xl shadow-gray-400 flex-col">
             <div className="flex justify-center items-center border-b h-16 w-full">
-                <div>Have an account? <a href="" className="hover:cursor-pointer text-[#02a95c] font-bold ">Log in</a></div>
+                <div>Have an account? <a href="" className="hover:cursor-pointer text-[#02a95c] font-bold ">Login</a></div>
             </div>
             <div className="">SIGN UP</div>
             <form className=" w-11/12  flex flex-col pb-3" onSubmit={formik.handleSubmit}>
