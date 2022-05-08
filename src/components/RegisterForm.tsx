@@ -59,9 +59,9 @@ export const RegisterForm = () => {
             <div className="flex justify-center items-center border-b h-16 w-full">
                 <div>Have an account? <a href="" className="hover:cursor-pointer text-[#02a95c] font-bold ">Login</a></div>
             </div>
-            <div className="tracking-widest">SIGN UP</div>
+            <div className="text-2xl mt-2 font-bold tracking-widest">REGISTER</div>
             <form className=" w-11/12  flex flex-col pb-3" onSubmit={formik.handleSubmit}>
-                <label className="ml-2 mt-2 text-lg font-semibold" htmlFor="" >Your Username</label>
+                <label className="ml-2 mt-3 text-lg font-semibold" htmlFor="" >Your Username</label>
                 <input 
                     type="text" 
                     id="username" 
@@ -74,7 +74,7 @@ export const RegisterForm = () => {
                     <p className="text-red-600 text-xs ml-[10px]">{formik.errors.username}</p>
                 )}
 
-                <label className="ml-2 mt-2 text-lg font-semibold" htmlFor="" >Your Fullname</label>
+                <label className="ml-2 mt-3 text-lg font-semibold" htmlFor="" >Your Fullname</label>
                 <input 
                     type="text" 
                     id="fullname" 
@@ -87,7 +87,7 @@ export const RegisterForm = () => {
                     <p className="text-red-600 text-xs ml-[10px]">{formik.errors.fullname}</p>
                 )}
 
-                <label className="ml-2 mt-2 text-lg font-semibold" htmlFor="" >Your Email</label>
+                <label className="ml-2 mt-3 text-lg font-semibold" htmlFor="" >Your Email</label>
                 <input 
                     type="text" 
                     id="email" 
@@ -100,7 +100,7 @@ export const RegisterForm = () => {
                     <p className="text-red-600 text-xs ml-[10px]">{formik.errors.email}</p>
                 )}
 
-                <label className="ml-2 mt-2 text-lg font-semibold" htmlFor="" >Your Phone</label>
+                <label className="ml-2 mt-3 text-lg font-semibold" htmlFor="" >Your Phone</label>
                 <input 
                     type="text" 
                     id="phonenumber" 
@@ -113,7 +113,7 @@ export const RegisterForm = () => {
                     <p className="text-red-600 text-xs ml-[10px]">{formik.errors.phonenumber}</p>
                 )}
 
-                <label className="ml-2 mt-2 text-lg font-semibold" htmlFor="" >Your Password</label>
+                <label className="ml-2 mt-3 text-lg font-semibold" htmlFor="" >Your Password</label>
                 <input 
                     type="password" 
                     id="password" 
@@ -126,7 +126,7 @@ export const RegisterForm = () => {
                     <p className="text-red-600 text-xs ml-[10px]">{formik.errors.password}</p>
                 )}
 
-                <label className="ml-2 mt-2 text-lg font-semibold" htmlFor="" >Confirm Password</label>
+                <label className="ml-2 mt-3 text-lg font-semibold" htmlFor="" >Confirm Password</label>
                 <input 
                     type="password"  
                     id="confirmPassword" 
@@ -139,8 +139,7 @@ export const RegisterForm = () => {
                     <p className="text-red-600 text-xs ml-[10px]">{formik.errors.confirmPassword}</p>
                 )}
 
-                {/* <a type="submit" className="hover:cursor-pointer">Continue</a> */}
-                <button type="submit" className="bg-[#02a95c] w-fit rounded-xl p-2 mt-3 place-self-end text-white hover:opacity-80 " >Create Account</button>
+                <button type="submit" className="bg-[#02a95c] w-fit rounded-xl p-2 mt-3 place-self-end text-white hover:opacity-80 mr-5 " >Create Account</button>
             </form>
         </section>
     )
