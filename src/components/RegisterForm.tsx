@@ -59,7 +59,7 @@ export const RegisterForm = () => {
             <div className="flex justify-center items-center border-b h-16 w-full">
                 <div>Have an account? <a href="" className="hover:cursor-pointer text-[#02a95c] font-bold ">Login</a></div>
             </div>
-            <div className="">SIGN UP</div>
+            <div className="tracking-widest">SIGN UP</div>
             <form className=" w-11/12  flex flex-col pb-3" onSubmit={formik.handleSubmit}>
                 <label className="ml-2 mt-2 text-lg font-semibold" htmlFor="" >Your Username</label>
                 <input 
