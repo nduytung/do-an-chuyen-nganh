@@ -1,6 +1,8 @@
 import React from "react";
 import { Provider, RootStateOrAny, useSelector } from "react-redux";
 import MainLayout from "./layouts/Mainlayout";
+import { Routes, Route } from "react-router-dom";
+import { routeList } from "./routes/routes";
 
 const App = () => {
   const counter: number = useSelector(
@@ -9,10 +11,11 @@ const App = () => {
 
   return (
     <MainLayout>
-      <div className="text-3xl font-bold text-blue-500 text-center w-full pt-20 h-[900px] bg-yellow-200">
-        hello world, this is the main content of web page. redux counter is
-        currently: {counter}
-      </div>
+       <Routes>
+        {routeList.map((route) => {
+          return <Route path={route.path} element={route.element}></Route>;
+        })}
+      </Routes>
     </MainLayout>
   );
 };
