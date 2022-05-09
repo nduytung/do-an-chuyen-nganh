@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Provider, RootStateOrAny, useSelector } from "react-redux";
-import MainLayout from "./layouts/Mainlayout";
+import MainLayout from "./layouts/MainLayout";
 import { Routes, Route } from "react-router-dom";
 import { routeList } from "./routes/routes";
 const App = () => {

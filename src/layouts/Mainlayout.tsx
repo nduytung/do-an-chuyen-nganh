@@ -10,7 +10,7 @@ const MainLayout = ({ children }: LayoutType) => {
   return (
     <div>
       <Header />
-      <main>{children}</main>
+      <main className="pt-24">{children}</main>
       <Footer />
     </div>
   );
