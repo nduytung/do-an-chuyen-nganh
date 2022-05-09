@@ -4,6 +4,7 @@ import Profile from "../pages/Profile";
 import Register from "../pages/Register";
 import About from "../pages/About";
 import Login from "../pages/Login";
+import AllProject from '../pages/AllProject';
 
 type RouteListType = {
   path: any;
@@ -34,5 +35,9 @@ export const routeList: RouteListType[] = [
   {
     path: BASE_URL.LOGIN,
     element: <Login />
+  },
+  {
+    path: BASE_URL.ALL_PROJECT,
+    element: <AllProject />
   },
 ];
