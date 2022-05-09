@@ -2,6 +2,7 @@ import React from "react";
 import { BASE_URL } from "./baseURL";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";
+import About from "../pages/About";
 
 type RouteListType = {
   path: any;
@@ -24,5 +25,9 @@ export const routeList: RouteListType[] = [
   {
       path: BASE_URL.REGISTER,
       element: <Register />
-  }
+  },
+  {
+    path: BASE_URL.ABOUT,
+    element: <About />
+}
 ];
