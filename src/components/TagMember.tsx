@@ -8,7 +8,7 @@ type Dataprops ={
 
 const TagMember:FC<Dataprops> = ({membername, src}) =>{
 
-    return <div className="h-[400px] w-[270px] bg-inherit justify-center relative flex items-stretch group transition-transform duration-300 shadow-2xl mt-5 mr-8">
+    return <div className="h-[400px] w-[270px] bg-inherit justify-center relative flex items-stretch group shadow-xl mt-5 mr-8 z-[1]">
         <img className="w-full h-[347px] group-hover:opacity-80 group-hover:cursor-pointer" src={src} />
         <div className="w-10/12 bg-white h-[107px] absolute self-end justify-center items-center flex-col flex shadow-2xl">
             <a href="#" className="text-xl font-bold hover:text-[#02a95c]">{membername}</a>

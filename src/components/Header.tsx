@@ -7,7 +7,7 @@ const Header = () => {
 
   const logo = require('./logo.png');
 
-  return <div className="header w-full h-16 bg-white  shadow-2xl  fixed">
+  return <div className="header w-full h-16 bg-white  shadow-2xl  fixed z-[100]">
     <a href="#" className="hover:cursor-pointer hover:opacity-90">
       <img src={logo} className="w-44 inline-block leading-[44px] ml-4 pl-10 " />
     </a>
