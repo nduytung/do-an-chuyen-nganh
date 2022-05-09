@@ -3,28 +3,6 @@ import React from "react";
 
 import * as Yup from "yup";
 
-
-
-/* type MyFormValues = {
-    email: string,
-    fullname: string,
-    username: string,
-    phonenumber: string,
-    password: string,
-    confirmPassword: string,
-    onSubmit: void
-}
-
-const initialValues : MyFormValues={
-    email: "",
-    fullname: "",
-    username: "",
-    phonenumber: "",
-    password: "",
-    confirmPassword: "",
-    onSubmit: undefined
-} */
-
 export const RegisterForm = () => {
 
     const inputCSS : string = "w-11/12 my-1 ml-3 border-b border-black border-solid outline-none text-sm py-1"
@@ -57,7 +35,7 @@ export const RegisterForm = () => {
     return (
         <section className="bg-white w-4/12 flex justify-center items-center pb-6 rounded-xl shadow-2xl shadow-gray-400 flex-col">
             <div className="flex justify-center items-center border-b h-16 w-full">
-                <div>Have an account? <a href="" className="hover:cursor-pointer text-[#02a95c] font-bold ">Login</a></div>
+                <div>Have an account? <a href="/login" className="hover:cursor-pointer text-[#02a95c] font-bold ">Login</a></div>
             </div>
             <div className="text-2xl mt-2 font-bold tracking-widest">REGISTER</div>
             <form className=" w-11/12  flex flex-col pb-3" onSubmit={formik.handleSubmit}>

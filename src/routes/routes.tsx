@@ -3,6 +3,7 @@ import { BASE_URL } from "./baseURL";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";
 import About from "../pages/About";
+import Login from "../pages/Login";
 
 type RouteListType = {
   path: any;
@@ -29,5 +30,9 @@ export const routeList: RouteListType[] = [
   {
     path: BASE_URL.ABOUT,
     element: <About />
-}
+  },
+  {
+    path: BASE_URL.LOGIN,
+    element: <Login />
+  },
 ];
