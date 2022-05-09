@@ -76,8 +76,8 @@ const Header = () => {
         </a>
       </div>
       <div className="w-28  pl-4 mt-12 bg-white absolute mr-16 rounded-lg flex flex-col justify-center divide-solid divide-y pr-4 shadow-xl opacity-0 group-hover:opacity-100  duration-300">
-        <a className="flex-1 py-2 hover:text-[#02a95c]" href="">Login</a>
-        <a className="flex-1 py-2 hover:text-[#02a95c]" href="">Register</a>
+        <a className="flex-1 py-2 hover:text-[#02a95c]" href="/login">Login</a>
+        <a className="flex-1 py-2 hover:text-[#02a95c]" href="/register">Register</a>
       </div>
     </div>
     
