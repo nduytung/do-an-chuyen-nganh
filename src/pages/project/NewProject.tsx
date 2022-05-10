@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PageContainer from "../../layouts/PageContainer";
 import { SectionTitle } from "../Landing";
 import { WhiteBox, DonateCost } from "./Detail";
@@ -8,6 +8,12 @@ import { Editor } from "@tinymce/tinymce-react";
 import moment from "moment";
 import CreateProjectBg from "../../img/creatprojectbg.webp";
 import DefaultBg from "../../img/defaultbg.png";
+import { CATE_LIST } from "../../data/categories";
+import { Item } from "rc-menu";
+import { toast } from "react-toastify";
+import { handleApi } from "../../api/handleApi";
+
+const createNewDate = () => moment(new Date()).format("YYYY-MM-DD");
 
 export const EDITOR_SETTING = {
   height: 500,
@@ -42,16 +48,71 @@ export const EDITOR_SETTING = {
   image_list: [],
 };
 
+export interface IProject {
+  projectName: string;
+  type: "donate" | "research" | undefined;
+  userId: string;
+  goal: number;
+  shortStory: string;
+  fullStory: string;
+  // image: string;
+  category:
+    | "Education"
+    | "Medical & heath"
+    | "Fashion"
+    | "Video & Filming"
+    | "Technologies"
+    | "Design";
+  date: {
+    startTime: string | undefined;
+    endTime: string | undefined;
+  };
+}
 const INPUT_FORMAT =
   "border border-gray-300 py-2 px-4 rounded-md mb-4 mt-2 focus:outline-none";
 
 const NewProject = () => {
-  const editorRef = useRef<any>(null);
+  const shortStoryRef = useRef<any>(null);
+  const fullStoryRef = useRef<any>(null);
 
-  const logEditorContent = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
+  const [project, setProject] = useState<IProject>({
+    projectName: "",
+    type: undefined,
+    userId: "25",
+    goal: 0,
+    shortStory: "",
+    fullStory: "null",
+    //image: "",
+    category: "Design",
+    date: {
+      startTime: undefined,
+      endTime: undefined,
+    },
+  });
+
+  const handleChange = (e: any) => {
+    e.target.name !== "endTime"
+      ? setProject({ ...project, [e.target.name]: e.target.value })
+      : setProject({
+          ...project,
+          date: { ...project.date, endTime: e.target.value },
+        });
+  };
+
+  const handleSubmit = async () => {
+    setProject({
+      ...project,
+      shortStory: shortStoryRef.current.getContent(),
+      fullStory: fullStoryRef.current.getContent(),
+      date: { ...project.date, startTime: createNewDate() },
+    });
+
+    const data = await handleApi({
+      method: "post",
+      payload: project,
+      endpoint: "project/create",
+    });
+    console.log(data);
   };
 
   return (
@@ -70,8 +131,10 @@ const NewProject = () => {
                 <h2 className="font-bold text-2xl text-black my-4">
                   Enter your short story
                 </h2>
+
                 <Editor
-                  onInit={(evt, editor) => (editorRef.current = editor)}
+                  id="editor1"
+                  onInit={(evt, editor) => (shortStoryRef.current = editor)}
                   init={EDITOR_SETTING}
                 />
               </div>
@@ -79,33 +142,52 @@ const NewProject = () => {
             <div className="md:col-span-6 flex flex-col items-start gap-10">
               <div className="border border-gray-200 shadow-sm w-full p-6 rounded-md">
                 <div className="name w-full">
-                  <h3 className="font-bold text-lg">Enter your project name</h3>
-                  <input type={"text"} className={`${INPUT_FORMAT} w-full`} />
+                  <label className="font-bold text-lg">
+                    Enter your project name
+                  </label>
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    name="projectName"
+                    type={"text"}
+                    className={`${INPUT_FORMAT} w-full`}
+                  />
                 </div>
 
                 <div className="flex gap-3 justify-between items-center">
                   <div className="category flex-1 w-full">
-                    <h3 className="font-bold text-lg">
+                    <label className="font-bold text-lg">
                       Choose your category type
-                    </h3>
-                    <select className={`${INPUT_FORMAT} w-full`}>
-                      <option value="disabled" disabled selected>
+                    </label>
+                    <select
+                      name="category"
+                      onChange={(e) => handleChange(e)}
+                      className={`${INPUT_FORMAT} w-full`}
+                    >
+                      <option disabled selected>
+                        {" "}
                         Choose your category
                       </option>
-                      <option value="testing 1">this is the testing 1</option>
-                      <option value="testing 2">this is the testing 2</option>
+                      {CATE_LIST.map((item: string) => {
+                        return <option value="item">{item}</option>;
+                      })}
                     </select>
                   </div>
                   <div className="category flex-1 w-full">
                     <h3 className="font-bold text-lg">
                       Choose your project type
                     </h3>
-                    <select className={`${INPUT_FORMAT} w-full`}>
+                    <select
+                      name="type"
+                      onChange={(e) => handleChange(e)}
+                      className={`${INPUT_FORMAT} w-full`}
+                    >
                       <option value="disabled" disabled selected>
                         Choose your type
                       </option>
-                      <option value="testing 1">this is the testing 1</option>
-                      <option value="testing 2">this is the testing 2</option>
+                      <option value="donate">Crowd funding</option>
+                      <option value="research">
+                        Researching for social's demands
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -116,20 +198,33 @@ const NewProject = () => {
                   Project indeed details
                 </h2>
                 <div className="name w-full mt-4">
-                  <h3 className="font-bold text-lg">
+                  <label className="font-bold text-lg">
                     Your target money amount:{" "}
-                  </h3>
-                  <input type={"number"} className={`${INPUT_FORMAT} w-full`} />
+                  </label>
+                  <input
+                    name="goal"
+                    onChange={(e) => handleChange(e)}
+                    type={"number"}
+                    className={`${INPUT_FORMAT} w-full`}
+                  />
                 </div>
                 <div className="name w-full mt-4">
-                  <h3 className="font-bold text-lg">Pick your end date</h3>
+                  <label className="font-bold text-lg">
+                    Pick your end date
+                  </label>
                   <input
-                    value={moment(new Date()).format("YYYY-MM-DD")}
-                    min={moment(new Date()).format("YYYY-MM-DD")}
+                    name="endTime"
+                    onChange={(e) => handleChange(e)}
+                    defaultValue={createNewDate()}
+                    value={project.date.endTime}
+                    min={createNewDate()}
                     type={"date"}
                     className={`${INPUT_FORMAT} w-full`}
                   />
                 </div>
+                <PrimaryBtn classname={"w-1/2"} callback={handleSubmit}>
+                  Submit
+                </PrimaryBtn>
               </div>
             </div>
 
@@ -139,7 +234,7 @@ const NewProject = () => {
               </h2>
               <div className="w-full overflow-hiden">
                 <Editor
-                  onInit={(evt, editor) => (editorRef.current = editor)}
+                  onInit={(evt, editor) => (fullStoryRef.current = editor)}
                   init={EDITOR_SETTING}
                 />
               </div>
