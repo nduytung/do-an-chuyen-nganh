@@ -5,7 +5,8 @@ import Register from "../pages/Register";
 import About from "../pages/About";
 import Login from "../pages/Login";
 import AllProject from '../pages/AllProject';
-import Dashboard from '../pages/Dashboard'
+import Dashboard from '../pages/Dashboard';
+import Bookmark from '../pages/Bookmark';
 
 type RouteListType = {
   path: any;
@@ -44,5 +45,9 @@ export const routeList: RouteListType[] = [
   {
     path: BASE_URL.DASHBOARD,
     element: <Dashboard />
+  },
+  {
+    path: BASE_URL.BOOKMARK,
+    element: <Bookmark />
   },
 ];

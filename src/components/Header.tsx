@@ -8,11 +8,11 @@ const Header = () => {
   const logo = require('./logo.png');
 
   return <div className="w-full py-2 bg-white  shadow-2xl  fixed z-[100] flex flex-row">
-    <a href="#" className="hover:cursor-pointer hover:opacity-90 my-auto">
+    <a href="" className="hover:cursor-pointer hover:opacity-90 my-auto">
       <img src={logo} className="w-44 inline-block leading-[44px] ml-4 pl-10 " />
     </a>
     
-    <ul className=" ml-10 w-6/12 ">
+    <ul className=" ml-16 w-6/12 mr-12">
       <li className="leading-[64px] inline-block no-underline px-5 relative group hover:cursor-pointer justify-center align-middle  ">
         <a className="tracking-widest text-lg transition ease-in-out duration-200" >Home
         </a>
@@ -32,7 +32,7 @@ const Header = () => {
         <div className="-mt-3 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-300 "/>
         <ul className="absolute mt-0.5 w-36 h-[164px] bg-white shadow-xl rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-300 max-h-0 group-hover:max-h-48 ">
           <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="/project/all">All Projects</a></li>
-          <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="">Bookmark</a></li>
+          <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="/bookmark">Bookmark</a></li>
           <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="">Profile</a></li>
           <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="">Add a project</a></li>
         </ul>
