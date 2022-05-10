@@ -25,14 +25,13 @@ const Header = () => {
         </ul>
       </li>
       <li className="leading-[64px] inline-block no-underline px-5 relative group hover:cursor-pointer justify-center align-middle">
-        <a className="tracking-widest text-lg" href="">Explore</a>
+        <a className="tracking-widest text-lg" href="/dashboard">Dashboard</a>
       </li>
       <li className="leading-[64px] inline-block no-underline px-5 relative group hover:cursor-pointer justify-center align-middle ">
-        <a className="tracking-widest text-lg" href="">Dashboard
-        </a>
+        <a className="tracking-widest text-lg" href="">Explore</a>
         <div className="-mt-3 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-300 "/>
         <ul className="absolute mt-0.5 w-36 h-[164px] bg-white shadow-xl rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-300 max-h-0 group-hover:max-h-48 ">
-          <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="">Dashboard</a></li>
+          <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="/project/all">All Projects</a></li>
           <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="">Bookmark</a></li>
           <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="">Profile</a></li>
           <li ><a className=" hover:text-green-700 hover:font-semibold block pl-3 leading-10 border-b text-sm tracking-widest " href="">Add a project</a></li>
