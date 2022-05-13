@@ -40,7 +40,7 @@ const ProjectCard = ({
           Goal: <span className="text-[#00a85c]">${goal}</span>
         </p>
         <div className="bg-gray-100 p-3 flex justify-between items-center w-full hover:border-[#00a85c]  hover:border cursor-pointer">
-          {dayLeft} days left!{" "}
+          {dayLeft || 0} days left!{" "}
           <span className="text-[#00a85c]"> Register now</span>
         </div>
       </div>

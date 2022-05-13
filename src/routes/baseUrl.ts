@@ -8,4 +8,5 @@ export const BASE_URL = {
     NEW_PROJECT: "/project/create",
     ALL_PROJECT: "/project/all",
     DETAIL_PROJECT: "/project/detail",
+    LOGIN: "/login"
   };

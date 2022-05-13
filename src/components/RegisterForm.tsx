@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, useFormik } from "formik";
 import { toast } from "react-toastify";
 
 import * as Yup from "yup";
 import { handleApi } from "../api/handleApi";
 import { Navigate, Router, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthProvider";
 
+export const inputCSS: string =
+  "mt-1 mb-3 border border-gray-300 rounded-md py-2 px-4 border-solid outline-none";
 export const RegisterForm = () => {
-  const inputCSS: string =
-    "mt-1 mb-3 border border-gray-300 rounded-md py-2 px-4 border-solid outline-none";
-
   const navigate = useNavigate();
+  const { handleSetToken } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -60,7 +61,7 @@ export const RegisterForm = () => {
       console.log(data);
 
       if (data) {
-        localStorage.setItem("token", data.data.props);
+        handleSetToken(data.data.propsue);
         setTimeout(() => {
           navigate("/home");
         }, 1000);

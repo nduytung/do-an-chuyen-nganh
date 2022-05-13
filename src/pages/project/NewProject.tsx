@@ -51,7 +51,6 @@ export const EDITOR_SETTING = {
 export interface IProject {
   projectName: string;
   type: "donate" | "research" | undefined;
-  userId: string;
   goal: number;
   shortStory: string;
   fullStory: string;
@@ -78,7 +77,6 @@ const NewProject = () => {
   const [project, setProject] = useState<IProject>({
     projectName: "",
     type: undefined,
-    userId: "25",
     goal: 0,
     shortStory: "",
     fullStory: "null",

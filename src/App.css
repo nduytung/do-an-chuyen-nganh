@@ -32,6 +32,11 @@
   background-image: url('./components/Image/backgroundAbout.jpg');
 }
 
+.backgroundImageFooter{
+  background-image: url('https://gaviaswp.com/wp/funden/wp-content/uploads/2021/08/bg-footer.jpg');
+  background-size: cover;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

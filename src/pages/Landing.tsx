@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, useEffect, useState } from "react";
 import PrimaryBtn from "../components/ProjectDetail/PrimaryBtn";
 import WhiteBtn from "../components/WhiteBtn";
 import PageContainer from "../layouts/PageContainer";
@@ -23,6 +23,8 @@ import { GrDocumentVideo } from "react-icons/gr";
 import { BiCodeAlt } from "react-icons/bi";
 import AdvisingProjectCard from "../components/AdvisingProjectCard";
 import CTABg from "../img/cta.webp";
+import { handleApi } from "../api/handleApi";
+import LiveComment from "../components/LiveComment";
 
 export const CATEGORY: Array<{
   icon: React.ReactNode;
@@ -102,9 +104,24 @@ const CTAItems = ({
   );
 };
 const Landing = () => {
+  const [projects, setProjects] = useState<object[]>([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await handleApi({
+        method: "get",
+        payload: null,
+        endpoint: "project/all",
+      });
+      setProjects(data.data.props);
+    };
+    getData();
+  }, []);
+
   return (
     <main>
       <section className="py-20 bg-[#dff7f1] w-full">
+        <LiveComment />
         <PageContainer classname="container grid grid-cols-12 items-center">
           <div className="col-span-12 md:col-span-6 flex flex-col justify-center gap-8 items-start h-full">
             <h1 className="font-bold text-5xl lg:text-7xl xl:text-8xl">
@@ -165,18 +182,19 @@ const Landing = () => {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <AdvisingProjectCard
-              cate="Design&Tech"
-              title="Self Driving Robot for Target Shooting Game"
-              description="this is a testing description"
-              dayLeft={10}
-            />
-            <AdvisingProjectCard
-              cate="Design&Tech"
-              title="Self Driving Robot for Target Shooting Game"
-              description="this is a testing description"
-              dayLeft={10}
-            />
+            {projects &&
+              projects.map((project: any, index: number) => {
+                return (
+                  project.type === "research" && (
+                    <AdvisingProjectCard
+                      cate={project.category}
+                      title={project.projectName}
+                      description={project.shortStory}
+                      dayLeft={project.daysLeft}
+                    />
+                  )
+                );
+              })}
           </div>
         </section>
 
@@ -189,41 +207,20 @@ const Landing = () => {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <ProjectCard
-              cate="Design&Tech"
-              title="Self Driving Robot for Target Shooting Game"
-              raised={4500}
-              goal={8000}
-              dayLeft={10}
-            />{" "}
-            <ProjectCard
-              cate="Design&Tech"
-              title="Self Driving Robot for Target Shooting Game"
-              raised={4500}
-              goal={8000}
-              dayLeft={10}
-            />{" "}
-            <ProjectCard
-              cate="Design&Tech"
-              title="Self Driving Robot for Target Shooting Game"
-              raised={4500}
-              goal={8000}
-              dayLeft={10}
-            />{" "}
-            <ProjectCard
-              cate="Design&Tech"
-              title="Self Driving Robot for Target Shooting Game"
-              raised={4500}
-              goal={8000}
-              dayLeft={10}
-            />{" "}
-            <ProjectCard
-              cate="Design&Tech"
-              title="Self Driving Robot for Target Shooting Game"
-              raised={4500}
-              goal={8000}
-              dayLeft={10}
-            />
+            {projects &&
+              projects.map((project: any, index: number) => {
+                return (
+                  project.type === "donate" && (
+                    <ProjectCard
+                      cate={project.category}
+                      title={project.projectName}
+                      raised={project.raised}
+                      goal={project.goal}
+                      dayLeft={project.daysLeft}
+                    />
+                  )
+                );
+              })}
           </div>
         </section>
 
