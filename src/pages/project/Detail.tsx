@@ -7,6 +7,7 @@ import { EDITOR_SETTING } from "./NewProject";
 import WhiteBtn from "../../components/WhiteBtn";
 import DetailBg from "../../img/profilebg.jpeg";
 import DefaultBg from "../../img/defaultbg.png";
+import LiveComment from "../../components/LiveComment";
 
 export const WhiteBox = ({ value, name }: { value: number; name: string }) => {
   return (
@@ -89,34 +90,6 @@ const Comment = () => {
   );
 };
 
-const LiveChat = ({
-  ref,
-  content = null,
-  submit,
-}: {
-  ref: any;
-  content: any;
-  submit: () => void;
-}) => {
-  return (
-    <section className="bg-[#eff5f3] p-3 md:p-6 w-full">
-      <div className="bg-white w-full h-96 rounded-md">{content}</div>
-      <Editor
-        onInit={(evt, editor) => (ref.current = editor)}
-        init={{ ...EDITOR_SETTING, height: 200 }}
-      />
-      <div className="flex justify-start lg:justify-between gap-4 my-5">
-        <PrimaryBtn classname="lg:flex-1" callback={() => console.log("hehe")}>
-          Send
-        </PrimaryBtn>
-        <WhiteBtn classname="lg:flex-1" callback={() => {}}>
-          Cancel
-        </WhiteBtn>
-      </div>
-    </section>
-  );
-};
-
 const Reward = () => {
   return (
     <section className="bg-[#eff5f3] p-6 w-full">
@@ -161,11 +134,7 @@ const Detail = () => {
               <FullStory />
             </div>
             <div className="lg:col-span-1">
-              <LiveChat
-                ref={editorRef}
-                content={content}
-                submit={logEditorContent}
-              />
+              <LiveComment />
             </div>
           </div>
         );

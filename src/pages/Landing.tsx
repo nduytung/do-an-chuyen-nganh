@@ -121,7 +121,6 @@ const Landing = () => {
   return (
     <main>
       <section className="py-20 bg-[#dff7f1] w-full">
-        <LiveComment />
         <PageContainer classname="container grid grid-cols-12 items-center">
           <div className="col-span-12 md:col-span-6 flex flex-col justify-center gap-8 items-start h-full">
             <h1 className="font-bold text-5xl lg:text-7xl xl:text-8xl">
