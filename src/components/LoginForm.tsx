@@ -9,7 +9,8 @@ import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import { inputCSS } from "./RegisterForm";
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const { handleSetToken, handleSetUsername } = useContext(AuthContext);
+  const { handleSetToken, handleSetUsername, handleSetFullname } =
+    useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -39,8 +40,9 @@ export const LoginForm = () => {
     });
     if (data) {
       console.log(data);
-      handleSetToken(data.data.props.accessToken);
-      handleSetUsername(data.data.props.fullname);
+      handleSetToken(data.data.props.token);
+      handleSetUsername(data.data.props.username);
+      handleSetFullname(data.data.props.fullname);
       setTimeout(() => {
         navigate("/home");
       }, 1000);

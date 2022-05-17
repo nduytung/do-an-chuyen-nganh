@@ -5,6 +5,7 @@ export interface IDefaultValue {
   token: string | null;
   handleSetToken: (token: string) => void;
   handleSetUsername: (username: string) => void;
+  handleSetFullname: (fullname: string) => void;
 }
 
 const defaultValue: IDefaultValue = {
@@ -12,6 +13,7 @@ const defaultValue: IDefaultValue = {
   token: localStorage.getItem("token") || null,
   handleSetToken: () => undefined,
   handleSetUsername: () => undefined,
+  handleSetFullname: () => undefined,
 };
 
 export const AuthContext = createContext(defaultValue);
@@ -25,10 +27,19 @@ const AuthProvider: React.FC<{ children: any }> = ({ children }) => {
   const handleSetUsername = (username: string) => {
     localStorage.setItem("username", username);
   };
+  const handleSetFullname = (fullname: string) => {
+    localStorage.setItem("fullname", fullname);
+  };
 
   return (
     <AuthContext.Provider
-      value={{ handleSetToken, username, token, handleSetUsername }}
+      value={{
+        handleSetToken,
+        username,
+        token,
+        handleSetUsername,
+        handleSetFullname,
+      }}
     >
       {children}
     </AuthContext.Provider>

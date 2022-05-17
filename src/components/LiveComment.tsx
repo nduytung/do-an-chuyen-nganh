@@ -1,13 +1,14 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { message } from "antd";
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo, useContext } from "react";
 import io from "socket.io-client";
 import { handleApi } from "../api/handleApi";
+import { AuthContext } from "../context/AuthProvider";
 import { EDITOR_SETTING } from "../pages/project/NewProject";
 import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import WhiteBtn from "./WhiteBtn";
 
-export const TESTING_PROJECT_ID = "627b66a3e9f28cc8bf90dc3c";
+export const TESTING_PROJECT_ID = "627b6b545e1a4a518c9e68e3";
 
 const LiveComment = () => {
   const [chatItemList, setChatItemList] = useState<any>([]);
@@ -15,6 +16,7 @@ const LiveComment = () => {
   const [trigger, setTrigger] = useState<boolean>(false);
 
   const editorRef = useRef<any>(null);
+  const { username } = useContext(AuthContext);
 
   const handleSubmit = async () => {
     const message = editorRef.current.getContent();
@@ -38,7 +40,7 @@ const LiveComment = () => {
       );
     } else {
       socket.on("user-chat", (message: any) => {
-        setChatItemList([...chatItemList, message.message]);
+        setChatItemList([...chatItemList, { commentDetail: message.message }]);
       });
     }
   }, [trigger]);
@@ -51,12 +53,8 @@ const LiveComment = () => {
       });
 
       const commentList = data.data.props.commentList.comment;
-      console.log(commentList);
-      if (commentList) {
-        commentList.map((comment: { commentDetail: string }) => {
-          return setChatItemList([...chatItemList, comment.commentDetail]);
-        });
-      }
+
+      return setChatItemList(commentList);
     };
 
     getComment();
@@ -69,12 +67,16 @@ const LiveComment = () => {
   return (
     <div>
       <section className="bg-[#eff5f3] p-3 md:p-6 w-full">
-        <div className="bg-white w-full h-96 rounded-md overflow-y-scroll">
+        <div className="bg-white w-full h-96 rounded-md overflow-y-scroll grid grid-cols-1 items-start justify-start">
           {chatItemList.map((item: any) => {
             return (
               <div
-                className="py-2 px-4 rounded-lg bg-[#00a85c] m-3"
-                dangerouslySetInnerHTML={{ __html: item }}
+                className={`p-4 relative rounded-lg m-3 w-4/5 ${
+                  username === item.username
+                    ? "bg-gray-200 justify-self-end"
+                    : "bg-[#00a85c] left-0 justify-self-start"
+                } `}
+                dangerouslySetInnerHTML={{ __html: item.commentDetail }}
               />
             );
           })}
