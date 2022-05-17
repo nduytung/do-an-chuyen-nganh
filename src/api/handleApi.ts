@@ -22,7 +22,7 @@ export const handleApi: any = async ({
       try {
         const data = await axios.post(
           `http://localhost:4000/${endpoint}`,
-          payload,
+          { ...payload },
           {
             headers: { Authorization: `Bearer ${accessToken}` },
           }
@@ -49,7 +49,24 @@ export const handleApi: any = async ({
         return data;
       } catch (err: any) {
         toast.error(err.response.data.message);
-        return;
+      }
+      break;
+
+    case "put":
+      try {
+        const data = await axios.put(
+          `http://localhost:4000/${endpoint}`,
+          {
+            ...payload,
+          },
+          {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }
+        );
+        toast.success(data.data.message);
+        return data;
+      } catch (err: any) {
+        toast.error(err.response.data.message);
       }
       break;
 

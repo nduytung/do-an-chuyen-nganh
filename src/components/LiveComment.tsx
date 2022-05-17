@@ -2,9 +2,12 @@ import { Editor } from "@tinymce/tinymce-react";
 import { message } from "antd";
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import io from "socket.io-client";
+import { handleApi } from "../api/handleApi";
 import { EDITOR_SETTING } from "../pages/project/NewProject";
 import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import WhiteBtn from "./WhiteBtn";
+
+export const TESTING_PROJECT_ID = "627b66a3e9f28cc8bf90dc3c";
 
 const LiveComment = () => {
   const [chatItemList, setChatItemList] = useState<any>([]);
@@ -13,10 +16,17 @@ const LiveComment = () => {
 
   const editorRef = useRef<any>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const message = editorRef.current.getContent();
     setTrigger(!trigger);
     socket && socket.emit("on-chat", { message: message });
+
+    //calling api
+    await handleApi({
+      method: "put",
+      payload: { comment: message, id: TESTING_PROJECT_ID },
+      endpoint: "project/comment",
+    });
   };
 
   useEffect(() => {
@@ -32,6 +42,29 @@ const LiveComment = () => {
       });
     }
   }, [trigger]);
+
+  useEffect(() => {
+    const getComment = async () => {
+      const data = await handleApi({
+        method: "get",
+        endpoint: `project/comment/all/${TESTING_PROJECT_ID}`,
+      });
+
+      const commentList = data.data.props.commentList.comment;
+      console.log(commentList);
+      if (commentList) {
+        commentList.map((comment: { commentDetail: string }) => {
+          return setChatItemList([...chatItemList, comment.commentDetail]);
+        });
+      }
+    };
+
+    getComment();
+  }, []);
+
+  useEffect(() => {
+    console.log(chatItemList);
+  }, [chatItemList]);
 
   return (
     <div>
