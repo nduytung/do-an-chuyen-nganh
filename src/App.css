@@ -30,6 +30,7 @@
 
 .backgroundImage{
   background-image: url('./components/Image/backgroundAbout.jpg');
+  background-size: cover;
 }
 
 .backgroundImageFooter{
