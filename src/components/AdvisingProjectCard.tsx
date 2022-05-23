@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import defaultBg from "../img/defaultbg.png";
 
 type ProjectCardType = {
@@ -7,6 +8,7 @@ type ProjectCardType = {
   dayLeft: number;
   background?: string;
   description: string;
+  id: string;
 };
 
 const AdvisingProjectCard = ({
@@ -15,7 +17,12 @@ const AdvisingProjectCard = ({
   dayLeft,
   background,
   description,
+  id,
 }: ProjectCardType) => {
+  const handleRenderProject = () => {
+    window.location.href = `project/${id}`;
+  };
+
   return (
     <main className="bg-white border border-gray-100 shadow-md flex flex-col md:flex-row">
       <img
@@ -33,10 +40,13 @@ const AdvisingProjectCard = ({
           <div dangerouslySetInnerHTML={{ __html: description }}></div>
         </div>
 
-        <div className="bg-gray-100 p-3 flex lg:flex-col xl:flex-row justify-between items-center w-full hover:border-[#00a85c]  hover:border cursor-pointer">
+        <button
+          onClick={handleRenderProject}
+          className="bg-gray-100 p-3 flex lg:flex-col xl:flex-row justify-between items-center w-full hover:border-[#00a85c]  hover:border cursor-pointer"
+        >
           {dayLeft || 0} days left!{" "}
           <span className="text-[#00a85c]"> Register now</span>
-        </div>
+        </button>
       </div>
     </main>
   );

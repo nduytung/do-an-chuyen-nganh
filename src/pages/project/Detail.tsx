@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PrimaryBtn from "../../components/ProjectDetail/PrimaryBtn";
 import Tag from "../../components/ProjectDetail/Tag";
 import PageContainer from "../../layouts/PageContainer";
@@ -8,6 +8,8 @@ import WhiteBtn from "../../components/WhiteBtn";
 import DetailBg from "../../img/profilebg.jpeg";
 import DefaultBg from "../../img/defaultbg.png";
 import LiveComment from "../../components/LiveComment";
+import { handleApi } from "../../api/handleApi";
+import { useParams } from "react-router-dom";
 
 export const WhiteBox = ({ value, name }: { value: number; name: string }) => {
   return (
@@ -114,16 +116,7 @@ const Reward = () => {
 };
 const Detail = () => {
   const [tab, setTab] = useState(1);
-  const [content, setContent] = useState("");
-
-  const editorRef = useRef<any>(null);
-
-  const logEditorContent = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-      setContent(editorRef.current.getContent());
-    }
-  };
+  const [project, setProject] = useState<any>({});
 
   const renderTab = () => {
     switch (tab) {
@@ -152,6 +145,22 @@ const Detail = () => {
         return <Comment />;
     }
   };
+  const { id } = useParams();
+
+  useEffect(() => {
+    //prefetch the whole info
+    const fetchProject = async () => {
+      const data = await handleApi({
+        method: "get",
+        endpoint: `project/detail/${id}`,
+      });
+      if (data) {
+        setProject(data.data.props);
+      }
+    };
+
+    fetchProject();
+  }, []);
 
   return (
     <main className="">
@@ -165,21 +174,19 @@ const Detail = () => {
             <h2 className="font-bold text-2xl text-black mt-6 mb-2">
               Short story
             </h2>
-            <p className="text-gray-500 font-light text-base">
-              Excepteur sint occaecat cupidatat non proident sunt in culpa qui
-              deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-              omnis iste natus error sit voluptatem accusantium doloremque
-              laudantium.
-            </p>
+            <p
+              className="text-gray-500 font-light text-base"
+              dangerouslySetInnerHTML={{ __html: project.shortStory }}
+            ></p>
           </div>
         </section>
         <section className="col-span-12 md:col-span-6 flex flex-col items-start">
-          <Tag>Video{" & "}Film</Tag>
+          <Tag>{project.category}</Tag>
           <h1 className="font-bold text-3xl text-black mt-4 mb-2">
-            Personal All-In-One Home Gym {"&"} Workout Coach
+            {project && project.projectName}
           </h1>
           <div className="flex gap-3 w-full">
-            <WhiteBox value={7550} name="Pledge" />
+            <WhiteBox value={project.goal} name="Pledge" />
             <WhiteBox value={7550} name="Backer" />
             <WhiteBox value={7550} name="Day Left" />
           </div>

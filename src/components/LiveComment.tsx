@@ -76,8 +76,10 @@ const LiveComment = () => {
                     ? "bg-gray-200 justify-self-end"
                     : "bg-[#00a85c] left-0 justify-self-start"
                 } `}
-                dangerouslySetInnerHTML={{ __html: item.commentDetail }}
-              />
+              >
+                <p> {username !== item.username ? username : null} </p>
+                <p dangerouslySetInnerHTML={{ __html: item.commentDetail }} />
+              </div>
             );
           })}
         </div>

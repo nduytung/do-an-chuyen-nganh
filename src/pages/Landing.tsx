@@ -190,6 +190,7 @@ const Landing = () => {
                       title={project.projectName}
                       description={project.shortStory}
                       dayLeft={project.daysLeft}
+                      id={project._id}
                     />
                   )
                 );
