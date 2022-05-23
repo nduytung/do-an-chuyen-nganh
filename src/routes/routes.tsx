@@ -1,8 +1,9 @@
 import React, { lazy } from "react";
-import { BASE_URL } from "./baseURL";
+import { BASE_URL } from "./baseUrl";
 import Register from "../pages/Register";
 import About from "../pages/About";
 import Login from "../pages/Login";
+import Bookmark from "../pages/Bookmark";
 import AllProject from "../pages/AllProject";
 import Dashboard from "../pages/Dashboard";
 const Profile = lazy(() => import("../pages/Profile"));
@@ -51,5 +52,9 @@ export const routeList: RouteListType[] = [
   {
     path: BASE_URL.DASHBOARD,
     element: <Dashboard />,
+  },
+  {
+    path: BASE_URL.BOOKMARK,
+    element: <Bookmark />,
   },
 ];

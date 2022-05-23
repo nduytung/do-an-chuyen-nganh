@@ -11,6 +11,8 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const { handleSetToken, handleSetUsername, handleSetFullname } =
     useContext(AuthContext);
+  const inputCSS: string =
+    "w-11/12  my-1 ml-3 border-b border-black border-solid outline-none text-sm py-1";
 
   const formik = useFormik({
     initialValues: {

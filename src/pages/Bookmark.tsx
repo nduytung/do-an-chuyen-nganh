@@ -46,7 +46,7 @@ export const CATEGORY: Array<{
     },
   ];
 
-const AllProject: React.FC<{}> = () => {
+const Bookmark: React.FC<{}> = () => {
     const backgroundAbout = require('../components/Image/backgroundAbout.jpg')
 
     return <div className="pt-18  w-full flex flex-col ">
@@ -79,4 +79,4 @@ const AllProject: React.FC<{}> = () => {
 
 };
 
-export default AllProject;
+export default Bookmark;
