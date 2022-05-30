@@ -25,7 +25,7 @@ export const LoginForm = () => {
     console.log(formik.values)
 
     return (
-        <section className="bg-white laptop:w-4/12 iphone:w-10/12 flex justify-center items-center pb-6 rounded-xl shadow-2xl shadow-gray-400 flex-col">
+        <section className="bg-white xl:w-4/12 lg:w-4/12 md:w-7/12 iphone:w-10/12 flex justify-center items-center pb-6 rounded-xl shadow-2xl shadow-gray-400 flex-col">
             <div className="flex justify-center items-center border-b h-16 w-full">
                 <div>Don't have an account. <a href="/register" className="hover:cursor-pointer text-[#02a95c] font-bold ">Register</a></div>
             </div>

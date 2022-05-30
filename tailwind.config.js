@@ -3,8 +3,10 @@ module.exports = {
   theme: {
     extend: {},
     screens: {
-      'iphone': '414px',
-      'laptop': '768px'
+      'iphone' : '414px',
+      'md' : '768px',
+      'lg' : '1024px',
+      'xl' : '1280px',
     }
   },
   plugins: [],
