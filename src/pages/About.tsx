@@ -16,13 +16,13 @@ const About = () => {
 
     <div className="justify-center items-center">
       <div className="w-full h-[500px] backgroundImage flex justify-center items-center flex-col iphone:px-5">
-        <div className=" laptop:text-6xl iphone:text-5xl font-bold text-white">Crowdfunding Platforms</div>
-          <div className="text-white laptop:text-2xl iphone:text-xl mt-3 ">We Help at Every Step From Concept to Market</div>
+        <div className=" xl:text-6xl lg:text-6xl iphone:text-5xl font-bold text-white">Crowdfunding Platforms</div>
+          <div className="text-white xl:text-2xl lg:text-2xl iphone:text-xl mt-3 ">We Help at Every Step From Concept to Market</div>
       </div>
     </div>
 
-    <div className="flex laptop:flex-row w-full pt-20 iphone:flex-col">
-      <div className="flex-1 flex-col laptop:ml-20 iphone:ml-7 iphone:pr-4">
+    <div className="flex xl:flex-row w-full pt-20 iphone:flex-col">
+      <div className="flex-1 flex-col xl:ml-20 lg:ml-10 iphone:ml-7 iphone:pr-4">
         <div className="mb-6 text-4xl font-bold text-[#02a95c]">ABOUT US</div>
         <div className="mb-6 text-3xl">We Help How To Improve Product Marketing</div>
         <div className="mb-6 text-lg">Sedut perspiciatis unde omnis iste natus voluptatem accusan tium dolore dantiumy totam rem apeam, eaque ipsa quaventore veritatis quasi architecto beatae</div>
@@ -58,13 +58,13 @@ const About = () => {
       </div>
     </div>
 
-    <div className="mt-16 w-full bg-[#eff5f3] flex-col laptop:pl-20 pt-10 pb-16 iphone:pl-10">
+    <div className="mt-16 w-full bg-[#eff5f3] flex-col xl:pl-20 lg:pl-10 pt-10 pb-16 iphone:pl-10">
       <div className="mb-6 text-4xl font-bold text-[#02a95c]">EXCLUSIVE TEAM</div>
       <div className=" w-full grid">
         <div className=" text-black font-semibold text-3xl mt-3 inline-block">Meet Professional Team</div>
-        <PrimaryButton nameBtn="Join Our Team" type="DEFAULT" classname="w-fit inline-block justify-self-end laptop:mr-20 iphone:mt-5 iphone:mr-10 "/>
+        <PrimaryButton nameBtn="Join Our Team" type="DEFAULT" classname="w-fit inline-block justify-self-end xl:mr-20 lg:mr-10 iphone:mt-5 iphone:mr-10 "/>
       </div>
-      <div className="flex laptop:flex-row iphone:flex-col justify-center items-center">
+      <div className="flex xl:flex-row lg:flex-row iphone:flex-col justify-center items-center">
         <TagMember membername="Christine Eve" src="https://gaviaswp.com/wp/funden/wp-content/plugins/funden-themer/elementor/assets/images/team-3.jpg"/>
         <TagMember membername="David Hardson" src="https://gaviaswp.com/wp/funden/wp-content/plugins/funden-themer/elementor/assets/images/team-4.jpg"/>
         <TagMember membername="Jessica Brown" src="https://gaviaswp.com/wp/funden/wp-content/plugins/funden-themer/elementor/assets/images/team-1.jpg"/>
@@ -72,7 +72,7 @@ const About = () => {
       </div>
     </div>
 
-    <div className="bg-[#1f2230] w-full laptop:flex-row iphone:flex-col px-12 flex">
+    <div className="bg-[#1f2230] w-full xl:flex-row lg:flex-row iphone:flex-col px-12 flex">
       <div className="flex-1 h-full flex-col flex justify-center pl-5 group py-12 pr-5">
         <AiOutlineFundProjectionScreen className="h-20 text-[#02a95c] w-20 p-1 group-hover:scale-75 ease-in-out duration-300"/>
         <div className="text-5xl  text-white mt-3 font-bold ">3,598+</div>

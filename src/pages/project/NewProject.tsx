@@ -73,6 +73,7 @@ const INPUT_FORMAT =
 const NewProject = () => {
   const shortStoryRef = useRef<any>(null);
   const fullStoryRef = useRef<any>(null);
+  const researchForm = useRef<any>(null);
 
   const [project, setProject] = useState<IProject>({
     projectName: "",
@@ -195,17 +196,30 @@ const NewProject = () => {
                 <h2 className="text-2xl mt-6 font-bold text-[#00a85c]">
                   Project indeed details
                 </h2>
-                <div className="name w-full mt-4">
-                  <label className="font-bold text-lg">
-                    Your target money amount:{" "}
-                  </label>
-                  <input
-                    name="goal"
-                    onChange={(e) => handleChange(e)}
-                    type={"number"}
-                    className={`${INPUT_FORMAT} w-full`}
-                  />
-                </div>
+                {project.type === "donate" && (
+                  <div className="name w-full mt-4">
+                    <label className="font-bold text-lg">
+                      Your target money amount:{" "}
+                    </label>
+                    <input
+                      name="goal"
+                      onChange={(e) => handleChange(e)}
+                      type={"number"}
+                      className={`${INPUT_FORMAT} w-full`}
+                    />
+                  </div>
+                )}
+                {project.type === "research" && (
+                  <div className="name w-full mt-4">
+                    <label className="font-bold text-lg">
+                      What you want others comment about your project:
+                    </label>
+                    <Editor
+                      onInit={(evt, editor) => (researchForm.current = editor)}
+                      init={EDITOR_SETTING}
+                    />
+                  </div>
+                )}
                 <div className="name w-full mt-4">
                   <label className="font-bold text-lg">
                     Pick your end date

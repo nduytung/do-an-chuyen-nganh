@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { handleApi } from "../api/handleApi";
 import { Navigate, Router, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+import { BASE_URL } from "../routes/baseURL";
 
 export const inputCSS: string =
   "mt-1 mb-3 border border-gray-300 rounded-md py-2 px-4 border-solid outline-none";
@@ -61,9 +62,8 @@ export const RegisterForm = () => {
       console.log(data);
 
       if (data) {
-        handleSetToken(data.data.propsue);
         setTimeout(() => {
-          navigate("/home");
+          navigate(BASE_URL.LANDING);
         }, 1000);
       }
     },

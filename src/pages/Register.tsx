@@ -2,13 +2,14 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterForm } from "../components/RegisterForm";
 import { AuthContext } from "../context/AuthProvider";
+import { BASE_URL } from "../routes/baseURL";
 
 const Register: React.FC<{}> = () => {
-  const { username, token } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (username && token) return navigate("/home");
+    if (isLoggedIn) return navigate(BASE_URL.LANDING);
   }, []);
 
   return (

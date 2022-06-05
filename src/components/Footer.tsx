@@ -16,7 +16,7 @@ const Footer = () => {
 
   return (
     <div className="w-full flex bg-[#282b39] justify-center items-center pt-20 pb-10 px-10 flex-col">
-      <div className="bg-transparent laptop:flex-row flex laptop:w-full iphone:w-full iphone:flex-col">
+      <div className="bg-transparent flex xl:flex-row lg:flex-row  iphone:flex-col lg:w-full  xl:w-full iphone:w-full ">
         <div className="flex-[4_1_0%] bg-transparent flex-col">
           <div className="ml-4 mt-4 bg-slate-100 py-2 px-3 w-fit rounded-full">
             <img src={logo} className="w-44" />
@@ -40,7 +40,7 @@ const Footer = () => {
         </div>
 
         <div className="flex-[3_1_0%] bg-transparent">
-          <div className="text-white text-2xl laptop:ml-10 iphone:ml-4 mt-4 font-semibold">
+          <div className="text-white text-2xl xl:ml-10 iphone:ml-4 mt-4 font-semibold">
             Our Projects
           </div>
           <div className="mt-10 ml-10 space-y-2.5 flex-col flex text-slate-100">
@@ -60,7 +60,7 @@ const Footer = () => {
         </div>
 
         <div className="flex-[3_1_0%] bg-transparent">
-          <div className="text-white text-2xl laptop:ml-10 iphone:ml-4 mt-4 font-semibold">
+          <div className="text-white text-2xl xl:ml-10 iphone:ml-4 mt-4 font-semibold">
             Company
           </div>
           <div className="mt-10 ml-10 space-y-2.5 flex-col flex text-slate-100">
@@ -84,6 +84,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
+
         <div className="flex-[4_1_0%] bg-transparent">
           <div className="text-white text-2xl ml-5 mt-4 font-semibold">
             Contact
@@ -114,9 +115,9 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="mt-7 ml-5 space-y-2.5 flex-col flex">
+          <div className="mt-7 lg:ml-5 xl:ml-5 iphone:ml-5 space-y-2.5 flex-col flex">
             <div className="flex flex-row">
-              <div className="bg-[#02a95c] rounded-full p-3">
+              <div className="bg-[#02a95c] xl:h-auto lg:h-fit rounded-full p-3">
                 <GoLocation className="w-6 h-6" />
               </div>
               <div className=" ml-4 space-y-0.5">
@@ -130,11 +131,11 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="w-10/12 p-8 bg-[#1f2230] mt-10 laptop:grid laptop:justify-items-stretch py-5 laptop:items-center iphone:flex iphone:flex-col">
+      <div className="w-10/12 p-8 bg-[#1f2230] mt-10 xl:grid lg:grid md:grid xl:justify-items-stretch lg:justify-items-stretch md:justify-items-stretch py-5 xl:items-center lg:items-center md:items-center iphone:flex iphone:flex-col">
         <div className="relative text-slate-100 w-fit">
           © 2022 Gavias. All Rights Reserved
         </div>
-        <div className="justify-self-end laptop:absolute  flex-row flex space-x-4 iphone:mt-3">
+        <div className="justify-self-end xl:absolute lg:absolute md:absolute flex-row flex space-x-4 iphone:mt-3 ">
           <FaFacebook className=" w-6 h-6 text-slate-100 hover:text-[#02a95c] hover:cursor-pointer" />
           <FaInstagram className=" w-6 h-6 text-slate-100 hover:text-[#02a95c] hover:cursor-pointer" />
           <FaLinkedinIn className=" w-6 h-6 text-slate-100 hover:text-[#02a95c] hover:cursor-pointer" />

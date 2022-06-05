@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { handleApi } from "../api/handleApi";
 import { AuthContext } from "../context/AuthProvider";
+import { BASE_URL } from "../routes/baseURL";
 import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import { inputCSS } from "./RegisterForm";
 export const LoginForm = () => {
   const navigate = useNavigate();
   const { handleSetToken, handleSetUsername, handleSetFullname } =
     useContext(AuthContext);
-  const inputCSS: string =
-    "w-11/12  my-1 ml-3 border-b border-black border-solid outline-none text-sm py-1";
 
   const formik = useFormik({
     initialValues: {
@@ -46,7 +45,7 @@ export const LoginForm = () => {
       handleSetUsername(data.data.props.username);
       handleSetFullname(data.data.props.fullname);
       setTimeout(() => {
-        navigate("/home");
+        window.location.reload();
       }, 1000);
     }
   };
@@ -55,7 +54,7 @@ export const LoginForm = () => {
     <section className="bg-white w-4/12 flex justify-center items-center pb-6 rounded-xl shadow-2xl shadow-gray-400 flex-col">
       <div className="flex justify-center items-center border-b h-16 w-full">
         <div>
-          Don't have an account.{" "}
+          Don't have an account?.{" "}
           <a
             href="/register"
             className="hover:cursor-pointer text-[#02a95c] font-bold "

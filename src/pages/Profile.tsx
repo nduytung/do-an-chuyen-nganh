@@ -1,11 +1,13 @@
 import moment from "moment";
-import React from "react";
+import React, { useContext } from "react";
 import ProjectCard from "../components/ProjectCard";
 import PrimaryBtn from "../components/ProjectDetail/PrimaryBtn";
 import PageContainer from "../layouts/PageContainer";
 import DefaultAvt from "../img/defaultavt.jpeg";
 import ProfileBg from "../img/profilebg.jpeg";
 import WhiteBtn from "../components/WhiteBtn";
+import withAuth from "../helper/withAuth";
+import { AuthContext } from "../context/AuthProvider";
 
 const SummaryBox = ({
   money,
