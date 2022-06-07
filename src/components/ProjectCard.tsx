@@ -1,4 +1,6 @@
-import React from "react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { handleApi } from "../api/handleApi";
 import defaultBg from "../img/defaultbg.png";
 
 type ProjectCardType = {
@@ -6,8 +8,15 @@ type ProjectCardType = {
   title: string;
   raised: number;
   goal: number;
-  dayLeft: number;
+  startTime: string;
+  endTime: string;
   background?: string;
+};
+
+export const calcDateRange = (startTime: string, endTime: string) => {
+  const start = moment(startTime, "YYYY-MM-DD");
+  const end = moment(endTime, "YYYY-MM-DD");
+  return moment.duration(end.diff(start)).asDays();
 };
 
 const ProjectCard = ({
@@ -15,16 +24,40 @@ const ProjectCard = ({
   title,
   raised,
   goal,
-  dayLeft,
+  startTime,
+  endTime,
   background,
 }: ProjectCardType) => {
   const percent = (raised / goal) * 100;
+  const [image, setImage] = useState("");
+  const [dayLeft, setDayLeft] = useState(0);
+
+  useEffect(() => {
+    const handleGetBg = async () => {
+      console.log("getting image");
+      if (background) {
+        const imgData = await handleApi({
+          method: "post",
+          payload: { imageId: background },
+          endpoint: "image/getById",
+          disableNoti: true,
+        });
+        if (imgData.status === 200) {
+          setImage(imgData.data.props.imageUrl);
+          console.log("get image done");
+        }
+      }
+    };
+    handleGetBg();
+    const left = calcDateRange(startTime, endTime);
+    setDayLeft(left);
+  }, []);
   return (
     <main className="bg-white border border-gray-100 shadow-md">
       <img
         className="bg-gray-200 w-full h-56"
         alt="default-bg"
-        src={background ? background : defaultBg}
+        src={image ? image : defaultBg}
       />
 
       <div className="p-6 flex flex-col items-start">

@@ -114,6 +114,7 @@ const Landing = () => {
         endpoint: "project/all",
       });
       setProjects(data.data.props);
+      console.log(data.data.props);
     };
     getData();
   }, []);
@@ -186,11 +187,14 @@ const Landing = () => {
                 return (
                   project.type === "research" && (
                     <AdvisingProjectCard
+                      key={project._id}
                       cate={project.category}
                       title={project.projectName}
                       description={project.shortStory}
-                      dayLeft={project.daysLeft}
+                      startTime={project.date.startTime}
+                      endTime={project.date.endTime}
                       id={project._id}
+                      background={project.image}
                     />
                   )
                 );
@@ -212,11 +216,13 @@ const Landing = () => {
                 return (
                   project.type === "donate" && (
                     <ProjectCard
+                      key={project._id}
                       cate={project.category}
                       title={project.projectName}
                       raised={project.raised}
-                      goal={project.goal}
-                      dayLeft={project.daysLeft}
+                      goal={parseInt(project.goal)}
+                      startTime={project.date.startTime}
+                      endTime={project.date.endTime}
                     />
                   )
                 );

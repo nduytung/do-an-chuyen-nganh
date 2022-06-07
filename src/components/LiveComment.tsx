@@ -4,13 +4,13 @@ import React, { useState, useEffect, useRef, useMemo, useContext } from "react";
 import io from "socket.io-client";
 import { handleApi } from "../api/handleApi";
 import { AuthContext } from "../context/AuthProvider";
-import { EDITOR_SETTING } from "../pages/project/NewProject";
+import { EDITOR_SETTING } from "./input/PrimaryTextEditor";
 import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import WhiteBtn from "./WhiteBtn";
 
 export const TESTING_PROJECT_ID = "627b6b545e1a4a518c9e68e3";
 
-const LiveComment = () => {
+const LiveComment = ({ subject }: { subject: string }) => {
   const [chatItemList, setChatItemList] = useState<any>([]);
   const [socket, setSocket] = useState<any>(null);
   const [trigger, setTrigger] = useState<boolean>(false);
@@ -67,6 +67,17 @@ const LiveComment = () => {
   return (
     <div>
       <section className="bg-[#eff5f3] p-3 md:p-6 w-full">
+        <article>
+          <h1 className="text-[#00a85c] text-2xl font-semibold">Hi friend, </h1>
+          <p className="font-semibold text-[#00a85c] italic">
+            At here, we're glad to hear your comments about:{" "}
+          </p>
+          <p
+            className="font-light"
+            dangerouslySetInnerHTML={{ __html: subject }}
+          ></p>
+          <hr className="border-b border-gray-200 my-4" />
+        </article>
         <div className="bg-white w-full h-96 rounded-md overflow-y-scroll grid grid-cols-1 items-start justify-start">
           {chatItemList.map((item: any) => {
             return (

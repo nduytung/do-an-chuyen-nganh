@@ -26,7 +26,7 @@ export const routeList: RouteListType[] = [
     element: <Profile />,
   },
   {
-    path: BASE_URL.DETAIL_PROJECT,
+    path: `${BASE_URL.DETAIL_PROJECT}/:id`,
     element: <Detail />,
   },
   {

@@ -4,12 +4,16 @@ export interface IHandleApi {
   method: "put" | "post" | "get" | "delete";
   payload?: object;
   endpoint: string;
+  content?: string;
+  disableNoti?: boolean;
 }
 
 export const handleApi: any = async ({
   method,
   payload,
   endpoint,
+  content = "application/json",
+  disableNoti = false,
 }: IHandleApi) => {
   if (method !== "get" && !payload) {
     return "Payload missing";
@@ -24,10 +28,12 @@ export const handleApi: any = async ({
           `http://localhost:4000/${endpoint}`,
           { ...payload },
           {
-            headers: { Authorization: `Bearer ${accessToken}` },
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           }
         );
-        toast.success(data.data.message);
+        if (!disableNoti) toast.success(data.data.message);
         return data;
       } catch (err: any) {
         console.log("here");
@@ -45,7 +51,7 @@ export const handleApi: any = async ({
             headers: { Authorization: `Bearer ${accessToken}` },
           }
         );
-        toast.success(data.data.message);
+        if (!disableNoti) toast.success(data.data.message);
         return data;
       } catch (err: any) {
         toast.error(err.response.data.message);
@@ -63,7 +69,7 @@ export const handleApi: any = async ({
             headers: { Authorization: `Bearer ${accessToken}` },
           }
         );
-        toast.success(data.data.message);
+        if (!disableNoti) toast.success(data.data.message);
         return data;
       } catch (err: any) {
         toast.error(err.response.data.message);

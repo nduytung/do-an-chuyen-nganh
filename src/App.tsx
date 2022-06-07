@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
 import WithAuth from "./helper/withAuth";
+import Detail from "./pages/project/Detail";
 
 const App = () => {
   const counter: number = useSelector(

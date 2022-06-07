@@ -106,34 +106,13 @@ const Profile = () => {
               : ( It looks like you don't have any campaign yet
             </p> */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6 xl:gap-4">
-              <ProjectCard
+              {/* <ProjectCard
                 cate="Design&Tech"
                 title="Self hooting Game"
                 raised={4500}
                 goal={8000}
                 dayLeft={10}
-              />
-              <ProjectCard
-                cate="Design&Tech"
-                title="Self Driving Robot for Target Shooting Game"
-                raised={4500}
-                goal={8000}
-                dayLeft={10}
-              />
-              <ProjectCard
-                cate="Design&Tech"
-                title="Self Driving Robot for Target Shooting Game"
-                raised={4500}
-                goal={8000}
-                dayLeft={10}
-              />
-              <ProjectCard
-                cate="Design&Tech"
-                title="Self Driving Robot for Target Shooting Game"
-                raised={4500}
-                goal={8000}
-                dayLeft={10}
-              />{" "}
+              /> */}
             </div>
           </main>
           <main className="flex-1 grid gap-10">

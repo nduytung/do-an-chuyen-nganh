@@ -3,15 +3,22 @@ import PrimaryBtn from "../../components/ProjectDetail/PrimaryBtn";
 import Tag from "../../components/ProjectDetail/Tag";
 import PageContainer from "../../layouts/PageContainer";
 import { Editor } from "@tinymce/tinymce-react";
-import { EDITOR_SETTING } from "./NewProject";
+import { EDITOR_SETTING } from "../../components/input/PrimaryTextEditor";
 import WhiteBtn from "../../components/WhiteBtn";
 import DetailBg from "../../img/profilebg.jpeg";
 import DefaultBg from "../../img/defaultbg.png";
 import LiveComment from "../../components/LiveComment";
 import { handleApi } from "../../api/handleApi";
 import { useParams } from "react-router-dom";
+import { calcDateRange } from "../../components/ProjectCard";
 
-export const WhiteBox = ({ value, name }: { value: number; name: string }) => {
+export const WhiteBox = ({
+  value,
+  name,
+}: {
+  value: number | string;
+  name: string;
+}) => {
   return (
     <div className="bg-white text-center p-4 flex-1 border border-gray-200 shadow-sm rounded-md cursor-pointer hover:bg-[#00a85c] hover:text-white">
       <p className="text-2xl font-bold">{value}</p>
@@ -28,11 +35,14 @@ export const DonateCost = ({ children }: { children: string }) => {
   );
 };
 
-export const FullStory = () => {
+export const FullStory = ({ message }: { message: string }) => {
   return (
     <section>
       <h1 className="text-[#00a85c] font-bold text-3xl"> Full story</h1>
-      <p className="font-thin text-lg my-10">this is just a testing message</p>
+      <div
+        dangerouslySetInnerHTML={{ __html: message }}
+        className="font-thin text-lg my-10"
+      ></div>
     </section>
   );
 };
@@ -117,6 +127,8 @@ const Reward = () => {
 const Detail = () => {
   const [tab, setTab] = useState(1);
   const [project, setProject] = useState<any>({});
+  const [image, setImage] = useState("");
+  const [dayLeft, setDayLeft] = useState(0);
 
   const renderTab = () => {
     switch (tab) {
@@ -124,10 +136,10 @@ const Detail = () => {
         return (
           <div className="w-full lg:grid lg:grid-cols-3">
             <div className="lg:col-span-2">
-              <FullStory />
+              <FullStory message={project.fullStory} />
             </div>
             <div className="lg:col-span-1">
-              <LiveComment />
+              <LiveComment subject={project.researchDetail} />
             </div>
           </div>
         );
@@ -156,6 +168,24 @@ const Detail = () => {
       });
       if (data) {
         setProject(data.data.props);
+        if (data) {
+          const imgData = await handleApi({
+            method: "post",
+            payload: { imageId: data.data.props.image },
+            endpoint: "image/getById",
+            disableNoti: true,
+          });
+          if (imgData.status === 200) {
+            setImage(imgData.data.props.imageUrl);
+            console.log("get image done");
+          }
+        }
+        console.log(data.data.props);
+        const left = calcDateRange(
+          data.data.props.date.startTime,
+          data.data.props.date.endTime
+        );
+        setDayLeft(left);
       }
     };
 
@@ -169,7 +199,10 @@ const Detail = () => {
       </div>
       <PageContainer classname="grid grid-cols-12 my-16 gap-8">
         <section className="col-span-12 md:col-span-6">
-          <img src={DefaultBg} className="bg-gray-300 h-80 w-full" />
+          <img
+            src={(image !== "" && image) || DefaultBg}
+            className="bg-gray-300 h-80 w-full"
+          />
           <div>
             <h2 className="font-bold text-2xl text-black mt-6 mb-2">
               Short story
@@ -187,8 +220,11 @@ const Detail = () => {
           </h1>
           <div className="flex gap-3 w-full">
             <WhiteBox value={project.goal} name="Pledge" />
-            <WhiteBox value={7550} name="Backer" />
-            <WhiteBox value={7550} name="Day Left" />
+            <WhiteBox
+              value={(project.backer && project.backer.length) || 0}
+              name="Backer"
+            />
+            <WhiteBox value={dayLeft} name="Day Left" />
           </div>
 
           <div className="user flex items-center my-6 gap-4">
@@ -201,17 +237,10 @@ const Detail = () => {
           <div className="w-full text-xl my-8">
             <div className="flex justify-between font-bold text-[#00a85c]">
               <p>Raised</p>
-              <p>37,5%</p>
+              <p>{project.raised}</p>
             </div>
             <hr className="h-2 my-2 w-full bg-gray-400" />
-            <p className="font-bold text-[#00a85c]">Goal: $19000</p>
-          </div>
-
-          <div className="flex justify-between gap-2">
-            <DonateCost>50</DonateCost>
-            <DonateCost>50</DonateCost>
-            <DonateCost>50</DonateCost>
-            <DonateCost>50</DonateCost>
+            <p className="font-bold text-[#00a85c]">Goal: ${project.goal}</p>
           </div>
 
           <div className="flex items-center gap-6 my-8">
