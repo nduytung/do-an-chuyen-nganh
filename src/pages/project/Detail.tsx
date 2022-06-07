@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import PrimaryBtn from "../../components/ProjectDetail/PrimaryBtn";
 import Tag from "../../components/ProjectDetail/Tag";
 import PageContainer from "../../layouts/PageContainer";
@@ -9,8 +9,11 @@ import DetailBg from "../../img/profilebg.jpeg";
 import DefaultBg from "../../img/defaultbg.png";
 import LiveComment from "../../components/LiveComment";
 import { handleApi } from "../../api/handleApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { calcDateRange } from "../../components/ProjectCard";
+import { BASE_URL } from "../../routes/baseURL";
+import { AuthContext } from "../../context/AuthProvider";
+import { toast } from "react-toastify";
 
 export const WhiteBox = ({
   value,
@@ -129,6 +132,9 @@ const Detail = () => {
   const [project, setProject] = useState<any>({});
   const [image, setImage] = useState("");
   const [dayLeft, setDayLeft] = useState(0);
+  const [user, setUser] = useState<any>({});
+
+  const navigate = useNavigate();
 
   const renderTab = () => {
     switch (tab) {
@@ -168,18 +174,33 @@ const Detail = () => {
       });
       if (data) {
         setProject(data.data.props);
-        if (data) {
-          const imgData = await handleApi({
-            method: "post",
-            payload: { imageId: data.data.props.image },
-            endpoint: "image/getById",
-            disableNoti: true,
-          });
-          if (imgData.status === 200) {
-            setImage(imgData.data.props.imageUrl);
-            console.log("get image done");
-          }
+
+        //get image
+        const imgData = await handleApi({
+          method: "post",
+          payload: { imageId: data.data.props.image },
+          endpoint: "image/getById",
+          disableNoti: true,
+        });
+        if (imgData.status === 200) {
+          setImage(imgData.data.props.imageUrl);
+          console.log("get image done");
         }
+
+        //get user info
+
+        const userInfo = await handleApi({
+          method: "get",
+          payload: {},
+          endpoint: `users/info/${data.data.props.authorId}`,
+          disableNoti: true,
+        });
+        if (userInfo.status === 200) {
+          setUser(userInfo.data.props);
+          console.log(userInfo);
+          console.log("get user info successfully");
+        }
+
         console.log(data.data.props);
         const left = calcDateRange(
           data.data.props.date.startTime,
@@ -191,6 +212,12 @@ const Detail = () => {
 
     fetchProject();
   }, []);
+
+  const { isLoggedIn } = useContext(AuthContext);
+  const handleBackCampaign = () => {
+    if (!isLoggedIn) navigate(BASE_URL.LOGIN);
+    else toast.success("Donate successfully");
+  };
 
   return (
     <main className="">
@@ -221,7 +248,7 @@ const Detail = () => {
           <div className="flex gap-3 w-full">
             <WhiteBox value={project.goal} name="Pledge" />
             <WhiteBox
-              value={(project.backer && project.backer.length) || 0}
+              value={(project?.backer && project.backer.length) || 0}
               name="Backer"
             />
             <WhiteBox value={dayLeft} name="Day Left" />
@@ -230,8 +257,10 @@ const Detail = () => {
           <div className="user flex items-center my-6 gap-4">
             <span className="bg-gray-400 rounded-full w-12 h-12"></span>
             <div>
-              <p className="font-bold text-lg">By Nguyen Duy Tung</p>
-              <p>9 campaigns</p>
+              <p className="font-bold text-lg">
+                By {user.info?.fullname || ""}
+              </p>
+              <p>{user?.projectList?.length || 0} campaigns</p>
             </div>
           </div>
           <div className="w-full text-xl my-8">
@@ -250,7 +279,7 @@ const Detail = () => {
                 30
               </div>
             </div>
-            <PrimaryBtn callback={() => {}}>Back Campaign</PrimaryBtn>
+            <PrimaryBtn callback={handleBackCampaign}>Back Campaign</PrimaryBtn>
           </div>
         </section>
         <section className="col-span-12 bg-white shadow-lg py-4 px-5 my-8 border border-gray-100">
@@ -283,7 +312,9 @@ const Detail = () => {
             </div>
             <PrimaryBtn
               classname={"text-sm lg:text-lg px-2"}
-              callback={() => {}}
+              callback={() => {
+                navigate(BASE_URL.NEW_PROJECT);
+              }}
             >
               Create your Campaign
             </PrimaryBtn>

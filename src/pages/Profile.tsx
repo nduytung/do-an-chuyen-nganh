@@ -1,6 +1,6 @@
 import moment from "moment";
-import React, { useContext } from "react";
-import ProjectCard from "../components/ProjectCard";
+import React, { useContext, useEffect, useState } from "react";
+import ProjectCard, { calcDateRange } from "../components/ProjectCard";
 import PrimaryBtn from "../components/ProjectDetail/PrimaryBtn";
 import PageContainer from "../layouts/PageContainer";
 import DefaultAvt from "../img/defaultavt.jpeg";
@@ -8,6 +8,9 @@ import ProfileBg from "../img/profilebg.jpeg";
 import WhiteBtn from "../components/WhiteBtn";
 import withAuth from "../helper/withAuth";
 import { AuthContext } from "../context/AuthProvider";
+import { useParams } from "react-router-dom";
+import { handleApi } from "../api/handleApi";
+import ConfirmModal from "../components/modal/ConfirmModal";
 
 const SummaryBox = ({
   money,
@@ -27,6 +30,44 @@ const SummaryBox = ({
   );
 };
 const Profile = () => {
+  const { id } = useParams();
+  const { setUserProfile, userProfile } = useContext(AuthContext);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState("");
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const data = await handleApi({
+        method: "get",
+        payload: {},
+        endpoint: `users/info/${id}`,
+      });
+      if (data.status === 200) console.log(data);
+      setUserProfile(data.data.props);
+    };
+    getUserInfo();
+  }, []);
+
+  const handleDelete = async () => {
+    //call api to delete project
+    const deleteResult = await handleApi({
+      method: "delete",
+
+      endpoint: `project/delete/${selectedProjectId}`,
+    });
+
+    console.log(deleteResult);
+    if (deleteResult.status === 200) {
+      setDeleteModalVisible(false);
+    }
+  };
+
+  const handleDisplayModal = (projectId: string) => {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
+    setSelectedProjectId(projectId);
+    setDeleteModalVisible(true);
+  };
   return (
     <main>
       <img src={ProfileBg} className="bg-black opacity-50 h-64 w-full" />
@@ -37,7 +78,8 @@ const Profile = () => {
           className="bg-gray-200 rounded-full h-44 w-44 mx-auto my-6"
         />
         <h1 className="text-3xl font-bold text-[#00a85c] text-center">
-          Nguyen Duy Tung
+          {(userProfile?.info && userProfile?.info?.fullname) || null} (@
+          {(userProfile?.info && userProfile?.info?.username) || null})
         </h1>
 
         <section className="bg-white shadow-lg py-4 px-5 my-8 border border-gray-100">
@@ -80,19 +122,22 @@ const Profile = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 md:gap-10 mt-5 md:mt-0">
             <SummaryBox
-              title="testing 01"
-              money={2000}
-              desc="this is just a testing message"
+              title="User's account balance in total"
+              money={userProfile?.info && userProfile?.info?.accountBalance}
+              desc="How much you have left in this account"
             />
             <SummaryBox
-              title="testing 01"
-              money={2000}
-              desc="this is just a testing message"
+              title="Spent"
+              money={userProfile?.info && userProfile?.info?.spent}
+              desc="How much you have spent so far"
             />
             <SummaryBox
-              title="testing 01"
-              money={2000}
-              desc="this is just a testing message"
+              title="Total money this month"
+              money={
+                userProfile?.info &&
+                userProfile?.info?.accountBalance + userProfile?.info?.spent
+              }
+              desc="Total money"
             />
           </div>
         </section>
@@ -102,24 +147,40 @@ const Profile = () => {
           <main className="flex-1 border border-gray-100 shadow-md p-6">
             <h2 className="text-[#00a85c] text-2xl font-bold">My Campaign</h2>
             <hr className="my-4" />
-            {/* <p className="text-lg font-light">
-              : ( It looks like you don't have any campaign yet
-            </p> */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6 xl:gap-4">
-              {/* <ProjectCard
-                cate="Design&Tech"
-                title="Self hooting Game"
-                raised={4500}
-                goal={8000}
-                dayLeft={10}
-              /> */}
-            </div>
+            {userProfile?.projectList &&
+            userProfile?.projectList?.length === 0 ? (
+              <p className="text-lg font-light">
+                {": ("} It looks like you don't have any campaign yet
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6 xl:gap-4">
+                {userProfile?.projectList.map((project: any) => {
+                  return (
+                    <ProjectCard
+                      cate={project?.category}
+                      title={project?.projectName}
+                      raised={project?.raised}
+                      goal={project?.goal}
+                      startTime={project?.date?.startTime}
+                      endTime={project?.date?.endTime}
+                      background={project?.image}
+                      authorId={userProfile?.info?._id}
+                      allowDelete={true}
+                      projectId={project?._id}
+                      handleDelete={handleDisplayModal}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </main>
           <main className="flex-1 grid gap-10">
             <div className="border border-gray-100 shadow-md p-6">
               <h2 className="text-[#00a85c] text-2xl font-bold">My Balance</h2>
               <hr className="my-4" />
-              <p className="text-lg font-light">Current balance: $0000</p>
+              <p className="text-lg font-light">
+                Current balance: ${userProfile?.info?.accountBalance}
+              </p>
             </div>
             <div className="border border-gray-100 shadow-md p-6">
               <h2 className="text-[#00a85c] text-2xl font-bold">
@@ -133,7 +194,7 @@ const Profile = () => {
                     type="text"
                     name=""
                     id=""
-                    value="nduytung"
+                    value={userProfile?.info?.username}
                     className="col-span-3 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
                   />
                 </div>
@@ -143,7 +204,7 @@ const Profile = () => {
                     type="text"
                     name=""
                     id=""
-                    value="nduytung"
+                    value={userProfile?.info?.fullname}
                     className="col-span-3 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
                   />
                 </div>
@@ -153,7 +214,7 @@ const Profile = () => {
                     type="text"
                     name=""
                     id=""
-                    value="nduytung"
+                    value={userProfile?.info?.email}
                     className="col-span-3 border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none"
                   />
                 </div>
@@ -196,6 +257,12 @@ const Profile = () => {
             </div>
           </main>
         </section>
+        <ConfirmModal
+          content="Are you sure you want to delete this project?"
+          isVisible={deleteModalVisible}
+          setVisible={setDeleteModalVisible}
+          handleDelete={() => handleDelete()}
+        />
       </PageContainer>
     </main>
   );

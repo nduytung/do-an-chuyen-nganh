@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import ConfirmModal from "../components/modal/ConfirmModal";
 
 type LayoutType = {
   children: React.ReactNode;
@@ -8,7 +9,7 @@ type LayoutType = {
 
 const MainLayout = ({ children }: LayoutType) => {
   return (
-    <div>
+    <div className="relative">
       <Header />
       <main className="pt-24">{children}</main>
       <Footer />

@@ -13,7 +13,8 @@ import { BASE_URL } from "../routes/baseURL";
 const Header = () => {
   const logo = require("./logo.png");
 
-  const { isLoggedIn, username, fullname, token } = useContext(AuthContext);
+  const { isLoggedIn, username, fullname, token, userId } =
+    useContext(AuthContext);
 
   const [openNav, setOpenNav] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
@@ -22,7 +23,7 @@ const Header = () => {
     username && localStorage.removeItem("username");
     fullname && localStorage.removeItem("fullname");
     token && localStorage.removeItem("token");
-
+    userId && localStorage.removeItem("userId");
     window.location.reload();
   };
 
@@ -215,7 +216,7 @@ const Header = () => {
             ) : (
               <div className="flex flex-col">
                 <button
-                  onClick={() => setLogoutModal(true)}
+                  onClick={() => setLogoutModal(!logoutModal)}
                   className="bg-white relative rounded-full p-4 border border-gray-300 text-lg text-center"
                 >
                   <AiOutlineUser />{" "}
@@ -224,7 +225,9 @@ const Header = () => {
                   <div className="bg-white rounded-md absolute p-4 border border-gray-300 mt-16 ">
                     <button onClick={handleLogout}>Đăng xuất</button>
                     <hr className="my-2 border border-gray-300" />
-                    <button onClick={() => navigate(BASE_URL.PROFILE)}>
+                    <button
+                      onClick={() => navigate(`${BASE_URL.PROFILE}/${userId}`)}
+                    >
                       Xem trang cá nhân
                     </button>
                   </div>

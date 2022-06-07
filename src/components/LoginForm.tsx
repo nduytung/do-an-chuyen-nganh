@@ -10,8 +10,12 @@ import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import { inputCSS } from "./RegisterForm";
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const { handleSetToken, handleSetUsername, handleSetFullname } =
-    useContext(AuthContext);
+  const {
+    handleSetToken,
+    handleSetUsername,
+    handleSetFullname,
+    handleSetUserId,
+  } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -44,6 +48,7 @@ export const LoginForm = () => {
       handleSetToken(data.data.props.token);
       handleSetUsername(data.data.props.username);
       handleSetFullname(data.data.props.fullname);
+      handleSetUserId(data.data.props._id);
       setTimeout(() => {
         window.location.reload();
       }, 1000);

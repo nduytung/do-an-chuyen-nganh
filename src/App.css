@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -28,13 +32,13 @@
   color: #61dafb;
 }
 
-.backgroundImage{
-  background-image: url('./components/Image/backgroundAbout.jpg');
+.backgroundImage {
+  background-image: url("./components/Image/backgroundAbout.jpg");
   background-size: cover;
 }
 
-.backgroundImageFooter{
-  background-image: url('https://gaviaswp.com/wp/funden/wp-content/uploads/2021/08/bg-footer.jpg');
+.backgroundImageFooter {
+  background-image: url("https://gaviaswp.com/wp/funden/wp-content/uploads/2021/08/bg-footer.jpg");
   background-size: cover;
 }
 
@@ -46,4 +50,3 @@
     transform: rotate(360deg);
   }
 }
-

@@ -22,7 +22,7 @@ export const routeList: RouteListType[] = [
     element: <Landing />,
   },
   {
-    path: BASE_URL.PROFILE,
+    path: `${BASE_URL.PROFILE}/:id`,
     element: <Profile />,
   },
   {

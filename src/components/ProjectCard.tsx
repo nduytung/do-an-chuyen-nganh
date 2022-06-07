@@ -1,7 +1,11 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { handleApi } from "../api/handleApi";
 import defaultBg from "../img/defaultbg.png";
+import { BASE_URL } from "../routes/baseURL";
+import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
+import WhiteBgBtn from "./ProjectDetail/WhiteBgBtn";
 
 type ProjectCardType = {
   cate: string;
@@ -11,6 +15,10 @@ type ProjectCardType = {
   startTime: string;
   endTime: string;
   background?: string;
+  authorId?: string;
+  allowDelete?: boolean;
+  projectId: string;
+  handleDelete: any;
 };
 
 export const calcDateRange = (startTime: string, endTime: string) => {
@@ -27,10 +35,15 @@ const ProjectCard = ({
   startTime,
   endTime,
   background,
+  authorId = "",
+  allowDelete = false,
+  projectId,
+  handleDelete,
 }: ProjectCardType) => {
   const percent = (raised / goal) * 100;
   const [image, setImage] = useState("");
   const [dayLeft, setDayLeft] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleGetBg = async () => {
@@ -65,17 +78,34 @@ const ProjectCard = ({
           {cate}
         </div>
         <h2 className="font-bold text-2xl my-6">{title}</h2>
-        <div className="flex items-center justify-between w-full">
-          <p>Raised: ${raised}</p>
-          <p>{percent}%</p>
-        </div>
-        <p className="text-lg font-bold my-4">
-          Goal: <span className="text-[#00a85c]">${goal}</span>
-        </p>
-        <div className="bg-gray-100 p-3 flex justify-between items-center w-full hover:border-[#00a85c]  hover:border cursor-pointer">
+        {goal !== 0 && (
+          <>
+            <div className="flex items-center justify-between w-full">
+              <p>Raised: ${raised}</p>
+              <p>{percent}%</p>
+            </div>
+            <p className="text-lg font-bold my-4">
+              Goal: <span className="text-[#00a85c]">${goal}</span>
+            </p>
+          </>
+        )}
+        <button
+          onClick={() => navigate(`${BASE_URL.DETAIL_PROJECT}/${projectId}`)}
+          className="bg-gray-100 p-3 flex justify-between items-center w-full hover:border-[#00a85c]  hover:border cursor-pointer"
+        >
           {dayLeft || 0} days left!{" "}
           <span className="text-[#00a85c]"> Register now</span>
-        </div>
+        </button>
+        {authorId !== "" && allowDelete && (
+          <>
+            <WhiteBgBtn
+              callback={() => handleDelete(projectId)}
+              classname="my-5 w-full bottom-0 "
+            >
+              Delete project
+            </WhiteBgBtn>
+          </>
+        )}
       </div>
     </main>
   );

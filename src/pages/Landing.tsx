@@ -223,6 +223,8 @@ const Landing = () => {
                       goal={parseInt(project.goal)}
                       startTime={project.date.startTime}
                       endTime={project.date.endTime}
+                      projectId={project._id}
+                      handleDelete={() => {}}
                     />
                   )
                 );
