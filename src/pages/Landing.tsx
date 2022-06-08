@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { lazy, useContext, useEffect, useState } from "react";
 import PrimaryBtn from "../components/ProjectDetail/PrimaryBtn";
 import WhiteBtn from "../components/WhiteBtn";
 import PageContainer from "../layouts/PageContainer";
@@ -25,6 +25,7 @@ import AdvisingProjectCard from "../components/AdvisingProjectCard";
 import CTABg from "../img/cta.webp";
 import { handleApi } from "../api/handleApi";
 import LiveComment from "../components/LiveComment";
+import { AuthContext } from "../context/AuthProvider";
 
 export const CATEGORY: Array<{
   icon: React.ReactNode;
@@ -114,6 +115,8 @@ const Landing = () => {
   const [projects, setProjects] = useState<object[]>([]);
   const [cateFilter, setCateFilter] = useState("");
 
+  const { userId } = useContext(AuthContext);
+
   useEffect(() => {
     const getData = async () => {
       const data = await handleApi({
@@ -121,7 +124,13 @@ const Landing = () => {
         payload: null,
         endpoint: "project/all",
       });
-      setProjects(data.data.props);
+
+      //filter all project that the user logged in is the owner
+
+      const filteredData = await data?.data?.props.filter(
+        (project: any) => userId !== project.authorId
+      );
+      setProjects(filteredData);
       console.log(data.data.props);
     };
     getData();

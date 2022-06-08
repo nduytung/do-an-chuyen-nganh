@@ -9,6 +9,7 @@ import WhiteBgBtn from "./ProjectDetail/WhiteBgBtn";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
 import { BASE_URL } from "../routes/baseURL";
+import { handleApi } from "../api/handleApi";
 
 const Header = () => {
   const logo = require("./logo.png");
@@ -19,6 +20,7 @@ const Header = () => {
   const [openNav, setOpenNav] = useState(false);
   const [notiDisplay, setNotiDisplay] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
+  const [notiList, setNotiList] = useState([]);
 
   const handleLogout = () => {
     username && localStorage.removeItem("username");
@@ -34,6 +36,22 @@ const Header = () => {
   };
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getNoti = async () => {
+      const notification = await handleApi({
+        method: "get",
+        endpoint: "users/noti-list",
+      });
+
+      if (notification.status === 200) {
+        setNotiList(notification?.data?.props?.notiList);
+      }
+      console.log(notification);
+    };
+
+    getNoti();
+  }, []);
   return (
     <>
       <div className="py-8 bg-white w-full  shadow-2xl  fixed z-[100] px-6">
@@ -226,19 +244,27 @@ const Header = () => {
                   </div>
                 )}
                 {notiDisplay && (
-                  <div className="bg-white rounded-md absolute p-4  border border-gray-300 mt-10 w-96 right-4">
-                    <div className="bg-gray-100 rounded-sm p-3 my-2">
-                      <span className="text-green-600"> Nguyen Duy Tung </span>{" "}
-                      has donated for your project{" "}
-                      <span className="text-green-600"> Project 001</span>{" "}
-                      200.000 VND
-                    </div>
-                    <div className="bg-gray-100 rounded-sm p-3 my-2">
-                      <span className="text-green-600"> Nguyen Duy Tung </span>{" "}
-                      has donated for your project{" "}
-                      <span className="text-green-600"> Project 001</span>{" "}
-                      200.000 VND
-                    </div>
+                  <div className="bg-white rounded-md absolute p-4  border border-gray-300 mt-10 w-96 right-4 h-56 overflow-y-scroll">
+                    {notiList && notiList?.length > 0 ? (
+                      notiList.map((noti: any) => {
+                        return (
+                          <div className="bg-gray-100 rounded-sm p-3 my-2">
+                            <span className="text-green-600">
+                              {" "}
+                              {noti?.backerName}{" "}
+                            </span>
+                            has donated for your project
+                            <span className="text-green-600">
+                              {" "}
+                              {noti?.projectName}{" "}
+                            </span>
+                            {noti?.moneyAmount || 0}.000 VND
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <p>Sorry, it looks like you dont have any noti yet</p>
+                    )}
                   </div>
                 )}
               </div>

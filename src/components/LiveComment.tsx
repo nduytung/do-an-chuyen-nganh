@@ -24,11 +24,11 @@ const LiveComment = ({ subject }: { subject: string }) => {
     socket && socket.emit("on-chat", { message: message });
 
     //calling api
-    await handleApi({
-      method: "put",
-      payload: { comment: message, id: TESTING_PROJECT_ID },
-      endpoint: "project/comment",
-    });
+    // await handleApi({
+    //   method: "put",
+    //   payload: { comment: message, id: TESTING_PROJECT_ID },
+    //   endpoint: "project/comment",
+    // });
   };
 
   useEffect(() => {

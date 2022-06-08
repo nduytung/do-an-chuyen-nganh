@@ -16,7 +16,7 @@ const Footer = () => {
 
   return (
     <div className="w-full  bg-[#282b39]  pt-20 pb-10 px-5 md:px-10">
-      <div className="bg-transparent grid grid-cols-2 lg:grid-cols-4">
+      <div className="bg-transparent grid grid-cols-2 lg:grid-cols-4 container mx-auto">
         <div className="col-span-2 lg:col-span-1 bg-transparent flex-col">
           <div className="mt-4 bg-slate-100 rounded-full py-3 px-5">
             <img src={logo} className="w-44" />
@@ -129,7 +129,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="w-full p-8 bg-[#1f2230] mt-10 xl:grid lg:grid md:grid xl:justify-items-stretch lg:justify-items-stretch md:justify-items-stretch py-5 xl:items-center lg:items-center md:items-center ">
+      <div className="container mx-auto p-8 bg-[#1f2230] mt-10 xl:grid lg:grid md:grid xl:justify-items-stretch lg:justify-items-stretch md:justify-items-stretch py-5 xl:items-center lg:items-center md:items-center ">
         <div className="relative text-slate-100 w-fit">
           © 2022 Gavias. All Rights Reserved
         </div>
