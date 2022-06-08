@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PrimaryBtn from "../ProjectDetail/PrimaryBtn";
 import WhiteBgBtn from "../ProjectDetail/WhiteBgBtn";
 
@@ -14,6 +14,10 @@ const ConfirmModal = ({
   setVisible,
   handleDelete,
 }: IConfirmModal) => {
+  useEffect(() => {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0;
+  }, [isVisible]);
   return (
     <div className={`${isVisible ? "block" : "hidden"}`}>
       <article
@@ -24,12 +28,15 @@ const ConfirmModal = ({
         <h1 className="text-red-500 font-semibold text-2xl">Warning!</h1>
         <hr className="border-t border-gray-200 my-5 w-full" /> {content}
         <div className="flex items-center-justify-between mt-8 w-full gap-6">
-          <PrimaryBtn callback={handleDelete} classname="flex-1">
-            Delete
-          </PrimaryBtn>
-          <WhiteBgBtn callback={() => setVisible(false)} classname="flex-1">
+          <button onClick={handleDelete} className="flex-1 text-[#00a85c]">
+            Confirm
+          </button>
+          <button
+            onClick={() => setVisible(false)}
+            className="flex-1 text-gray-500"
+          >
             Cancel
-          </WhiteBgBtn>
+          </button>
         </div>
       </div>
     </div>

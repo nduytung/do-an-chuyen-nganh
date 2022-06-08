@@ -14,6 +14,8 @@ import { calcDateRange } from "../../components/ProjectCard";
 import { BASE_URL } from "../../routes/baseURL";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
+import ConfirmModal from "../../components/modal/ConfirmModal";
+import { momoPayment } from "../../api/momoPayment";
 
 export const WhiteBox = ({
   value,
@@ -133,6 +135,8 @@ const Detail = () => {
   const [image, setImage] = useState("");
   const [dayLeft, setDayLeft] = useState(0);
   const [user, setUser] = useState<any>({});
+  const [backAmount, setBackAmount] = useState<any>(0);
+  const [confirmDonate, setConfirmDonate] = useState(false);
 
   const navigate = useNavigate();
 
@@ -213,10 +217,46 @@ const Detail = () => {
     fetchProject();
   }, []);
 
-  const { isLoggedIn } = useContext(AuthContext);
-  const handleBackCampaign = () => {
+  const { isLoggedIn, userId } = useContext(AuthContext);
+
+  //confirm donate function
+  const handleBackCampaign = async () => {
     if (!isLoggedIn) navigate(BASE_URL.LOGIN);
-    else toast.success("Donate successfully");
+
+    //check if user balance is enough to pay
+    const ownerInfo = await handleApi({
+      method: "get",
+      payload: {},
+      endpoint: `users/info/${userId}`,
+      disableNoti: true,
+    });
+    if (ownerInfo.status !== 200) {
+      return;
+    }
+
+    console.log(ownerInfo.data.props.info.accountBalance);
+    const { accountBalance } = ownerInfo?.data?.props?.info;
+
+    //if user's balance is not enough to pay
+    if (parseInt(accountBalance) < parseInt(backAmount))
+      toast.error(
+        "Sorry, you don't have enough money or credits to pay for this"
+      );
+    else {
+      //call momo api
+      const data = await handleApi({
+        method: "post",
+        payload: {},
+        endpoint: "project/momo-trigger",
+      });
+      if (data) {
+        //we got url here
+        console.log(data?.data?.props?.payUrl);
+        window.open(data?.data?.props?.payUrl, "_blank")?.focus();
+      }
+    }
+
+    setConfirmDonate(false);
   };
 
   return (
@@ -272,14 +312,24 @@ const Detail = () => {
             <p className="font-bold text-[#00a85c]">Goal: ${project.goal}</p>
           </div>
 
-          <div className="flex items-center gap-6 my-8">
-            <div className="flex items-center">
+          <div className="flex items-center  gap-6 my-8">
+            <div className="flex items-center justify-start">
               <p className="text-2xl font-light">$</p>
-              <div className="border-2 border-gray-400 rounded-xl py-2 px-4 text-black text-xl">
-                30
-              </div>
+              <input
+                type={"number"}
+                value={backAmount}
+                defaultValue={0}
+                onChange={(e) => setBackAmount(e.target.value)}
+                className="border-2 focus:outline-none border-gray-400 rounded-xl py-2 px-4 text-black text-xl w-24"
+              />
             </div>
-            <PrimaryBtn callback={handleBackCampaign}>Back Campaign</PrimaryBtn>
+            <PrimaryBtn
+              callback={() =>
+                parseInt(backAmount) > 0 && setConfirmDonate(true)
+              }
+            >
+              Back Campaign
+            </PrimaryBtn>
           </div>
         </section>
         <section className="col-span-12 bg-white shadow-lg py-4 px-5 my-8 border border-gray-100">
@@ -324,6 +374,13 @@ const Detail = () => {
           {renderTab()}
         </div>
       </PageContainer>
+
+      <ConfirmModal
+        content={`Are you sure that you want to donate for this project? It'll cost ${backAmount}.000 VND from your balance`}
+        isVisible={confirmDonate}
+        setVisible={setConfirmDonate}
+        handleDelete={() => handleBackCampaign()}
+      />
     </main>
   );
 };

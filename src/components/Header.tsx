@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import WhiteBgBtn from "./ProjectDetail/WhiteBgBtn";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
 import { BASE_URL } from "../routes/baseURL";
 
@@ -57,26 +57,23 @@ const Header = () => {
               `}
             >
               <li className="py-4 active:bg-[#02a95c] border-b border-gray-400 ">
-                <a className="tracking-widest text-lg">Home</a>
+                <Link to={BASE_URL.LANDING} className="tracking-widest text-lg">
+                  Home
+                </Link>
               </li>
               <li className="py-4 active:bg-[#02a95c] border-b border-gray-400">
-                <button
-                  className="tracking-widest text-lg"
-                  onClick={() => navigate(BASE_URL.DASHBOARD)}
-                >
-                  Dashboard
-                </button>
+                <Link to={BASE_URL.DASHBOARD}>Dashboard</Link>
               </li>
               <li className="py-4  border-b border-gray-400">
-                <a className="tracking-widest text-lg">Explore</a>
+                <Link
+                  to={BASE_URL.ALL_PROJECT}
+                  className="tracking-widest text-lg"
+                >
+                  Explore
+                </Link>
               </li>
               <li className="py-4 active:bg-[#02a95c] border-b border-gray-400">
-                <button
-                  className="tracking-widest text-lg"
-                  onClick={() => navigate(BASE_URL.ABOUT)}
-                >
-                  About
-                </button>
+                <Link to={BASE_URL.ABOUT}>About</Link>
               </li>
 
               <li className="py-4">
@@ -92,19 +89,27 @@ const Header = () => {
           {/* responsive laptop,ipad pro */}
           <ul className="hidden xl:ml-16 lg:ml-5 w-6/12 xl:mr-8 lg:mr-7 my-auto lg:flex flex-row">
             <li className="  no-underline px-5 relative group hover:cursor-pointer justify-center align-middle  ">
-              <a className="tracking-widest text-lg transition ease-in-out duration-200 ">
+              <Link
+                to={BASE_URL.LANDING}
+                className="tracking-widest text-lg transition ease-in-out duration-200 "
+              >
                 Home
                 <div className="mt-4 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
-              </a>
+              </Link>
             </li>
             <li className="  no-underline px-5 relative group hover:cursor-pointer justify-center align-middle">
-              <a className="tracking-widest text-lg" href="/dashboard">
+              <Link to={BASE_URL.DASHBOARD} className="tracking-widest text-lg">
                 Dashboard
                 <div className="mt-4 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
-              </a>
+              </Link>
             </li>
             <li className="  no-underline px-5 relative group hover:cursor-pointer justify-center align-middle ">
-              <a className="tracking-widest text-lg">Explore</a>
+              <Link
+                to={BASE_URL.ALL_PROJECT}
+                className="tracking-widest text-lg"
+              >
+                Explore
+              </Link>
               <div className="mt-4 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
               <ul className="absolute mt-5 w-36 h-[164px] bg-white shadow-xl rounded-lg opacity-0 invisible group-active:opacity-100 group-hover:opacity-100 group-active:visible group-hover:visible duration-300 max-h-0 group-hover:max-h-48 ">
                 <li>
