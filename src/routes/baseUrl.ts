@@ -9,4 +9,6 @@ export const BASE_URL = {
   ALL_PROJECT: "/project/all",
   DETAIL_PROJECT: "/project/detail",
   LOGIN: "/login",
+  DONE_PAYMENT: "/payment-success",
+  CLOSED_PROJECT: "/closed-project",
 };

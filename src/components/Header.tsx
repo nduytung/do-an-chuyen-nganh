@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthProvider";
 import { PrimaryButton } from "./PrimaryButton";
 import { SecondaryButton } from "./SecondaryButton";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineBell, AiOutlineClose } from "react-icons/ai";
 import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import WhiteBgBtn from "./ProjectDetail/WhiteBgBtn";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ const Header = () => {
     useContext(AuthContext);
 
   const [openNav, setOpenNav] = useState(false);
+  const [notiDisplay, setNotiDisplay] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
 
   const handleLogout = () => {
@@ -62,7 +63,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="py-4 active:bg-[#02a95c] border-b border-gray-400">
-                <Link to={BASE_URL.DASHBOARD}>Dashboard</Link>
+                <Link to={BASE_URL.CLOSED_PROJECT}>Closed projects</Link>
               </li>
               <li className="py-4  border-b border-gray-400">
                 <Link
@@ -98,8 +99,11 @@ const Header = () => {
               </Link>
             </li>
             <li className="  no-underline px-5 relative group hover:cursor-pointer justify-center align-middle">
-              <Link to={BASE_URL.DASHBOARD} className="tracking-widest text-lg">
-                Dashboard
+              <Link
+                to={BASE_URL.CLOSED_PROJECT}
+                className="tracking-widest text-lg"
+              >
+                Closed Projects
                 <div className="mt-4 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
               </Link>
             </li>
@@ -195,22 +199,46 @@ const Header = () => {
                 Login
               </WhiteBgBtn>
             ) : (
-              <div className="flex flex-col">
-                <button
-                  onClick={() => setLogoutModal(!logoutModal)}
-                  className="bg-white relative rounded-full p-4 border border-gray-300 text-lg text-center"
-                >
-                  <AiOutlineUser />{" "}
-                </button>
+              <div className="">
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => setLogoutModal(!logoutModal)}
+                    className="bg-white relative rounded-full p-4 border border-gray-300 text-lg text-center"
+                  >
+                    <AiOutlineUser />{" "}
+                  </button>
+                  <button
+                    onClick={() => setNotiDisplay(!notiDisplay)}
+                    className="bg-white relative rounded-full p-4 border border-gray-300 text-lg text-center"
+                  >
+                    <AiOutlineBell />{" "}
+                  </button>
+                </div>
                 {logoutModal && (
-                  <div className="bg-white rounded-md absolute p-4 border border-gray-300 mt-16 ">
-                    <button onClick={handleLogout}>Đăng xuất</button>
+                  <div className="bg-white rounded-md absolute p-4 border border-gray-300 mt-20 w-48 right-4">
+                    <button onClick={handleLogout}>Login</button>
                     <hr className="my-2 border border-gray-300" />
                     <button
                       onClick={() => navigate(`${BASE_URL.PROFILE}/${userId}`)}
                     >
-                      Xem trang cá nhân
+                      Profile
                     </button>
+                  </div>
+                )}
+                {notiDisplay && (
+                  <div className="bg-white rounded-md absolute p-4  border border-gray-300 mt-10 w-96 right-4">
+                    <div className="bg-gray-100 rounded-sm p-3 my-2">
+                      <span className="text-green-600"> Nguyen Duy Tung </span>{" "}
+                      has donated for your project{" "}
+                      <span className="text-green-600"> Project 001</span>{" "}
+                      200.000 VND
+                    </div>
+                    <div className="bg-gray-100 rounded-sm p-3 my-2">
+                      <span className="text-green-600"> Nguyen Duy Tung </span>{" "}
+                      has donated for your project{" "}
+                      <span className="text-green-600"> Project 001</span>{" "}
+                      200.000 VND
+                    </div>
                   </div>
                 )}
               </div>

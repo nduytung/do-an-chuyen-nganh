@@ -244,6 +244,7 @@ const Detail = () => {
       );
     else {
       //call momo api
+      console.log("backAmout: " + backAmount);
       const data = await handleApi({
         method: "post",
         payload: {

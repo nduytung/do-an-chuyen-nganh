@@ -30,36 +30,43 @@ export const CATEGORY: Array<{
   icon: React.ReactNode;
   title: string;
   description: string;
+  value: string;
 }> = [
   {
     icon: <MdOutlineCastForEducation />,
     title: "Education",
     description: "School, college and univsersity",
+    value: "Education",
   },
   {
     icon: <FaFileMedical />,
     title: "Medical & heath",
     description: "For medical and health purposes",
+    value: "Medical & heath",
   },
   {
     icon: <GiClothes />,
     title: "Fashion",
     description: "Fashion and clothing purposes",
+    value: "Fashion",
   },
   {
     icon: <AiOutlineVideoCamera />,
     title: "Video & Filming",
     description: "Support video & filming methods",
+    value: "Video & Filming",
   },
   {
     icon: <BiCodeAlt />,
     title: "Technologies",
     description: "For technology purposes",
+    value: "Technologies",
   },
   {
     icon: <MdOutlineDesignServices />,
     title: "Design",
     description: "House design & architecture",
+    value: "Design",
   },
 ];
 
@@ -105,6 +112,7 @@ const CTAItems = ({
 };
 const Landing = () => {
   const [projects, setProjects] = useState<object[]>([]);
+  const [cateFilter, setCateFilter] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -160,14 +168,16 @@ const Landing = () => {
             </PrimaryBtn>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-y-6 lg:grid-cols-3">
             {CATEGORY.map((item) => {
               return (
                 <Category
                   title={item.title}
                   description={item.description}
                   icon={item.icon}
-                  classname="col-span-1"
+                  classname="col-span-1 mx-auto w-full"
+                  setFilter={setCateFilter}
+                  value={item.value}
                 />
               );
             })}
@@ -183,22 +193,26 @@ const Landing = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {projects &&
-              projects.map((project: any, index: number) => {
-                return (
-                  project.type === "research" && (
-                    <AdvisingProjectCard
-                      key={project._id}
-                      cate={project.category}
-                      title={project.projectName}
-                      description={project.shortStory}
-                      startTime={project.date.startTime}
-                      endTime={project.date.endTime}
-                      id={project._id}
-                      background={project.image}
-                    />
-                  )
-                );
-              })}
+              projects
+                .filter((item: any) =>
+                  cateFilter !== "" ? item.category === cateFilter : item
+                )
+                .map((project: any, index: number) => {
+                  return (
+                    project.type === "research" && (
+                      <AdvisingProjectCard
+                        key={project._id}
+                        cate={project.category}
+                        title={project.projectName}
+                        description={project.shortStory}
+                        startTime={project.date.startTime}
+                        endTime={project.date.endTime}
+                        id={project._id}
+                        background={project.image}
+                      />
+                    )
+                  );
+                })}
           </div>
         </section>
 
@@ -212,23 +226,27 @@ const Landing = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {projects &&
-              projects.map((project: any, index: number) => {
-                return (
-                  project.type === "donate" && (
-                    <ProjectCard
-                      key={project._id}
-                      cate={project.category}
-                      title={project.projectName}
-                      raised={project.raised}
-                      goal={parseInt(project.goal)}
-                      startTime={project.date.startTime}
-                      endTime={project.date.endTime}
-                      projectId={project._id}
-                      handleDelete={() => {}}
-                    />
-                  )
-                );
-              })}
+              projects
+                .filter((item: any) =>
+                  cateFilter !== "" ? item.category === cateFilter : item
+                )
+                .map((project: any, index: number) => {
+                  return (
+                    project.type === "donate" && (
+                      <ProjectCard
+                        key={project._id}
+                        cate={project.category}
+                        title={project.projectName}
+                        raised={project.raised}
+                        goal={parseInt(project.goal)}
+                        startTime={project.date.startTime}
+                        endTime={project.date.endTime}
+                        projectId={project._id}
+                        handleDelete={() => {}}
+                      />
+                    )
+                  );
+                })}
           </div>
         </section>
 

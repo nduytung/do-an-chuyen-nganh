@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
 import WithAuth from "./helper/withAuth";
 import Detail from "./pages/project/Detail";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   const counter: number = useSelector(
@@ -22,7 +23,7 @@ const App = () => {
             {routeList.map((route) => {
               return <Route path={route.path} element={route.element}></Route>;
             })}
-            <Route path="*" element={<h1>please comeback later!</h1>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <ToastContainer />
         </AuthProvider>

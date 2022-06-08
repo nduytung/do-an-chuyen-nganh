@@ -6,6 +6,8 @@ import Login from "../pages/Login";
 import Bookmark from "../pages/Bookmark";
 import AllProject from "../pages/AllProject";
 import Dashboard from "../pages/Dashboard";
+import DonePayment from "../pages/DonePayment";
+import ClosedProjectList from "../pages/ClosedProjectList";
 const Profile = lazy(() => import("../pages/Profile"));
 const Landing = lazy(() => import("../pages/Landing"));
 const Detail = lazy(() => import("../pages/project/Detail"));
@@ -56,5 +58,14 @@ export const routeList: RouteListType[] = [
   {
     path: BASE_URL.BOOKMARK,
     element: <Bookmark />,
+  },
+
+  {
+    path: BASE_URL.DONE_PAYMENT,
+    element: <DonePayment />,
+  },
+  {
+    path: BASE_URL.CLOSED_PROJECT,
+    element: <ClosedProjectList />,
   },
 ];
