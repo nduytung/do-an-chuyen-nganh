@@ -9,9 +9,9 @@ type LayoutType = {
 
 const MainLayout = ({ children }: LayoutType) => {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <Header />
-      <main className="pt-24">{children}</main>
+      <main className="pt-24 w-full">{children}</main>
       <Footer />
     </div>
   );

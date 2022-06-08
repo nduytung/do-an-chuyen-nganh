@@ -35,94 +35,62 @@ const Header = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="xl:w-full lg:w-full md:w-full py-8 bg-white iphone:border-b-2 iphone:border-[#02a95c] shadow-2xl  fixed z-[100] iphone:h-20 iphone:w-[414px] iphone:items-center">
-        <div className="container mx-auto flex flex-row">
+      <div className="py-8 bg-white w-full  shadow-2xl  fixed z-[100] px-6">
+        <div className="container mx-auto flex justify-between">
           <button
             onClick={() => navigate(BASE_URL.LANDING)}
             className="hover:cursor-pointer hover:opacity-90 my-3"
           >
-            <img
-              src={logo}
-              className=" ml-4 xl:pl-10 lg:pl-10 md:pl-10 iphone:pl-3 iphone:h-auto xl:h-auto lg:h-auto md:h-auto xl:w-40 lg:w-40 md:w-40 iphone:w-[290px]  "
-            />
+            <img src={logo} className="w-36" />
           </button>
 
-          {/* responsive iphone, ipad */}
-          <a
-            onClick={() => setOpenNav(!openNav)}
-            className="iphone:absolute iphone:right-7 xl:invisible lg:invisible iphone:hover:cursor-pointer rounded border p-1"
-          >
-            {!openNav && <GiHamburgerMenu className="w-5 h-5" />}
+          {/* modal for mobile */}
+          <article className={`${openNav ? "block" : "hidden"} lg:hidden`}>
+            <div
+              onClick={() => setOpenNav(false)}
+              className="bg-black opacity-50 lg:hidden absolute min-h-screen top-24 bottom-0 left-0 right-0"
+            ></div>
 
-            {openNav && <AiOutlineClose className="w-5 h-5" />}
-          </a>
-
-          <ul
-            onClickCapture={() => setOpenNav(!openNav)}
-            className={`xl:invisible lg:invisible  shadow-2xl h-auto iphone:w-9/12 md:w-5/12 absolute bg-white z-[1] left-0  transition-all duration-500 ease-in iphone:top-20 ${
-              openNav ? "left-0 " : "iphone:left-[-490px] md:left-[-350px]"
-            }`}
-          >
-            <li className="py-4 active:bg-[#02a95c] border-b border-gray-400 ">
-              <a className="ml-5 tracking-widest text-lg">Home</a>
-            </li>
-            <li className="py-4 active:bg-[#02a95c] border-b border-gray-400">
-              <button
-                className="ml-5 tracking-widest text-lg"
-                onClick={() => navigate(BASE_URL.DASHBOARD)}
-              >
-                Dashboard
-              </button>
-            </li>
-            <li className="py-4  border-b border-gray-400">
-              <a className="ml-5 tracking-widest text-lg">Explore</a>
-              <li className=" ml-10 flex flex-col">
+            <ul
+              className={`shadow-2xl h-auto p-5 w-full lg:hidden absolute top-24 bg-white z-[1] left-0  transition-all duration-500 ease-in
+                
+              `}
+            >
+              <li className="py-4 active:bg-[#02a95c] border-b border-gray-400 ">
+                <a className="tracking-widest text-lg">Home</a>
+              </li>
+              <li className="py-4 active:bg-[#02a95c] border-b border-gray-400">
                 <button
-                  className="mt-2 w-5/12 border-b-2 active:bg-[#02a95c]"
-                  onClick={() => navigate(BASE_URL.ALL_PROJECT)}
+                  className="tracking-widest text-lg"
+                  onClick={() => navigate(BASE_URL.DASHBOARD)}
                 >
-                  All Project
-                </button>
-                <button
-                  className="mt-2 w-5/12 border-b-2 active:bg-[#02a95c]"
-                  onClick={() => navigate(BASE_URL.BOOKMARK)}
-                >
-                  Bookmark
-                </button>
-                <button
-                  onClick={() => navigate(BASE_URL.PROFILE)}
-                  className="mt-2 w-5/12 border-b-2 active:bg-[#02a95c]"
-                >
-                  Profile
-                </button>
-                <button
-                  onClick={() => navigate(BASE_URL.NEW_PROJECT)}
-                  className="mt-2 w-5/12 border-b-2 active:bg-[#02a95c]"
-                >
-                  Add a Project
+                  Dashboard
                 </button>
               </li>
-            </li>
-            <li className="py-4 active:bg-[#02a95c] border-b border-gray-400">
-              <button
-                className="ml-5 tracking-widest text-lg"
-                onClick={() => navigate(BASE_URL.ABOUT)}
-              >
-                About
-              </button>
-            </li>
+              <li className="py-4  border-b border-gray-400">
+                <a className="tracking-widest text-lg">Explore</a>
+              </li>
+              <li className="py-4 active:bg-[#02a95c] border-b border-gray-400">
+                <button
+                  className="tracking-widest text-lg"
+                  onClick={() => navigate(BASE_URL.ABOUT)}
+                >
+                  About
+                </button>
+              </li>
 
-            <li className="py-4 ">
-              <PrimaryButton
-                nameBtn="Add a Project"
-                type="DEFAULT"
-                classname="w-fit ml-5 mt-3 active:opacity-80"
-              />
-            </li>
-          </ul>
+              <li className="py-4">
+                <PrimaryButton
+                  nameBtn="Add a Project"
+                  type="DEFAULT"
+                  classname="w-fit mt-3 active:opacity-80"
+                />
+              </li>
+            </ul>
+          </article>
 
           {/* responsive laptop,ipad pro */}
-          <ul className=" xl:ml-16 lg:ml-5 w-6/12 xl:mr-8 lg:mr-7 iphone:invisible xl:visible lg:visible my-auto flex flex-row">
+          <ul className="hidden xl:ml-16 lg:ml-5 w-6/12 xl:mr-8 lg:mr-7 my-auto lg:flex flex-row">
             <li className="  no-underline px-5 relative group hover:cursor-pointer justify-center align-middle  ">
               <a className="tracking-widest text-lg transition ease-in-out duration-200 ">
                 Home
@@ -177,16 +145,24 @@ const Header = () => {
             </li>
           </ul>
 
-          <div className="flex gap-5">
+          {/* responsive sm, ipad */}
+          <button className="lg:hidden">
+            <GiHamburgerMenu
+              className="w-8 h-8"
+              onClick={() => setOpenNav(!openNav)}
+            />
+          </button>
+
+          <div className="hidden lg:flex gap-5">
             <PrimaryBtn
-              classname="my-auto xl:w-auto xl:ml-1 lg:ml-0 xl:h-auto lg:h-0 lg:w-0 iphone:invisible xl:visible lg:invisible"
+              classname="my-auto xl:w-auto xl:ml-1 lg:ml-0 xl:h-auto lg:h-0 lg:w-0 xl:visible lg:invisible"
               callback={handleCreateProject}
             >
               Add a Project
             </PrimaryBtn>
 
             {/* Search Button */}
-            {/* <div className="lg:ml-8 xl:ml-8 bg-slate-200 rounded-full my-auto p-2.5 align-middle hover:cursor-pointer hover:opacity-70 iphone:invisible xl:visible lg:visible">
+            {/* <div className="lg:ml-8 xl:ml-8 bg-slate-200 rounded-full my-auto p-2.5 align-middle hover:cursor-pointer hover:opacity-70 sm:invisible xl:visible lg:visible">
           <a>
           <svg
           xmlns="http://www.w3.org/2000/svg"

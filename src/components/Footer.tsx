@@ -15,35 +15,35 @@ const Footer = () => {
   const logo = require("./logo.png");
 
   return (
-    <div className="w-full flex bg-[#282b39] justify-center items-center pt-20 pb-10 px-10 flex-col">
-      <div className="bg-transparent flex xl:flex-row lg:flex-row  iphone:flex-col lg:w-full  xl:w-full iphone:w-full ">
-        <div className="flex-[4_1_0%] bg-transparent flex-col">
-          <div className="ml-4 mt-4 bg-slate-100 py-2 px-3 w-fit rounded-full">
+    <div className="w-full  bg-[#282b39]  pt-20 pb-10 px-5 md:px-10">
+      <div className="bg-transparent grid grid-cols-2 lg:grid-cols-4">
+        <div className="col-span-2 lg:col-span-1 bg-transparent flex-col">
+          <div className="mt-4 bg-slate-100 rounded-full py-3 px-5">
             <img src={logo} className="w-44" />
           </div>
 
-          <div className="text-slate-100 ml-4 mt-5">
-            Sed ut perspiciatis unde omn iste natus error sit voluptatem.
+          <div className="text-slate-100  mt-5">
+            Join Finaid - raise your fund today!
           </div>
-          <div className="text-white text-2xl ml-4 mt-7 font-semibold">
+          <div className="text-white text-2xl  mt-7 font-semibold">
             Join Newsletters
           </div>
-          <div className="w-full items-center mt-5 grid justify-items-stretch mb-5">
+          <div className="w-full items-center mt-5 px-4 grid justify-items-stretch mb-5 border border-slate-100 hover:border-[#02a95c] rounded-full">
             <input
-              className="w-9/12 py-5 ml-4 pl-4  rounded-full text-slate-100 border-slate-100 border hover:border-[#02a95c] bg-transparent"
+              className="py-5 text-slate-100   bg-transparent"
               placeholder="Email Address"
             />
-            <a className=" absolute justify-self-end mr-10 bg-[#02a95c] rounded-full p-3 hover:cursor-pointer hover:brightness-90 duration-300">
-              <FaArrowRight className="w-6 h-6 text-white" />
+            <a className="p-3 absolute justify-self-end  bg-[#02a95c] rounded-full hover:cursor-pointer hover:brightness-90 duration-300">
+              <FaArrowRight className=" text-white text-lg" />
             </a>
           </div>
         </div>
 
-        <div className="flex-[3_1_0%] bg-transparent">
-          <div className="text-white text-2xl xl:ml-10 iphone:ml-4 mt-4 font-semibold">
+        <div className="col-span-1 bg-transparent mx-auto">
+          <div className="text-white text-2xl mt-4 font-semibold">
             Our Projects
           </div>
-          <div className="mt-10 ml-10 space-y-2.5 flex-col flex text-slate-100">
+          <div className="mt-10 space-y-2.5 flex-col flex text-slate-100">
             <a className="hover:text-[#02a95c] hover:cursor-pointer">
               Medical & health
             </a>
@@ -59,11 +59,11 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex-[3_1_0%] bg-transparent">
-          <div className="text-white text-2xl xl:ml-10 iphone:ml-4 mt-4 font-semibold">
+        <div className="col-span-1 bg-transparent mx-auto">
+          <div className="text-white text-2xl xl:ml-10 mt-4 font-semibold">
             Company
           </div>
-          <div className="mt-10 ml-10 space-y-2.5 flex-col flex text-slate-100">
+          <div className="mt-10 space-y-2.5 flex-col flex text-slate-100">
             <a className="hover:text-[#02a95c] hover:cursor-pointer">
               About us
             </a>
@@ -85,11 +85,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex-[4_1_0%] bg-transparent">
-          <div className="text-white text-2xl ml-5 mt-4 font-semibold">
-            Contact
-          </div>
-          <div className="mt-7 ml-5 space-y-2.5 flex-col flex">
+        <div className="col-span-2 md:col-span-1 bg-transparent mt-6 lg:mt-0">
+          <div className="text-white text-2xl  mt-4 font-semibold">Contact</div>
+          <div className="mt-7 space-y-2.5 flex-col flex">
             <div className="flex flex-row">
               <div className="bg-[#02a95c] rounded-full p-3">
                 <FaPhoneAlt className="w-6 h-6" />
@@ -101,7 +99,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="mt-7 ml-5 space-y-2.5 flex-col flex">
+          <div className="mt-7 space-y-2.5 flex-col flex">
             <div className="flex flex-row">
               <div className="bg-[#02a95c] rounded-full p-3">
                 <AiOutlineMail className="w-6 h-6" />
@@ -115,7 +113,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="mt-7 lg:ml-5 xl:ml-5 iphone:ml-5 space-y-2.5 flex-col flex">
+          <div className="mt-7 space-y-2.5 flex-col flex">
             <div className="flex flex-row">
               <div className="bg-[#02a95c] xl:h-auto lg:h-fit rounded-full p-3">
                 <GoLocation className="w-6 h-6" />
@@ -131,11 +129,11 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="w-10/12 p-8 bg-[#1f2230] mt-10 xl:grid lg:grid md:grid xl:justify-items-stretch lg:justify-items-stretch md:justify-items-stretch py-5 xl:items-center lg:items-center md:items-center iphone:flex iphone:flex-col">
+      <div className="w-full p-8 bg-[#1f2230] mt-10 xl:grid lg:grid md:grid xl:justify-items-stretch lg:justify-items-stretch md:justify-items-stretch py-5 xl:items-center lg:items-center md:items-center ">
         <div className="relative text-slate-100 w-fit">
           © 2022 Gavias. All Rights Reserved
         </div>
-        <div className="justify-self-end xl:absolute lg:absolute md:absolute flex-row flex space-x-4 iphone:mt-3 ">
+        <div className="justify-self-end xl:absolute lg:absolute md:absolute flex-row flex space-x-4">
           <FaFacebook className=" w-6 h-6 text-slate-100 hover:text-[#02a95c] hover:cursor-pointer" />
           <FaInstagram className=" w-6 h-6 text-slate-100 hover:text-[#02a95c] hover:cursor-pointer" />
           <FaLinkedinIn className=" w-6 h-6 text-slate-100 hover:text-[#02a95c] hover:cursor-pointer" />
