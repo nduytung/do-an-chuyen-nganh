@@ -246,7 +246,10 @@ const Detail = () => {
       //call momo api
       const data = await handleApi({
         method: "post",
-        payload: {},
+        payload: {
+          orderInfo: `Payment for project \"${project.projectName}\" `,
+          amount: backAmount,
+        },
         endpoint: "project/momo-trigger",
       });
       if (data) {
