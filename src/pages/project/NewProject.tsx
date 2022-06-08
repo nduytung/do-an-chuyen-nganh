@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import PageContainer from "../../layouts/PageContainer";
 import { SectionTitle } from "../Landing";
-import { WhiteBox, DonateCost } from "./Detail";
 import Tag from "../../components/ProjectDetail/Tag";
 import PrimaryBtn from "../../components/ProjectDetail/PrimaryBtn";
 import moment from "moment";

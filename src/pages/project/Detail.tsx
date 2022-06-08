@@ -16,119 +16,13 @@ import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
 import ConfirmModal from "../../components/modal/ConfirmModal";
 import { momoPayment } from "../../api/momoPayment";
+import FullStory from "../../components/FullStory";
+import UpdatePath from "../../components/UpdatePath";
+import BackerList from "../../components/BackerList";
+import Comment from "../../components/Comment";
+import WhiteBox from "../../components/WhiteBox";
+import { createNewDate } from "./NewProject";
 
-export const WhiteBox = ({
-  value,
-  name,
-}: {
-  value: number | string;
-  name: string;
-}) => {
-  return (
-    <div className="bg-white text-center p-4 flex-1 border border-gray-200 shadow-sm rounded-md cursor-pointer hover:bg-[#00a85c] hover:text-white">
-      <p className="text-2xl font-bold">{value}</p>
-      <p className="text-lg font-light">{name}</p>
-    </div>
-  );
-};
-
-export const DonateCost = ({ children }: { children: string }) => {
-  return (
-    <div className="w-20 text-center text-gray-600 border-2 cursor-pointer rounded-full border-gray-300 focus-within:border-green-600 font-bold focus-within:text-[#00a85c] text-lg py-2">
-      ${children}
-    </div>
-  );
-};
-
-export const FullStory = ({ message }: { message: string }) => {
-  return (
-    <section>
-      <h1 className="text-[#00a85c] font-bold text-3xl"> Full story</h1>
-      <div
-        dangerouslySetInnerHTML={{ __html: message }}
-        className="font-thin text-lg my-10"
-      ></div>
-    </section>
-  );
-};
-
-const UpdatePath = ({
-  date,
-  title,
-  desc,
-}: {
-  date: string;
-  title: string;
-  desc: string;
-}) => {
-  return (
-    <div className="flex items-start gap-5 w-full">
-      <span className="h-6 w-6 rounded-full bg-[#00a85c]"></span>
-      <div className="w-full">
-        <p className="text-[#00a85c] font-bold">{date}</p>
-        <p className="font-bold text-2xl">{title}</p>
-        <hr className="my-2 w-full" />
-        <p className="font-thin text-lg">{desc}</p>
-      </div>
-    </div>
-  );
-};
-
-const BackerList = () => {
-  return (
-    <table className="w-full">
-      <tr className="border-b border-gray-300 w-full text-left">
-        <th>Name</th>
-        <th>Donate amount</th>
-        <th>Date</th>
-      </tr>
-      <tr className="py-6 border-b border-gray-300 w-full text-left">
-        <td>Nguyen Duy Tung</td>
-        <td>$45000</td>
-        <td>22-09-2022</td>
-      </tr>
-    </table>
-  );
-};
-
-const Comment = () => {
-  return (
-    <section className="border border-gray-300 p-4 rounded-md">
-      <div className="user flex items-center my-6 gap-4">
-        <span className="bg-gray-400 rounded-full w-12 h-12"></span>
-        <div>
-          <p className="font-bold text-lg">By Nguyen Duy Tung</p>
-          <p>22-11-2022</p>
-        </div>
-      </div>
-      <hr className="my-3" />
-      <p>this is just a testing comment jefwebwefw wefw ew ewf fe </p>
-    </section>
-  );
-};
-
-const Reward = () => {
-  return (
-    <section className="bg-[#eff5f3] p-6 w-full">
-      <h2 className="text-2xl font-bold text-[#00a85c]">Rewards</h2>
-      <hr className="my-3" />
-      <div className="bg-gray-300 w-full h-44 my-5"></div>
-      <h3 className="font-bold text-xl">$300 or more</h3>
-      <p className="text-gray-600 font-light text-base text-justify">
-        But must explain to you how all this mistaken idea of denouncing plasue
-        and praising pain was born.
-      </p>
-      <hr className="my-3" />
-      <div className="flex text-black font-bold justify-between">
-        <p>1 backers</p>
-        <p>97 rewards</p>
-      </div>
-      <PrimaryBtn classname="w-full mt-4" callback={() => {}}>
-        Select Reward
-      </PrimaryBtn>
-    </section>
-  );
-};
 const Detail = () => {
   const [tab, setTab] = useState(1);
   const [project, setProject] = useState<any>({});
@@ -137,6 +31,8 @@ const Detail = () => {
   const [user, setUser] = useState<any>({});
   const [backAmount, setBackAmount] = useState<any>(0);
   const [confirmDonate, setConfirmDonate] = useState(false);
+  const { id } = useParams();
+  const { isLoggedIn, userId } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -167,7 +63,6 @@ const Detail = () => {
         return <Comment />;
     }
   };
-  const { id } = useParams();
 
   useEffect(() => {
     //prefetch the whole info
@@ -188,7 +83,6 @@ const Detail = () => {
         });
         if (imgData.status === 200) {
           setImage(imgData.data.props.imageUrl);
-          console.log("get image done");
         }
 
         //get user info
@@ -201,11 +95,8 @@ const Detail = () => {
         });
         if (userInfo.status === 200) {
           setUser(userInfo.data.props);
-          console.log(userInfo);
-          console.log("get user info successfully");
         }
 
-        console.log(data.data.props);
         const left = calcDateRange(
           data.data.props.date.startTime,
           data.data.props.date.endTime
@@ -217,25 +108,22 @@ const Detail = () => {
     fetchProject();
   }, []);
 
-  const { isLoggedIn, userId } = useContext(AuthContext);
-
   //confirm donate function
   const handleBackCampaign = async () => {
     if (!isLoggedIn) navigate(BASE_URL.LOGIN);
 
     //check if user balance is enough to pay
-    const ownerInfo = await handleApi({
+    const loggedInUserInfo = await handleApi({
       method: "get",
       payload: {},
       endpoint: `users/info/${userId}`,
       disableNoti: true,
     });
-    if (ownerInfo.status !== 200) {
+    if (loggedInUserInfo.status !== 200) {
       return;
     }
 
-    console.log(ownerInfo.data.props.info.accountBalance);
-    const { accountBalance } = ownerInfo?.data?.props?.info;
+    const { accountBalance, fullname } = loggedInUserInfo?.data?.props?.info;
 
     //if user's balance is not enough to pay
     if (parseInt(accountBalance) < parseInt(backAmount))
@@ -257,6 +145,43 @@ const Detail = () => {
         //we got url here
         console.log(data?.data?.props?.payUrl);
         window.open(data?.data?.props?.payUrl, "_blank")?.focus();
+
+        //if user scanned the QR ->
+        //notify to the owner
+        //minus the owner's money
+        const notifyData = await handleApi({
+          method: "post",
+          payload: {
+            backerName: fullname,
+            projectName: project.projectName,
+            moneyAmount: backAmount,
+            balance: accountBalance,
+          },
+          endpoint: `users/notify`,
+        });
+
+        //plus the money of the project
+        const plusMoney = await handleApi({
+          method: "put",
+          payload: {
+            projectId: project._id,
+            donateAmount: parseInt(backAmount),
+            raisedAmount: project.raised,
+          },
+          endpoint: "project/donate",
+        });
+
+        //add project to backer's backed list
+        await handleApi({
+          method: "put",
+          payload: {
+            name: fullname,
+            amount: parseInt(backAmount),
+            date: createNewDate(),
+            projectId: project._id,
+          },
+          endpoint: `project/update-backer`,
+        });
       }
     }
 
