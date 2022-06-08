@@ -35,7 +35,7 @@ const Profile = () => {
   const { setUserProfile, userProfile } = useContext(AuthContext);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState("");
-
+  const [donatedProjectList, setDonatedProjectList] = useState<any>([]);
   const [activeTab, setActiveTab] = useState(1);
 
   useEffect(() => {
@@ -45,11 +45,31 @@ const Profile = () => {
         payload: {},
         endpoint: `users/info/${id}`,
       });
-      if (data.status === 200) console.log(data);
-      setUserProfile(data.data.props);
+      if (data.status === 200) {
+        setUserProfile(data.data.props);
+      }
     };
+
     getUserInfo();
   }, []);
+
+  useEffect(() => {
+    const getDonatedProject = async () => {
+      if (activeTab === 2) {
+        const donatedProject = await handleApi({
+          method: "get",
+          endpoint: "project/donated-project",
+        });
+
+        console.log(donatedProject);
+        if (donatedProject.status === 200) {
+          setDonatedProjectList(donatedProject);
+        }
+      }
+    };
+
+    getDonatedProject();
+  }, [activeTab]);
 
   const handleDelete = async () => {
     //call api to delete project
@@ -292,27 +312,28 @@ const Profile = () => {
               header="Check out projects you have donated"
               classname="text-center"
             />
-            {/* {projects?.length === 0 ? ( */}
-            <p className="text-center w-5/6 text-lg font-light mx-auto">
-              It looks like it doesnt have any ended project here :( please
-              comeback later{" "}
-            </p>
-            {/* ) : (
-        projects?.map((project: any) => (
-          <ProjectCard
-            cate={project?.category}
-            title={project?.projectName}
-            raised={project?.raised}
-            goal={project?.goal}
-            startTime={project?.date?.startTime}
-            endTime={project?.date?.endTime}
-            background={project?.image}
-            allowDelete={true}
-            projectId={project?._id}
-            handleDelete={() => {}}
-          />
-        ))
-      )} */}
+            {donatedProjectList !== [] && donatedProjectList?.length > 0 ? (
+              donatedProjectList?.length > 0 &&
+              donatedProjectList?.map((project: any) => (
+                <ProjectCard
+                  cate={project?.category}
+                  title={project?.projectName}
+                  raised={project?.raised}
+                  goal={project?.goal}
+                  startTime={project?.date?.startTime}
+                  endTime={project?.date?.endTime}
+                  background={project?.image}
+                  allowDelete={true}
+                  projectId={project?._id}
+                  handleDelete={() => {}}
+                />
+              ))
+            ) : (
+              <p className="text-center w-5/6 text-lg font-light mx-auto">
+                It looks like it doesnt have any ended project here :( please
+                comeback later{" "}
+              </p>
+            )}
           </main>
         )}
         <ConfirmModal
