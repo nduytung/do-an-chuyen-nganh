@@ -33,7 +33,7 @@ export const handleApi: any = async ({
             },
           }
         );
-        if (disableNoti) toast.success(data.data.message);
+        if (!disableNoti) toast.success(data.data.message);
         return data;
       } catch (err: any) {
         console.log("here");
@@ -68,7 +68,7 @@ export const handleApi: any = async ({
             headers: { Authorization: `Bearer ${accessToken}` },
           }
         );
-        if (disableNoti) toast.success(data.data.message);
+        if (!disableNoti) toast.success(data.data.message);
         return data;
       } catch (err: any) {
         toast.error(err.response.data.message);

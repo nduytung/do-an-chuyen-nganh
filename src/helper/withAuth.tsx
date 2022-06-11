@@ -1,16 +1,9 @@
-import { ReactNode, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthProvider";
+import React from "react";
+import Login from "../pages/Login";
 
-const WithAuth = ({ Component }: { Component: any }) => {
-  const navigate = useNavigate();
-  const { isLoggedIn } = useContext(AuthContext);
-  const AuthWrapper: any = () => {
-    if (!isLoggedIn) return navigate("/login");
-    return <Component />;
-  };
-
-  return AuthWrapper;
+const WithAuth = (Comp: React.FC) => {
+  if (!localStorage.getItem("token")) return <Login />;
+  return <Comp />;
 };
 
 export default WithAuth;

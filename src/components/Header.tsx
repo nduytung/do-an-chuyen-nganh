@@ -39,15 +39,17 @@ const Header = () => {
 
   useEffect(() => {
     const getNoti = async () => {
-      const notification = await handleApi({
-        method: "get",
-        endpoint: "users/noti-list",
-      });
+      if (isLoggedIn) {
+        const notification = await handleApi({
+          method: "get",
+          endpoint: "users/noti-list",
+        });
 
-      if (notification.status === 200) {
-        setNotiList(notification?.data?.props?.notiList);
-      }
-      console.log(notification);
+        if (notification.status === 200) {
+          setNotiList(notification?.data?.props?.notiList.reverse());
+        }
+        console.log(notification);
+      } else return;
     };
 
     getNoti();
@@ -233,8 +235,8 @@ const Header = () => {
                   </button>
                 </div>
                 {logoutModal && (
-                  <div className="bg-white rounded-md absolute p-4 border border-gray-300 mt-20 w-48 right-4">
-                    <button onClick={handleLogout}>Login</button>
+                  <div className="bg-white rounded-md absolute p-4 border border-gray-300 mt-10 w-48 right-4">
+                    <button onClick={handleLogout}>Logout</button>
                     <hr className="my-2 border border-gray-300" />
                     <button
                       onClick={() => navigate(`${BASE_URL.PROFILE}/${userId}`)}
@@ -250,12 +252,10 @@ const Header = () => {
                         return (
                           <div className="bg-gray-100 rounded-sm p-3 my-2">
                             <span className="text-green-600">
-                              {" "}
                               {noti?.backerName}{" "}
                             </span>
-                            has donated for your project
+                            has donated for your project{" "}
                             <span className="text-green-600">
-                              {" "}
                               {noti?.projectName}{" "}
                             </span>
                             {noti?.moneyAmount || 0}.000 VND
@@ -263,7 +263,10 @@ const Header = () => {
                         );
                       })
                     ) : (
-                      <p>Sorry, it looks like you dont have any noti yet</p>
+                      <p className="text-gray-500 font-light text-lg">
+                        Sorry, it looks like you dont have any noti yet
+                        <p className="text-5xl text-center my-8"> :( </p>
+                      </p>
                     )}
                   </div>
                 )}

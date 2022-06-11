@@ -1,6 +1,6 @@
 import { Form, useFormik } from "formik";
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import * as Yup from "yup";
 import { handleApi } from "../api/handleApi";
@@ -60,12 +60,12 @@ export const LoginForm = () => {
       <div className="flex justify-center items-center border-b h-16 w-full">
         <div>
           Don't have an account?.{" "}
-          <a
-            href="/register"
+          <Link
+            to={BASE_URL.REGISTER}
             className="hover:cursor-pointer text-[#02a95c] font-bold "
           >
             Register
-          </a>
+          </Link>
         </div>
       </div>
       <div className="text-2xl mt-2 font-bold tracking-widest">LOGIN</div>

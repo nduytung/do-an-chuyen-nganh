@@ -9,7 +9,7 @@ import DetailBg from "../../img/profilebg.jpeg";
 import DefaultBg from "../../img/defaultbg.png";
 import LiveComment from "../../components/LiveComment";
 import { handleApi } from "../../api/handleApi";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { calcDateRange } from "../../components/ProjectCard";
 import { BASE_URL } from "../../routes/baseURL";
 import { AuthContext } from "../../context/AuthProvider";
@@ -97,10 +97,7 @@ const Detail = () => {
           setUser(userInfo.data.props);
         }
 
-        const left = calcDateRange(
-          data.data.props.date.startTime,
-          data.data.props.date.endTime
-        );
+        const left = calcDateRange(data.data.props.date.endTime);
         setDayLeft(left);
       }
     };
@@ -152,13 +149,14 @@ const Detail = () => {
         const notifyData = await handleApi({
           method: "post",
           payload: {
-            backerName: fullname,
             projectName: project.projectName,
             moneyAmount: backAmount,
-            balance: accountBalance,
+            ownerId: project.authorId,
           },
           endpoint: `users/notify`,
         });
+
+        console.log(notifyData);
 
         //plus the money of the project
         const plusMoney = await handleApi({
@@ -171,8 +169,10 @@ const Detail = () => {
           endpoint: "project/donate",
         });
 
+        console.log(plusMoney);
+
         //add project to backer's backed list
-        await handleApi({
+        const newBacker = await handleApi({
           method: "put",
           payload: {
             name: fullname,
@@ -182,6 +182,8 @@ const Detail = () => {
           },
           endpoint: `project/update-backer`,
         });
+
+        console.log(newBacker);
       }
     }
 
@@ -226,9 +228,12 @@ const Detail = () => {
           <div className="user flex items-center my-6 gap-4">
             <span className="bg-gray-400 rounded-full w-12 h-12"></span>
             <div>
-              <p className="font-bold text-lg">
+              <Link
+                to={`${BASE_URL.PROFILE}/${user?.info?._id}`}
+                className="font-bold text-lg"
+              >
                 By {user.info?.fullname || ""}
-              </p>
+              </Link>
               <p>{user?.projectList?.length || 0} campaigns</p>
             </div>
           </div>
@@ -253,6 +258,9 @@ const Detail = () => {
               />
             </div>
             <PrimaryBtn
+              disabled={
+                calcDateRange(project?.date?.endTime) > 0 ? false : true
+              }
               callback={() =>
                 parseInt(backAmount) > 0 && setConfirmDonate(true)
               }

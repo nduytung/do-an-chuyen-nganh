@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { handleApi } from "../api/handleApi";
 import ProjectCard, { calcDateRange } from "../components/ProjectCard";
+import MainLayout from "../layouts/Mainlayout";
+import PageContainer from "../layouts/PageContainer";
 import { SectionTitle } from "./Landing";
 
 const ClosedProjectList = () => {
@@ -13,7 +15,7 @@ const ClosedProjectList = () => {
       });
 
       const filteredData = await data?.data?.props.filter((item: any) => {
-        return calcDateRange(item?.date.startTime, item?.date.endTime) < 0;
+        return calcDateRange(item?.date.endTime) < 0;
       });
 
       await setProjects(filteredData);
@@ -23,7 +25,7 @@ const ClosedProjectList = () => {
     getOutdatedProjects();
   }, []);
   return (
-    <main className="my-36">
+    <PageContainer classname="my-36">
       <SectionTitle
         subHeader="Ended"
         header="Check out our ended projects"
@@ -35,22 +37,24 @@ const ClosedProjectList = () => {
           later{" "}
         </p>
       ) : (
-        projects?.map((project: any) => (
-          <ProjectCard
-            cate={project?.category}
-            title={project?.projectName}
-            raised={project?.raised}
-            goal={project?.goal}
-            startTime={project?.date?.startTime}
-            endTime={project?.date?.endTime}
-            background={project?.image}
-            allowDelete={true}
-            projectId={project?._id}
-            handleDelete={() => {}}
-          />
-        ))
+        <article className="grid grid-cols-4">
+          {projects?.map((project: any) => (
+            <ProjectCard
+              cate={project?.category}
+              title={project?.projectName}
+              raised={project?.raised}
+              goal={project?.goal}
+              startTime={project?.date?.startTime}
+              endTime={project?.date?.endTime}
+              background={project?.image}
+              allowDelete={true}
+              projectId={project?._id}
+              handleDelete={() => {}}
+            />
+          ))}
+        </article>
       )}
-    </main>
+    </PageContainer>
   );
 };
 

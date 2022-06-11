@@ -21,9 +21,10 @@ type ProjectCardType = {
   handleDelete: any;
 };
 
-export const calcDateRange = (startTime: string, endTime: string) => {
-  const start = moment(startTime, "YYYY-MM-DD");
+export const calcDateRange = (endTime: string) => {
+  const start = moment(new Date());
   const end = moment(endTime, "YYYY-MM-DD");
+
   return moment.duration(end.diff(start)).asDays();
 };
 
@@ -62,7 +63,7 @@ const ProjectCard = ({
       }
     };
     handleGetBg();
-    const left = calcDateRange(startTime, endTime);
+    const left = calcDateRange(endTime);
     setDayLeft(left);
   }, []);
   return (
@@ -77,12 +78,12 @@ const ProjectCard = ({
         <div className="p-6 px-3 py-2 text-white font-semibold text-lg bg-[#00a85c] -mt-12">
           {cate}
         </div>
-        <h2 className="font-bold text-2xl my-6">{title}</h2>
+        <h2 className="font-bold text-2xl my-6 h-16">{title}</h2>
         {goal !== 0 && (
           <>
             <div className="flex items-center justify-between w-full">
               <p>Raised: ${raised}</p>
-              <p>{percent}%</p>
+              <p>{Math.floor(percent)}%</p>
             </div>
             <p className="text-lg font-bold my-4">
               Goal: <span className="text-[#00a85c]">${goal}</span>
@@ -93,8 +94,11 @@ const ProjectCard = ({
           onClick={() => navigate(`${BASE_URL.DETAIL_PROJECT}/${projectId}`)}
           className="bg-gray-100 p-3 flex justify-between items-center w-full hover:border-[#00a85c]  hover:border cursor-pointer"
         >
-          {dayLeft || 0} days left!{" "}
-          <span className="text-[#00a85c]"> Register now</span>
+          {(dayLeft > 0 && Math.floor(dayLeft)) || 0} days left!{" "}
+          <span className="text-[#00a85c]">
+            {" "}
+            {dayLeft > 0 ? "Register" : "View"} now
+          </span>
         </button>
         {authorId !== "" && allowDelete && (
           <>
