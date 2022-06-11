@@ -21,6 +21,7 @@ const PrimaryInput = ({
   useEffect(() => {
     if (error === true) setError(true);
   }, [error]);
+
   return (
     <>
       <input

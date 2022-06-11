@@ -8,6 +8,7 @@ import AllProject from "../pages/AllProject";
 import Dashboard from "../pages/Dashboard";
 import DonePayment from "../pages/DonePayment";
 import ClosedProjectList from "../pages/ClosedProjectList";
+import UpdatePath from "../pages/project/UpdatePath";
 const Profile = lazy(() => import("../pages/Profile"));
 const Landing = lazy(() => import("../pages/Landing"));
 const Detail = lazy(() => import("../pages/project/Detail"));
@@ -67,5 +68,9 @@ export const routeList: RouteListType[] = [
   {
     path: BASE_URL.CLOSED_PROJECT,
     element: <ClosedProjectList />,
+  },
+  {
+    path: `${BASE_URL.UPDATE_PATH}/:id`,
+    element: <UpdatePath />,
   },
 ];

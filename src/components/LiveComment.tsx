@@ -1,6 +1,7 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { message } from "antd";
 import React, { useState, useEffect, useRef, useMemo, useContext } from "react";
+import { AiOutlineUser } from "react-icons/ai";
 import io from "socket.io-client";
 import { handleApi } from "../api/handleApi";
 import { AuthContext } from "../context/AuthProvider";
@@ -20,8 +21,8 @@ const LiveComment = ({ subject }: { subject: string }) => {
 
   const handleSubmit = async () => {
     const message = editorRef.current.getContent();
-    setTrigger(!trigger);
     socket && socket.emit("on-chat", { message: message });
+    setTrigger(!trigger);
 
     //calling api
     // await handleApi({
@@ -32,33 +33,35 @@ const LiveComment = ({ subject }: { subject: string }) => {
   };
 
   useEffect(() => {
-    if (socket === null) {
-      setSocket(
-        io("http://localhost:4000", {
-          withCredentials: true,
-        })
-      );
-    } else {
-      socket.on("user-chat", (message: any) => {
-        setChatItemList([...chatItemList, { commentDetail: message.message }]);
-      });
+    if (trigger === false) {
+      if (socket === null || !socket) {
+        setSocket(
+          io("http://localhost:4000", {
+            withCredentials: true,
+          })
+        );
+      } else {
+        socket.on("user-chat", (message: any) => {
+          console.log(message);
+        });
+      }
     }
   }, [trigger]);
 
-  useEffect(() => {
-    const getComment = async () => {
-      const data = await handleApi({
-        method: "get",
-        endpoint: `project/comment/all/${TESTING_PROJECT_ID}`,
-      });
+  // useEffect(() => {
+  //   const getComment = async () => {
+  //     const data = await handleApi({
+  //       method: "get",
+  //       endpoint: `project/comment/all/${TESTING_PROJECT_ID}`,
+  //     });
 
-      const commentList = data.data.props.commentList.comment;
+  //     const commentList = data.data.props.commentList.comment;
 
-      return setChatItemList(commentList);
-    };
+  //     return setChatItemList(commentList);
+  //   };
 
-    getComment();
-  }, []);
+  //   getComment();
+  // }, []);
 
   useEffect(() => {
     console.log(chatItemList);
@@ -79,20 +82,33 @@ const LiveComment = ({ subject }: { subject: string }) => {
           <hr className="border-b border-gray-200 my-4" />
         </article>
         <div className="bg-white w-full h-96 rounded-md overflow-y-scroll grid grid-cols-1 items-start justify-start">
-          {chatItemList.map((item: any) => {
-            return (
-              <div
-                className={`p-4 relative rounded-lg m-3 w-4/5 ${
-                  username === item.username
-                    ? "bg-gray-200 justify-self-end"
-                    : "bg-[#00a85c] left-0 justify-self-start"
-                } `}
-              >
-                <p> {username !== item.username ? username : null} </p>
-                <p dangerouslySetInnerHTML={{ __html: item.commentDetail }} />
-              </div>
-            );
-          })}
+          {chatItemList.length > 0 &&
+            chatItemList?.map((item: any) => {
+              return (
+                <div
+                  className={`p-2  rounded-lg m-3 ${
+                    username === item.username
+                      ? "bg-gray-200 "
+                      : "bg-[#00a85c] left-0 text-white"
+                  } `}
+                >
+                  <article className="flex items-center gap-3">
+                    <div className="bg-gray-500 rounded-full overflow-hidden p-1">
+                      <AiOutlineUser className="text-2xl" />
+                    </div>
+                    <p className="font-bold text-sm">
+                      {" "}
+                      {username !== item.username ? username : null}{" "}
+                    </p>
+                  </article>
+                  <hr className=" border-gray-300 my-2" />
+                  <p
+                    className="font-light text-lg"
+                    dangerouslySetInnerHTML={{ __html: item.commentDetail }}
+                  />
+                </div>
+              );
+            })}
         </div>
         <Editor
           onInit={(evt, editor) => (editorRef.current = editor)}

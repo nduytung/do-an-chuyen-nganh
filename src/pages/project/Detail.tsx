@@ -44,19 +44,25 @@ const Detail = () => {
             <div className="lg:col-span-2">
               <FullStory message={project.fullStory} />
             </div>
-            <div className="lg:col-span-1">
-              <LiveComment subject={project.researchDetail} />
-            </div>
+            {project.type === "research" && (
+              <div className="lg:col-span-1">
+                <LiveComment subject={project.researchDetail} />
+              </div>
+            )}
           </div>
         );
-      case 2:
-        return (
-          <UpdatePath
-            title="testing title 1"
-            desc="this is just a wfew wefwe efwef ewiuk  eefw efw ek  testing message"
-            date="25-09-2022"
-          />
-        );
+      case 2: {
+        return project?.updatePath?.map((item: any) => {
+          return (
+            <UpdatePath
+              title={item.title}
+              desc={item.content}
+              date={item.time}
+            />
+          );
+        });
+      }
+
       case 3:
         return <BackerList />;
       case 4:
@@ -72,6 +78,7 @@ const Detail = () => {
         endpoint: `project/detail/${id}`,
       });
       if (data) {
+        console.log(data.data.props);
         setProject(data.data.props);
 
         //get image

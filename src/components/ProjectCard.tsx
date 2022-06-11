@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { handleApi } from "../api/handleApi";
 import defaultBg from "../img/defaultbg.png";
 import { BASE_URL } from "../routes/baseURL";
@@ -101,14 +101,21 @@ const ProjectCard = ({
           </span>
         </button>
         {authorId !== "" && allowDelete && (
-          <>
+          <div className="mt-6 w-full">
             <WhiteBgBtn
               callback={() => handleDelete(projectId)}
-              classname="my-5 w-full bottom-0 "
+              classname="my-2 w-full bottom-0 "
             >
               Delete project
             </WhiteBgBtn>
-          </>
+            <PrimaryBtn
+              callback={() =>
+                (window.location.href = `http://localhost:3000/project/update-path/${projectId}`)
+              }
+            >
+              Update project
+            </PrimaryBtn>
+          </div>
         )}
       </div>
     </main>
