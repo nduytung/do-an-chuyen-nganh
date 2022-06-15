@@ -9,16 +9,19 @@ import { EDITOR_SETTING } from "./input/PrimaryTextEditor";
 import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import WhiteBtn from "./WhiteBtn";
 
-export const TESTING_PROJECT_ID = "627b6b545e1a4a518c9e68e3";
-
-const LiveComment = ({ subject }: { subject: string }) => {
+const LiveComment = ({
+  subject,
+  projectId,
+}: {
+  subject: string;
+  projectId: string | undefined;
+}) => {
   const [chatItemList, setChatItemList] = useState<any>([]);
   const [socket, setSocket] = useState<any>(
     io("http://localhost:4000", {
       withCredentials: true,
     })
   );
-  const [trigger, setTrigger] = useState<boolean>(false);
 
   const editorRef = useRef<any>(null);
   const { username } = useContext(AuthContext);
@@ -26,17 +29,35 @@ const LiveComment = ({ subject }: { subject: string }) => {
   const handleSubmit = async () => {
     const message = editorRef.current.getContent();
     socket.emit("on-chat", { message: message });
-    setTrigger(!trigger);
     editorRef.current.setContent("");
-    return;
 
     //calling api
-    // await handleApi({
-    //   method: "put",
-    //   payload: { comment: message, id: TESTING_PROJECT_ID },
-    //   endpoint: "project/comment",
-    // });
+    const data = await handleApi({
+      method: "put",
+      payload: { comment: message, id: projectId },
+      endpoint: "project/comment",
+    });
+    console.log(data);
+    if (data?.status === 200) {
+      setChatItemList((chatItemList: any) => [
+        ...chatItemList,
+        { commentDetail: message },
+      ]);
+    }
+    return;
   };
+
+  const messagesEndRef = useRef<any>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef?.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(scrollToBottom, [chatItemList]);
+
+  useEffect(() => {
+    console.log(chatItemList);
+  }, [chatItemList]);
 
   useEffect(() => {
     socket.on("user-chat", (message: any) => {
@@ -45,20 +66,20 @@ const LiveComment = ({ subject }: { subject: string }) => {
     });
   }, [socket]);
 
-  // useEffect(() => {
-  //   const getComment = async () => {
-  //     const data = await handleApi({
-  //       method: "get",
-  //       endpoint: `project/comment/all/${TESTING_PROJECT_ID}`,
-  //     });
+  useEffect(() => {
+    const getComment = async () => {
+      const data = await handleApi({
+        method: "get",
+        endpoint: `project/comment/all/${projectId}`,
+      });
 
-  //     const commentList = data.data.props.commentList.comment;
+      const commentList = data.data.props.commentList.comment;
 
-  //     return setChatItemList(commentList);
-  //   };
+      return setChatItemList(commentList);
+    };
 
-  //   getComment();
-  // }, []);
+    getComment();
+  }, []);
 
   return (
     <div>
@@ -85,23 +106,25 @@ const LiveComment = ({ subject }: { subject: string }) => {
                       : "bg-[#00a85c] left-0 text-white"
                   } `}
                 >
-                  <article className="flex items-center gap-3">
-                    <div className="bg-gray-500 rounded-full overflow-hidden p-1">
-                      <AiOutlineUser className="text-2xl" />
-                    </div>
-                    <p className="font-bold text-sm">
-                      {" "}
-                      {username !== item.username ? username : null}{" "}
-                    </p>
-                  </article>
-                  <hr className=" border-gray-300 my-2" />
+                  {item.username === username && (
+                    <>
+                      <article className="flex items-center gap-3">
+                        <div className=" rounded-full overflow-hidden p-1">
+                          <AiOutlineUser className="text-2xl" />
+                        </div>
+                        <p className="font-bold text-sm">{item?.username}</p>
+                      </article>
+                      <hr className=" border-gray-300 my-2" />
+                    </>
+                  )}
                   <p
-                    className="font-light text-lg"
+                    className="font-light text-sm"
                     dangerouslySetInnerHTML={{ __html: item.commentDetail }}
                   />
                 </div>
               );
             })}
+          <div ref={messagesEndRef}></div>
         </div>
         <Editor
           onInit={(evt, editor) => (editorRef.current = editor)}

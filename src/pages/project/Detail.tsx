@@ -46,7 +46,7 @@ const Detail = () => {
             </div>
             {project.type === "research" && (
               <div className="lg:col-span-1">
-                <LiveComment subject={project.researchDetail} />
+                <LiveComment subject={project.researchDetail} projectId={id} />
               </div>
             )}
           </div>
