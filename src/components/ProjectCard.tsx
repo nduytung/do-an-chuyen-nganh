@@ -102,19 +102,18 @@ const ProjectCard = ({
         </button>
         {authorId !== "" && allowDelete && (
           <div className="mt-6 w-full">
-            <WhiteBgBtn
+            <PrimaryBtn
               callback={() => handleDelete(projectId)}
-              classname="my-2 w-full bottom-0 "
+              classname="my-2 w-full bottom-0 bg-red-500"
             >
               Delete project
-            </WhiteBgBtn>
-            <PrimaryBtn
-              callback={() =>
-                (window.location.href = `http://localhost:3000/project/update-path/${projectId}`)
-              }
+            </PrimaryBtn>
+            <WhiteBgBtn
+              classname={"w-full"}
+              callback={() => navigate(`${BASE_URL.UPDATE_PATH}/${projectId}`)}
             >
               Update project
-            </PrimaryBtn>
+            </WhiteBgBtn>
           </div>
         )}
       </div>

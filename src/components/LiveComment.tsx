@@ -13,7 +13,11 @@ export const TESTING_PROJECT_ID = "627b6b545e1a4a518c9e68e3";
 
 const LiveComment = ({ subject }: { subject: string }) => {
   const [chatItemList, setChatItemList] = useState<any>([]);
-  const [socket, setSocket] = useState<any>(null);
+  const [socket, setSocket] = useState<any>(
+    io("http://localhost:4000", {
+      withCredentials: true,
+    })
+  );
   const [trigger, setTrigger] = useState<boolean>(false);
 
   const editorRef = useRef<any>(null);
@@ -21,8 +25,10 @@ const LiveComment = ({ subject }: { subject: string }) => {
 
   const handleSubmit = async () => {
     const message = editorRef.current.getContent();
-    socket && socket.emit("on-chat", { message: message });
+    socket.emit("on-chat", { message: message });
     setTrigger(!trigger);
+    editorRef.current.setContent("");
+    return;
 
     //calling api
     // await handleApi({
@@ -33,20 +39,11 @@ const LiveComment = ({ subject }: { subject: string }) => {
   };
 
   useEffect(() => {
-    if (trigger === false) {
-      if (socket === null || !socket) {
-        setSocket(
-          io("http://localhost:4000", {
-            withCredentials: true,
-          })
-        );
-      } else {
-        socket.on("user-chat", (message: any) => {
-          console.log(message);
-        });
-      }
-    }
-  }, [trigger]);
+    socket.on("user-chat", (message: any) => {
+      console.log("received new message");
+      console.log(message);
+    });
+  }, [socket]);
 
   // useEffect(() => {
   //   const getComment = async () => {
@@ -62,10 +59,6 @@ const LiveComment = ({ subject }: { subject: string }) => {
 
   //   getComment();
   // }, []);
-
-  useEffect(() => {
-    console.log(chatItemList);
-  }, [chatItemList]);
 
   return (
     <div>

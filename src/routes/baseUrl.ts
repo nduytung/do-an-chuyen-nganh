@@ -11,5 +11,5 @@ export const BASE_URL = {
   LOGIN: "/login",
   DONE_PAYMENT: "/payment-success",
   CLOSED_PROJECT: "/closed-project",
-  UPDATE_PATH: "project/update-path",
+  UPDATE_PATH: "/update-path",
 };

@@ -145,7 +145,7 @@ const Landing = () => {
               We help innovation in Tech
             </h1>
             <p className="text-xl lg:text-2xl border-l-4 border-green-600 lg:w-3/4 pl-4">
-              Funden is changing the way people and companies work
+              Finaid is changing the way people and companies work
             </p>
             <PrimaryBtn callback={() => {}}>Start A Project</PrimaryBtn>
           </div>
