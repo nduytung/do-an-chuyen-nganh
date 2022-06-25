@@ -28,7 +28,7 @@ const LiveComment = ({
 
   const handleSubmit = async () => {
     const message = editorRef.current.getContent();
-    socket.emit("on-chat", { message: message });
+    socket.emit("on-chat", { message: message, username: username });
     editorRef.current.setContent("");
 
     //calling api
@@ -38,12 +38,7 @@ const LiveComment = ({
       endpoint: "project/comment",
     });
     console.log(data);
-    if (data?.status === 200) {
-      setChatItemList((chatItemList: any) => [
-        ...chatItemList,
-        { commentDetail: message },
-      ]);
-    }
+
     return;
   };
 
@@ -53,7 +48,9 @@ const LiveComment = ({
     messagesEndRef?.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(scrollToBottom, [chatItemList]);
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatItemList]);
 
   useEffect(() => {
     console.log(chatItemList);
@@ -62,6 +59,10 @@ const LiveComment = ({
   useEffect(() => {
     socket.on("user-chat", (message: any) => {
       console.log("received new message");
+      setChatItemList((chatItemList: any) => [
+        ...chatItemList,
+        { commentDetail: message.message, username: message.username },
+      ]);
       console.log(message);
     });
   }, [socket]);
@@ -97,34 +98,42 @@ const LiveComment = ({
         </article>
         <div className="bg-white w-full h-96 rounded-md overflow-y-scroll grid grid-cols-1 items-start justify-start">
           {chatItemList.length > 0 &&
-            chatItemList?.map((item: any) => {
+            chatItemList?.map((item: any, index: number) => {
               return (
-                <div
-                  className={`p-2  rounded-lg m-3 ${
-                    username === item.username
-                      ? "bg-gray-200 "
-                      : "bg-[#00a85c] left-0 text-white"
-                  } `}
+                <article
+                  ref={index === chatItemList.length ? messagesEndRef : null}
+                  className={`flex ${
+                    username === item.username || item.username === null
+                      ? "justify-end"
+                      : "justify-start"
+                  }`}
                 >
-                  {item.username === username && (
-                    <>
-                      <article className="flex items-center gap-3">
-                        <div className=" rounded-full overflow-hidden p-1">
-                          <AiOutlineUser className="text-2xl" />
-                        </div>
-                        <p className="font-bold text-sm">{item?.username}</p>
-                      </article>
-                      <hr className=" border-gray-300 my-2" />
-                    </>
-                  )}
-                  <p
-                    className="font-light text-sm"
-                    dangerouslySetInnerHTML={{ __html: item.commentDetail }}
-                  />
-                </div>
+                  <div
+                    className={`p-2 w-4/5 rounded-lg m-3 ${
+                      username === item.username || item.username === null
+                        ? "bg-[#00a85c] left-0 text-white"
+                        : "bg-gray-200 "
+                    } `}
+                  >
+                    {item.username !== username && item.username !== null && (
+                      <>
+                        <article className="flex items-center gap-3">
+                          <div className=" rounded-full overflow-hidden p-1">
+                            <AiOutlineUser className="text-2xl" />
+                          </div>
+                          <p className="font-bold text-sm">{item?.username}</p>
+                        </article>
+                        <hr className=" border-gray-300 my-2" />
+                      </>
+                    )}
+                    <p
+                      className="font-light text-sm"
+                      dangerouslySetInnerHTML={{ __html: item.commentDetail }}
+                    />
+                  </div>
+                </article>
               );
             })}
-          <div ref={messagesEndRef}></div>
         </div>
         <Editor
           onInit={(evt, editor) => (editorRef.current = editor)}

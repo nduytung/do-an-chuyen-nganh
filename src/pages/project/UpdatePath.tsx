@@ -53,6 +53,7 @@ const UpdatePath = () => {
         date: moment(new Date()).format("YYYY-MM-DD"),
       },
       endpoint: "project/update/progress",
+      disableNoti: false,
     });
     if (data) {
       navigate(BASE_URL.LANDING);

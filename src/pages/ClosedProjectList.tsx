@@ -37,7 +37,7 @@ const ClosedProjectList = () => {
           later{" "}
         </p>
       ) : (
-        <article className="grid grid-cols-4">
+        <article className="grid grid-cols-4 gap-6">
           {projects?.map((project: any) => (
             <ProjectCard
               cate={project?.category}

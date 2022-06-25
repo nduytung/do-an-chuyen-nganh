@@ -42,6 +42,7 @@ export const LoginForm = () => {
       method: "post",
       payload: { username, password },
       endpoint: "auth/login",
+      disableNoti: false,
     });
     if (data) {
       console.log(data);

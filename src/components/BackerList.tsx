@@ -1,18 +1,27 @@
 import React from "react";
 
-const BackerList = () => {
+const BackerList = ({
+  backerList,
+}: {
+  backerList: [{ name: string; amount: string | number; date: string }];
+}) => {
   return (
-    <table className="w-full">
-      <tr className="border-b border-gray-300 w-full text-left">
+    <table className="w-full gap-4">
+      <tr className="border-b border-gray-300 w-full text-left h-12">
         <th>Name</th>
         <th>Donate amount</th>
         <th>Date</th>
       </tr>
-      <tr className="py-6 border-b border-gray-300 w-full text-left">
-        <td>Nguyen Duy Tung</td>
-        <td>$45000</td>
-        <td>22-09-2022</td>
-      </tr>
+      {backerList?.length > 0 &&
+        backerList?.map((item: any) => {
+          return (
+            <tr className="py-6 border-b border-gray-300 w-full text-left h-12">
+              <td className="font-semibold">{item.name}</td>
+              <td>${item.amount}</td>
+              <td>{item.date?.split("T")[0]}</td>
+            </tr>
+          );
+        })}
     </table>
   );
 };

@@ -52,19 +52,25 @@ const Detail = () => {
           </div>
         );
       case 2: {
-        return project?.updatePath?.map((item: any) => {
-          return (
-            <UpdatePath
-              title={item.title}
-              desc={item.content}
-              date={item.time}
-            />
-          );
-        });
+        return project?.updatePath?.length > 0 ? (
+          project?.updatePath?.map((item: any) => {
+            return (
+              <UpdatePath
+                title={item.title}
+                desc={item.content}
+                date={item.time}
+              />
+            );
+          })
+        ) : (
+          <p className="text-lg text-gray-500">
+            No update path found, please come back later
+          </p>
+        );
       }
 
       case 3:
-        return <BackerList />;
+        return <BackerList backerList={project.backer} />;
       case 4:
         return <Comment />;
     }
@@ -244,37 +250,43 @@ const Detail = () => {
               <p>{user?.projectList?.length || 0} campaigns</p>
             </div>
           </div>
-          <div className="w-full text-xl my-8">
-            <div className="flex justify-between font-bold text-[#00a85c]">
-              <p>Raised</p>
-              <p>{project.raised}</p>
-            </div>
-            <hr className="h-2 my-2 w-full bg-gray-400" />
-            <p className="font-bold text-[#00a85c]">Goal: ${project.goal}</p>
-          </div>
+          {project && project.goal > 0 && (
+            <>
+              <div className="w-full text-xl my-8">
+                <div className="flex justify-between font-bold text-[#00a85c]">
+                  <p>Raised</p>
+                  <p>{project.raised}</p>
+                </div>
+                <hr className="h-2 my-2 w-full bg-gray-400" />
+                <p className="font-bold text-[#00a85c]">
+                  Goal: ${project.goal}
+                </p>
+              </div>
 
-          <div className="flex items-center  gap-6 my-8">
-            <div className="flex items-center justify-start">
-              <p className="text-2xl font-light">$</p>
-              <input
-                type={"number"}
-                value={backAmount}
-                defaultValue={0}
-                onChange={(e) => setBackAmount(e.target.value)}
-                className="border-2 focus:outline-none border-gray-400 rounded-xl py-2 px-4 text-black text-xl w-24"
-              />
-            </div>
-            <PrimaryBtn
-              disabled={
-                calcDateRange(project?.date?.endTime) > 0 ? false : true
-              }
-              callback={() =>
-                parseInt(backAmount) > 0 && setConfirmDonate(true)
-              }
-            >
-              Back Campaign
-            </PrimaryBtn>
-          </div>
+              <div className="flex items-center  gap-6 my-8">
+                <div className="flex items-center justify-start">
+                  <p className="text-2xl font-light">$</p>
+                  <input
+                    type={"number"}
+                    value={backAmount}
+                    defaultValue={0}
+                    onChange={(e) => setBackAmount(e.target.value)}
+                    className="border-2 focus:outline-none border-gray-400 rounded-xl py-2 px-4 text-black text-xl w-24"
+                  />
+                </div>
+                <PrimaryBtn
+                  disabled={
+                    calcDateRange(project?.date?.endTime) > 0 ? false : true
+                  }
+                  callback={() =>
+                    parseInt(backAmount) > 0 && setConfirmDonate(true)
+                  }
+                >
+                  Back Campaign
+                </PrimaryBtn>
+              </div>
+            </>
+          )}
         </section>
         <section className="col-span-12 bg-white shadow-lg py-4 px-5 my-8 border border-gray-100">
           <div className="flex md:flex-row flex-col gap-6 md:gap-0 justify-between items-center">

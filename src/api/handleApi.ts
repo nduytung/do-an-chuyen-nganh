@@ -13,7 +13,7 @@ export const handleApi: any = async ({
   payload,
   endpoint,
   content = "application/json",
-  disableNoti = false,
+  disableNoti = true,
 }: IHandleApi) => {
   if (method !== "get" && method !== "delete" && !payload) {
     return "Payload missing";
@@ -33,12 +33,12 @@ export const handleApi: any = async ({
             },
           }
         );
-        if (!disableNoti) toast.success(data.data.message);
+        if (disableNoti === false) toast.success(data.data.message);
         return data;
       } catch (err: any) {
         console.log("here");
         console.log(err);
-        toast.error(err.response.data.message);
+        if (disableNoti === false) toast.error(err.response.data.message);
       }
       break;
 
@@ -51,9 +51,12 @@ export const handleApi: any = async ({
             headers: { Authorization: `Bearer ${accessToken}` },
           }
         );
+        if (disableNoti === false) toast.success(data.data.message);
+
         return data;
       } catch (err: any) {
-        toast.error(err.response.data.message);
+        if (disableNoti === false) toast.error(err.response.data.message);
+        console.log(err.response.data.message);
       }
       break;
 
@@ -68,10 +71,11 @@ export const handleApi: any = async ({
             headers: { Authorization: `Bearer ${accessToken}` },
           }
         );
-        if (!disableNoti) toast.success(data.data.message);
+        if (disableNoti === false) toast.success(data.data.message);
         return data;
       } catch (err: any) {
-        toast.error(err.response.data.message);
+        console.log(err.response.data.message);
+        if (disableNoti === false) toast.error(err.response.data.message);
       }
       break;
 
@@ -87,7 +91,8 @@ export const handleApi: any = async ({
         toast.success(data.data.message);
         return data;
       } catch (err: any) {
-        toast.error(err.response.data.message);
+        console.log(err.response.data.message);
+        if (disableNoti === false) toast.error(err.response.data.message);
       }
       break;
 

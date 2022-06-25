@@ -38,6 +38,8 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setNotiDisplay(false);
+    setOpenNav(false);
     const getNoti = async () => {
       if (isLoggedIn) {
         const notification = await handleApi({
@@ -222,13 +224,19 @@ const Header = () => {
               <div className="">
                 <div className="flex gap-4">
                   <button
-                    onClick={() => setLogoutModal(!logoutModal)}
+                    onClick={() => {
+                      setNotiDisplay(false);
+                      setLogoutModal(!logoutModal);
+                    }}
                     className="bg-white relative rounded-full p-4 border border-gray-300 text-lg text-center"
                   >
                     <AiOutlineUser />{" "}
                   </button>
                   <button
-                    onClick={() => setNotiDisplay(!notiDisplay)}
+                    onClick={() => {
+                      setLogoutModal(false);
+                      setNotiDisplay(!notiDisplay);
+                    }}
                     className="bg-white relative rounded-full p-4 border border-gray-300 text-lg text-center"
                   >
                     <AiOutlineBell />{" "}
@@ -239,7 +247,10 @@ const Header = () => {
                     <button onClick={handleLogout}>Logout</button>
                     <hr className="my-2 border border-gray-300" />
                     <button
-                      onClick={() => navigate(`${BASE_URL.PROFILE}/${userId}`)}
+                      onClick={() => {
+                        setLogoutModal(false);
+                        navigate(`${BASE_URL.PROFILE}/${userId}`);
+                      }}
                     >
                       Profile
                     </button>

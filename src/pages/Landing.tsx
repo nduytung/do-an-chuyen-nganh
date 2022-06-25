@@ -4,7 +4,7 @@ import WhiteBtn from "../components/WhiteBtn";
 import PageContainer from "../layouts/PageContainer";
 import { BsBook } from "react-icons/bs";
 import Category from "../components/Category";
-import ProjectCard from "../components/ProjectCard";
+import ProjectCard, { calcDateRange } from "../components/ProjectCard";
 import {
   AiFillAlipayCircle,
   AiOutlineVideoCamera,
@@ -115,7 +115,7 @@ const Landing = () => {
   const [projects, setProjects] = useState<object[]>([]);
   const [cateFilter, setCateFilter] = useState("");
 
-  const { userId } = useContext(AuthContext);
+  const { userId } = useContext(AuthContext) || "";
 
   useEffect(() => {
     const getData = async () => {
@@ -128,7 +128,9 @@ const Landing = () => {
       //filter all project that the user logged in is the owner
 
       const filteredData = await data?.data?.props.filter(
-        (project: any) => userId !== project.authorId
+        (project: any) =>
+          userId !== project.authorId &&
+          calcDateRange(project?.date.endTime) > 0
       );
       setProjects(filteredData);
       console.log(data.data.props);

@@ -19,6 +19,8 @@ import PrimaryTextEditor, {
 } from "../../components/input/PrimaryTextEditor";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../routes/baseURL";
 
 export const createNewDate = () => moment(new Date()).format("YYYY-MM-DD");
 
@@ -83,6 +85,7 @@ const NewProject = () => {
   const fullStoryRef = useRef<any>();
   const researchForm = useRef<any>();
   const fileUploadInputRef = useRef<any>();
+  const navigate = useNavigate();
   const [textEditorErr, setTextEditorErr] = useState(false);
   const [project, setProject] = useState<IProject>({
     projectName: "",
@@ -145,14 +148,17 @@ const NewProject = () => {
           date: { ...project.date, startTime: createNewDate() },
         },
         endpoint: "project/create",
+        disableNoti: false,
       });
+      if (data.status === 200 || data.status === 201)
+        navigate(BASE_URL.LANDING);
     } else if (project.type === "research") {
       const researchContent = researchForm.current.getContent();
       if (researchContent === "") {
         setTextEditorErr(true);
         return;
       }
-      await handleApi({
+      const data = await handleApi({
         method: "post",
         payload: {
           ...project,
@@ -164,7 +170,10 @@ const NewProject = () => {
           date: { ...project.date, startTime: createNewDate() },
         },
         endpoint: "project/create",
+        disableNoti: false,
       });
+      if (data.status === 200 || data.status === 201)
+        navigate(BASE_URL.LANDING);
     }
     console.log(project);
   };
@@ -174,6 +183,7 @@ const NewProject = () => {
       method: "post",
       payload: { image: imageData },
       endpoint: "image/create",
+      disableNoti: false,
     });
   };
 
