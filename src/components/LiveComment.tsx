@@ -86,8 +86,8 @@ const LiveComment = ({
     <div>
       <section className="bg-[#eff5f3] p-3 md:p-6 w-full">
         <article>
-          <h1 className="text-[#00a85c] text-2xl font-semibold">Hi friend, </h1>
-          <p className="font-semibold text-[#00a85c] italic">
+          <h1 className="text-[#54b5f1] text-2xl font-semibold">Hi friend, </h1>
+          <p className="font-semibold text-[#54b5f1] italic">
             At here, we're glad to hear your comments about:{" "}
           </p>
           <p
@@ -111,7 +111,7 @@ const LiveComment = ({
                   <div
                     className={`p-2 w-4/5 rounded-lg m-3 ${
                       username === item.username || item.username === null
-                        ? "bg-[#00a85c] left-0 text-white"
+                        ? "bg-[#54b5f1] left-0 text-white"
                         : "bg-gray-200 "
                     } `}
                   >

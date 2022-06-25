@@ -26,7 +26,7 @@ import CTABg from "../img/cta.webp";
 import { handleApi } from "../api/handleApi";
 import LiveComment from "../components/LiveComment";
 import { AuthContext } from "../context/AuthProvider";
-
+const Fade = require("react-reveal/Fade");
 export const CATEGORY: Array<{
   icon: React.ReactNode;
   title: string;
@@ -84,7 +84,7 @@ export const SectionTitle = ({
     <article
       className={`${classname} justify-between items-center mb-10 mx-auto`}
     >
-      <h3 className="font-bold text-[#00a85c] text-base mb-4 uppercase">
+      <h3 className="font-bold text-[#54b5f1] text-base mb-4 uppercase">
         {subHeader}
       </h3>
       <h1 className=" font-bold text-4xl capitalize">{header}</h1>
@@ -140,24 +140,28 @@ const Landing = () => {
 
   return (
     <main>
-      <section className="py-20 bg-[#dff7f1] w-full">
+      <section className="py-20 bg-[#cfe4f1] w-full">
         <PageContainer classname="container grid grid-cols-12 items-center">
-          <div className="col-span-12 md:col-span-6 flex flex-col justify-center gap-8 items-start h-full">
-            <h1 className="font-bold text-5xl lg:text-7xl xl:text-8xl">
-              We help innovation in Tech
-            </h1>
-            <p className="text-xl lg:text-2xl border-l-4 border-green-600 lg:w-3/4 pl-4">
-              Finaid is changing the way people and companies work
-            </p>
-            <PrimaryBtn callback={() => {}}>Start A Project</PrimaryBtn>
-          </div>
-          <div className="col-span-12 md:col-span-6">
-            <img src={BackDrop} alt="backdrop" className="z-10" />
-          </div>
+          <Fade left>
+            <div className="col-span-12 md:col-span-6 flex flex-col justify-center gap-8 items-start h-full">
+              <h1 className="font-bold text-5xl lg:text-7xl xl:text-8xl">
+                We help innovation in Tech
+              </h1>
+              <p className="text-xl lg:text-2xl border-l-4 border-green-600 lg:w-3/4 pl-4">
+                Finaid is changing the way people and companies work
+              </p>
+              <PrimaryBtn callback={() => {}}>Start A Project</PrimaryBtn>
+            </div>
+          </Fade>
+          <Fade right>
+            <div className="col-span-12 md:col-span-6">
+              <img src={BackDrop} alt="backdrop" className="z-10" />
+            </div>
+          </Fade>
         </PageContainer>
       </section>
       <PageContainer>
-        <section className="z-20 py-8 md:py-10 xl:py-16 -mt-16 lg:-mt-20 px-6 lg:px-8 bg-[#00a85c] md:flex justify-between items-center">
+        <section className="z-20 py-8 md:py-10 xl:py-16 -mt-16 lg:-mt-20 px-6 lg:px-8 bg-[#54b5f1] md:flex justify-between items-center">
           <h2 className="text-3xl lg:text-4xl xl:text-5xl text-white font-semibold">
             Ready to raise fund for ideas?
           </h2>
@@ -254,6 +258,7 @@ const Landing = () => {
                         endTime={project.date.endTime}
                         projectId={project._id}
                         handleDelete={() => {}}
+                        background={project.image}
                       />
                     )
                   );
@@ -262,7 +267,7 @@ const Landing = () => {
         </section>
 
         {/* cta */}
-        <section className="bg-[#00a85c] py-10 xl:py-16 px-10 grid-cols-1 grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+        <section className="bg-[#54b5f1] py-10 xl:py-16 px-10 grid-cols-1 grid md:grid-cols-2 xl:grid-cols-4 gap-8">
           <CTAItems
             title="Awards Winning"
             number={9436}

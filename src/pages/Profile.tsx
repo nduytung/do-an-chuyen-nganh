@@ -23,7 +23,7 @@ const SummaryBox = ({
   desc: string;
 }) => {
   return (
-    <article className="py-8 px-6 rounded-md md:my-10 my-3 cursor-pointer bg-[#eff5f4] hover:bg-[#00a85c] hover:text-white">
+    <article className="py-8 px-6 rounded-md md:my-10 my-3 cursor-pointer bg-[#eff5f4] hover:bg-[#54b5f1] hover:text-white">
       <h2 className="text-5xl font-bold ">${money}</h2>
       <p className="text-lg font-semibold mt-6">{title}</p>
       <p>{desc}</p>
@@ -112,7 +112,7 @@ const Profile: React.FC = () => {
           alt="default_avt"
           className="bg-gray-200 rounded-full h-44 w-44 mx-auto my-6"
         />
-        <h1 className="text-3xl font-bold text-[#00a85c] text-center">
+        <h1 className="text-3xl font-bold text-[#54b5f1] text-center">
           {(userProfile?.info && userProfile?.info?.fullname) || null} (@
           {(userProfile?.info && userProfile?.info?.username) || null})
         </h1>
@@ -122,19 +122,19 @@ const Profile: React.FC = () => {
             <div className="grid grid-cols-3 w-2/3">
               <button
                 onClick={() => setActiveTab(1)}
-                className="text-lg font-medium text-black focus-within:text-[#00a85c]"
+                className="text-lg font-medium text-black focus-within:text-[#54b5f1]"
               >
                 Dashboard
               </button>
               <button
                 onClick={() => setActiveTab(2)}
-                className="text-lg font-medium text-black focus-within:text-[#00a85c]"
+                className="text-lg font-medium text-black focus-within:text-[#54b5f1]"
               >
                 My Account
               </button>
               <button
                 onClick={() => setActiveTab(3)}
-                className="text-lg font-medium text-black focus-within:text-[#00a85c]"
+                className="text-lg font-medium text-black focus-within:text-[#54b5f1]"
               >
                 Campaign
               </button>
@@ -149,7 +149,7 @@ const Profile: React.FC = () => {
             {authorPermission && (
               <section className="border border-gray-100 shadow-lg p-6">
                 <div className="flex md:flex-row flex-col justify-between items-center">
-                  <h2 className="text-[#00a85c] font-bold text-3xl">Summary</h2>
+                  <h2 className="text-[#54b5f1] font-bold text-3xl">Summary</h2>
                   <div className="flex flex-col md:flex-row gap-3 font-thin items-center">
                     <p>From</p>
                     <input
@@ -196,7 +196,7 @@ const Profile: React.FC = () => {
             {/* combine info section */}
             <section className="flex flex-col xl:flex-row gap-8 my-12">
               <main className="flex-1 border border-gray-100 shadow-md p-6">
-                <h2 className="text-[#00a85c] text-2xl font-bold">
+                <h2 className="text-[#54b5f1] text-2xl font-bold">
                   My Campaign
                 </h2>
                 <hr className="my-4" />
@@ -236,7 +236,7 @@ const Profile: React.FC = () => {
               {authorPermission && (
                 <main className="flex-1 grid gap-10">
                   <div className="border border-gray-100 shadow-md p-6">
-                    <h2 className="text-[#00a85c] text-2xl font-bold">
+                    <h2 className="text-[#54b5f1] text-2xl font-bold">
                       My Balance
                     </h2>
                     <hr className="my-4" />
@@ -245,7 +245,7 @@ const Profile: React.FC = () => {
                     </p>
                   </div>
                   <div className="border border-gray-100 shadow-md p-6">
-                    <h2 className="text-[#00a85c] text-2xl font-bold">
+                    <h2 className="text-[#54b5f1] text-2xl font-bold">
                       My Information
                     </h2>
                     <hr className="my-4" />

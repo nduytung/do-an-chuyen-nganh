@@ -308,7 +308,7 @@ const NewProject = () => {
               </div>
 
               <div className="border border-gray-200 shadow-sm w-full rounded-md p-6 m">
-                <h2 className="text-2xl mt-6 font-bold text-[#00a85c]">
+                <h2 className="text-2xl mt-6 font-bold text-[#54b5f1]">
                   Project indeed details
                 </h2>
                 {project.type === "donate" && (

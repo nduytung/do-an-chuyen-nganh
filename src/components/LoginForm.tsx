@@ -63,7 +63,7 @@ export const LoginForm = () => {
           Don't have an account?.{" "}
           <Link
             to={BASE_URL.REGISTER}
-            className="hover:cursor-pointer text-[#02a95c] font-bold "
+            className="hover:cursor-pointer text-[#54b5f1] font-bold "
           >
             Register
           </Link>

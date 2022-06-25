@@ -4,7 +4,7 @@ import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 const Reward = () => {
   return (
     <section className="bg-[#eff5f3] p-6 w-full">
-      <h2 className="text-2xl font-bold text-[#00a85c]">Rewards</h2>
+      <h2 className="text-2xl font-bold text-[#54b5f1]">Rewards</h2>
       <hr className="my-3" />
       <div className="bg-gray-300 w-full h-44 my-5"></div>
       <h3 className="font-bold text-xl">$300 or more</h3>

@@ -65,7 +65,7 @@ const Bookmark: React.FC<{}> = () => {
       </div>
 
       <div className=" w-full bg-[#eff5f3] xl:flex-col lg:flex-col pl-10 pt-10 pb-16 xl:flex lg:flex sm:flex-col sm:flex ">
-        <div className="mb-6 text-4xl font-bold text-[#02a95c]">WHAT WE DO</div>
+        <div className="mb-6 text-4xl font-bold text-[#54b5f1]">WHAT WE DO</div>
         <div className=" text-black font-semibold text-3xl mt-3 ">
           Popular Categories
         </div>

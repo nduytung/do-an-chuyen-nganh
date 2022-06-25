@@ -6,6 +6,7 @@ import defaultBg from "../img/defaultbg.png";
 import { BASE_URL } from "../routes/baseURL";
 import PrimaryBtn from "./ProjectDetail/PrimaryBtn";
 import WhiteBgBtn from "./ProjectDetail/WhiteBgBtn";
+const Zoom = require("react-reveal/Zoom");
 
 type ProjectCardType = {
   cate: string;
@@ -67,57 +68,61 @@ const ProjectCard = ({
     setDayLeft(left);
   }, []);
   return (
-    <main className="bg-white border border-gray-100 shadow-md">
-      <img
-        className="bg-gray-200 w-full h-56"
-        alt="default-bg"
-        src={image ? image : defaultBg}
-      />
+    <Zoom>
+      <main className="bg-white border border-gray-100 shadow-md">
+        <img
+          className="bg-gray-200 w-full h-56"
+          alt="default-bg"
+          src={image !== "" ? image : defaultBg}
+        />
 
-      <div className="p-6 flex flex-col items-start">
-        <div className="p-6 px-3 py-2 text-white font-semibold text-lg bg-[#00a85c] -mt-12">
-          {cate}
-        </div>
-        <h2 className="font-bold text-2xl my-6 h-16">{title}</h2>
-        {goal !== 0 && (
-          <>
-            <div className="flex items-center justify-between w-full">
-              <p>Raised: ${raised}</p>
-              <p>{Math.floor(percent)}%</p>
-            </div>
-            <p className="text-lg font-bold my-4">
-              Goal: <span className="text-[#00a85c]">${goal}</span>
-            </p>
-          </>
-        )}
-        <button
-          onClick={() => navigate(`${BASE_URL.DETAIL_PROJECT}/${projectId}`)}
-          className="bg-gray-100 p-3 flex justify-between items-center w-full hover:border-[#00a85c]  hover:border cursor-pointer"
-        >
-          {(dayLeft > 0 && Math.floor(dayLeft)) || 0} days left!{" "}
-          <span className="text-[#00a85c]">
-            {" "}
-            {dayLeft > 0 ? "Register" : "View"} now
-          </span>
-        </button>
-        {authorId !== "" && allowDelete && (
-          <div className="mt-6 w-full">
-            <PrimaryBtn
-              callback={() => handleDelete(projectId)}
-              classname="my-2 w-full bottom-0 bg-red-500"
-            >
-              Delete project
-            </PrimaryBtn>
-            <WhiteBgBtn
-              classname={"w-full"}
-              callback={() => navigate(`${BASE_URL.UPDATE_PATH}/${projectId}`)}
-            >
-              Update project
-            </WhiteBgBtn>
+        <div className="p-6 flex flex-col items-start">
+          <div className="p-6 px-3 py-2 text-white font-semibold text-lg bg-[#54b5f1] -mt-12">
+            {cate}
           </div>
-        )}
-      </div>
-    </main>
+          <h2 className="font-bold text-2xl my-6 h-16">{title}</h2>
+          {goal !== 0 && (
+            <>
+              <div className="flex items-center justify-between w-full">
+                <p>Raised: ${raised}</p>
+                <p>{Math.floor(percent)}%</p>
+              </div>
+              <p className="text-lg font-bold my-4">
+                Goal: <span className="text-[#54b5f1]">${goal}</span>
+              </p>
+            </>
+          )}
+          <button
+            onClick={() => navigate(`${BASE_URL.DETAIL_PROJECT}/${projectId}`)}
+            className="bg-gray-100 p-3 flex justify-between items-center w-full hover:border-[#54b5f1]  hover:border cursor-pointer"
+          >
+            {(dayLeft > 0 && Math.floor(dayLeft)) || 0} days left!{" "}
+            <span className="text-[#54b5f1]">
+              {" "}
+              {dayLeft > 0 ? "Register" : "View"} now
+            </span>
+          </button>
+          {authorId !== "" && allowDelete && (
+            <div className="mt-6 w-full">
+              <PrimaryBtn
+                callback={() => handleDelete(projectId)}
+                classname="my-2 w-full bottom-0 bg-red-500"
+              >
+                Delete project
+              </PrimaryBtn>
+              <WhiteBgBtn
+                classname={"w-full"}
+                callback={() =>
+                  navigate(`${BASE_URL.UPDATE_PATH}/${projectId}`)
+                }
+              >
+                Update project
+              </WhiteBgBtn>
+            </div>
+          )}
+        </div>
+      </main>
+    </Zoom>
   );
 };
 

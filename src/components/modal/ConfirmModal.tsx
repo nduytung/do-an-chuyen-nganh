@@ -28,7 +28,7 @@ const ConfirmModal = ({
         <h1 className="text-red-500 font-semibold text-2xl">Warning!</h1>
         <hr className="border-t border-gray-200 my-5 w-full" /> {content}
         <div className="flex items-center-justify-between mt-8 w-full gap-6">
-          <button onClick={handleDelete} className="flex-1 text-[#00a85c]">
+          <button onClick={handleDelete} className="flex-1 text-[#54b5f1]">
             Confirm
           </button>
           <button

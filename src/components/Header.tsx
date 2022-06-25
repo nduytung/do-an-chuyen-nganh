@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
 import { BASE_URL } from "../routes/baseURL";
 import { handleApi } from "../api/handleApi";
+const Fade = require("react-reveal/Fade");
 
 const Header = () => {
   const logo = require("./logo.png");
@@ -57,14 +58,14 @@ const Header = () => {
     getNoti();
   }, []);
   return (
-    <>
+    <Fade top>
       <div className="py-8 bg-white w-full  shadow-2xl  fixed z-[100] px-6">
         <div className="container mx-auto flex justify-between">
           <button
             onClick={() => navigate(BASE_URL.LANDING)}
             className="hover:cursor-pointer hover:opacity-90 my-3"
           >
-            <img src={logo} className="w-36" />
+            <p className="w-36 text-[#54b5f1] font-bold text-4xl">Finaid</p>
           </button>
 
           {/* modal for mobile */}
@@ -79,12 +80,12 @@ const Header = () => {
                 
               `}
             >
-              <li className="py-4 active:bg-[#02a95c] border-b border-gray-400 ">
+              <li className="py-4 active:bg-[#54b5f1] border-b border-gray-400 ">
                 <Link to={BASE_URL.LANDING} className="tracking-widest text-lg">
                   Home
                 </Link>
               </li>
-              <li className="py-4 active:bg-[#02a95c] border-b border-gray-400">
+              <li className="py-4 active:bg-[#54b5f1] border-b border-gray-400">
                 <Link to={BASE_URL.CLOSED_PROJECT}>Closed projects</Link>
               </li>
               <li className="py-4  border-b border-gray-400">
@@ -95,7 +96,7 @@ const Header = () => {
                   Explore
                 </Link>
               </li>
-              <li className="py-4 active:bg-[#02a95c] border-b border-gray-400">
+              <li className="py-4 active:bg-[#54b5f1] border-b border-gray-400">
                 <Link to={BASE_URL.ABOUT}>About</Link>
               </li>
 
@@ -117,7 +118,7 @@ const Header = () => {
                 className="tracking-widest text-lg transition ease-in-out duration-200 "
               >
                 Home
-                <div className="mt-4 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
+                <div className="mt-4 w-8/12  h-[2.5px] bg-[#54b5f1] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
               </Link>
             </li>
             <li className="  no-underline px-5 relative group hover:cursor-pointer justify-center align-middle">
@@ -126,7 +127,7 @@ const Header = () => {
                 className="tracking-widest text-lg"
               >
                 Closed Projects
-                <div className="mt-4 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
+                <div className="mt-4 w-8/12  h-[2.5px] bg-[#54b5f1] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
               </Link>
             </li>
             <li className="  no-underline px-5 relative group hover:cursor-pointer justify-center align-middle ">
@@ -136,7 +137,7 @@ const Header = () => {
               >
                 Explore
               </Link>
-              <div className="mt-4 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
+              <div className="mt-4 w-8/12  h-[2.5px] bg-[#54b5f1] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
               <ul className="absolute mt-5 w-36 h-[164px] bg-white shadow-xl rounded-lg opacity-0 invisible group-active:opacity-100 group-hover:opacity-100 group-active:visible group-hover:visible duration-300 max-h-0 group-hover:max-h-48 ">
                 <li>
                   <button
@@ -171,7 +172,7 @@ const Header = () => {
                 onClick={() => navigate(BASE_URL.ABOUT)}
               >
                 About
-                <div className="mt-4 w-8/12  h-[2.5px] bg-[#02a95c] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
+                <div className="mt-4 w-8/12  h-[2.5px] bg-[#54b5f1] absolute scale-x-0 group-hover:scale-x-100 transition-transform duration-200 " />
               </button>
             </li>
           </ul>
@@ -286,7 +287,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </>
+    </Fade>
   );
 };
 

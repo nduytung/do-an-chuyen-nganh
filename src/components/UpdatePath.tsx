@@ -11,9 +11,9 @@ const UpdatePath = ({
 }) => {
   return (
     <div className="flex items-start gap-5 w-full my-8">
-      <span className="h-6 w-6 rounded-full bg-[#00a85c]"></span>
+      <span className="h-6 w-6 rounded-full bg-[#54b5f1]"></span>
       <div className="w-full">
-        <p className="text-[#00a85c] font-bold">{date}</p>
+        <p className="text-[#54b5f1] font-bold">{date}</p>
         <p className="font-bold text-2xl">{title}</p>
         <hr className="my-2 w-full" />
         <p

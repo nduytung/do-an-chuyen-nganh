@@ -254,12 +254,12 @@ const Detail = () => {
           {project && project.goal > 0 && (
             <>
               <div className="w-full text-xl my-8">
-                <div className="flex justify-between font-bold text-[#00a85c]">
+                <div className="flex justify-between font-bold text-[#54b5f1]">
                   <p>Raised</p>
                   <p>{project.raised}</p>
                 </div>
                 <hr className="h-2 my-2 w-full bg-gray-400" />
-                <p className="font-bold text-[#00a85c]">
+                <p className="font-bold text-[#54b5f1]">
                   Goal: ${project.goal}
                 </p>
               </div>
@@ -294,25 +294,25 @@ const Detail = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 md:w-2/3 gap-6 md:gap-0">
               <button
                 onClick={() => setTab(1)}
-                className="text-lg font-medium focus-within:text-[#00a85c]"
+                className="text-lg font-medium focus-within:text-[#54b5f1]"
               >
                 Detail story
               </button>
               <button
                 onClick={() => setTab(2)}
-                className="text-lg font-medium focus-within:text-[#00a85c]"
+                className="text-lg font-medium focus-within:text-[#54b5f1]"
               >
                 Updates
               </button>
               <button
                 onClick={() => setTab(3)}
-                className="text-lg font-medium focus-within:text-[#00a85c]"
+                className="text-lg font-medium focus-within:text-[#54b5f1]"
               >
                 Backer list
               </button>
               <button
                 onClick={() => setTab(4)}
-                className="text-lg font-medium focus-within:text-[#00a85c]"
+                className="text-lg font-medium focus-within:text-[#54b5f1]"
               >
                 Comment
               </button>

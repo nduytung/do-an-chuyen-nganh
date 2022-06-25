@@ -63,7 +63,7 @@ const AdvisingProjectCard = ({
       />
 
       <div className="p-6 flex w-full flex-col items-start h-full">
-        <div className="p-6 px-3 py-2 text-white font-semibold text-lg bg-[#00a85c] ">
+        <div className="p-6 px-3 py-2 text-white font-semibold text-lg bg-[#54b5f1] ">
           {cate}
         </div>
         <h2 className="font-bold lg:text-xl xl:text-2xl mt-6 mb-3">{title}</h2>
@@ -73,10 +73,10 @@ const AdvisingProjectCard = ({
 
         <button
           onClick={handleRenderProject}
-          className="bg-gray-100 p-3 flex lg:flex-col xl:flex-row justify-between items-center w-full hover:border-[#00a85c]  hover:border cursor-pointer"
+          className="bg-gray-100 p-3 flex lg:flex-col xl:flex-row justify-between items-center w-full hover:border-[#54b5f1]  hover:border cursor-pointer"
         >
           {dayLeft} days left!{" "}
-          <span className="text-[#00a85c]"> Register now</span>
+          <span className="text-[#54b5f1]"> Register now</span>
         </button>
       </div>
     </main>

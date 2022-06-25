@@ -74,7 +74,7 @@ export const RegisterForm = () => {
       <div className="flex justify-center items-center w-full">
         <div>
           Already have an account?{" "}
-          <a href="" className="hover:cursor-pointer text-[#02a95c] font-bold ">
+          <a href="" className="hover:cursor-pointer text-[#54b5f1] font-bold ">
             Login
           </a>
         </div>
@@ -197,7 +197,7 @@ export const RegisterForm = () => {
 
         <button
           type="submit"
-          className="bg-[#02a95c] w-fit rounded-xl p-2 mt-3 place-self-end text-white hover:opacity-80 mr-5 "
+          className="bg-[#54b5f1] w-fit rounded-xl p-2 mt-3 place-self-end text-white hover:opacity-80 mr-5 "
         >
           Create Account
         </button>
