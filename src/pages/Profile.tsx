@@ -86,6 +86,9 @@ const Profile: React.FC = () => {
     console.log(deleteResult);
     if (deleteResult.status === 200) {
       setDeleteModalVisible(false);
+      setTimeout(() => {
+        navigate(BASE_URL.LANDING);
+      }, 1000);
     }
   };
 

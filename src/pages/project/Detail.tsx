@@ -178,6 +178,7 @@ const Detail = () => {
             projectId: project._id,
             donateAmount: parseInt(backAmount),
             raisedAmount: project.raised,
+            accountBalance: accountBalance,
           },
           endpoint: "project/donate",
         });

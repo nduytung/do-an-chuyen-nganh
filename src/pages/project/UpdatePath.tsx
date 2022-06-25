@@ -41,7 +41,7 @@ const UpdatePath = () => {
   }, []);
 
   const handleSubmitProgress = async () => {
-    const content = contentRef.current.getContent();
+    const content = await contentRef.current.getContent();
     setUpdateContent({ ...updateContent, content: content });
 
     //calling apis
@@ -49,6 +49,7 @@ const UpdatePath = () => {
       method: "put",
       payload: {
         ...updateContent,
+        content: content,
         projectId: projectInfo._id,
         date: moment(new Date()).format("YYYY-MM-DD"),
       },
@@ -92,7 +93,9 @@ const UpdatePath = () => {
         <Link to={BASE_URL.LANDING}>
           <span className="text-lg text-green-500 ">Cancel</span>{" "}
         </Link>
-        <PrimaryBtn callback={handleSubmitProgress}>Submit </PrimaryBtn>
+        <PrimaryBtn callback={async () => await handleSubmitProgress()}>
+          Submit
+        </PrimaryBtn>
       </div>
     </PageContainer>
   );
