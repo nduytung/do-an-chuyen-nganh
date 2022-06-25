@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import { BASE_URL } from "./baseURL";
+import { BASE_URL } from "../routes/baseURL";
 import Register from "../pages/Register";
 import About from "../pages/About";
 import Login from "../pages/Login";
